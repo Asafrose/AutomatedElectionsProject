@@ -53,41 +53,41 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Date.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Civilian.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Civilians.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Candidate.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Candidates.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PoliticalStream.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Party.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Parties.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PartyResult.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Results.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Address.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BallotBox.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Candidate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Candidates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Civilian.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Civilians.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Date.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Parties.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Party.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PartyResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PoliticalStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Results.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

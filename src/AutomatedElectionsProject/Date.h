@@ -5,13 +5,14 @@
 class Date
 {
 private:
-	int Day;
-	int Month;
-	int Year;
+	int _day;
+	int _month;
+	int _year;
+	
 public:
-	void SetDate(int day, int month, int year);
-	void SetDate(int month, int year);
-	void SetDate(int year);
+	bool SetDate(unsigned int day, unsigned int month, unsigned int year);
+	bool SetDate(unsigned int month, unsigned int year);
+	bool SetDate(unsigned int year);
 };
 
 #endif // DATE_H
