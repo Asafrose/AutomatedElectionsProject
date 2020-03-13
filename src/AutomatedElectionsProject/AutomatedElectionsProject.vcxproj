@@ -147,7 +147,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Address.cpp" />
+    <ClCompile Include="BallotBox.cpp" />
+    <ClCompile Include="Candidate.cpp" />
+    <ClCompile Include="Candidates.cpp" />
+    <ClCompile Include="Civilian.cpp" />
+    <ClCompile Include="Civilians.cpp" />
+    <ClCompile Include="Date.cpp" />
+    <ClCompile Include="Parties.cpp" />
+    <ClCompile Include="Party.cpp" />
+    <ClCompile Include="PartyResult.cpp" />
     <ClCompile Include="Program.cpp" />
+    <ClCompile Include="Results.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Address.h" />
+    <ClInclude Include="BallotBox.h" />
+    <ClInclude Include="Candidate.h" />
+    <ClInclude Include="Candidates.h" />
+    <ClInclude Include="Civilian.h" />
+    <ClInclude Include="Civilians.h" />
+    <ClInclude Include="Date.h" />
+    <ClInclude Include="Parties.h" />
+    <ClInclude Include="Party.h" />
+    <ClInclude Include="PartyResult.h" />
+    <ClInclude Include="PoliticalStream.h" />
+    <ClInclude Include="Results.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

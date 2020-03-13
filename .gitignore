@@ -34,3 +34,4 @@
 
 #.vs metadata
 src/.vs/**/*
+/src/AutomatedElectionsProject.sln.DotSettings.user
