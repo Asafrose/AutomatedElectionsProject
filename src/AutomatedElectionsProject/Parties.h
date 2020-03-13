@@ -12,6 +12,7 @@ private:
 
 public:
 	void Add(Party party);
-	Party& Get(int index);
+	Party& Get(int index) const;
+	int GetPartiesCount() const;
 };
 #endif // PARTIES_H

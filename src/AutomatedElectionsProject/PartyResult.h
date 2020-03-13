@@ -2,10 +2,10 @@
 
 class PartyResult
 {
-	char* _name;
+	const char* _name;
 	int _votes;
 public:
-	void Initialize(const char* name);
+	bool Initialize(const char* name);
 	void AddVote();
-	void Show();
+	void Show() const;
 };

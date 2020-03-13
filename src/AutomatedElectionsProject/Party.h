@@ -21,5 +21,7 @@ public:
 		const Date& date);
 
 	void Show();
+	char* GetName() const;
+	int GetId() const;
 };
 #endif // PARTY_H

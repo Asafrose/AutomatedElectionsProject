@@ -4,11 +4,14 @@
 class Address
 {
 private:
-	char* _city;
-	char* _street;
-	int _houseNumber;
+	const char* _city;
+	const char* _street;
+	unsigned int _houseNumber;
 public:
-	void Initialize(const char* city, const char* street, int houseNumber);
-	void Show();
+	bool Initialize(
+		const char* city,
+		const char* street,
+		unsigned int houseNumber);
+	void Show() const;
 };
 #endif // ADDRESS_H
