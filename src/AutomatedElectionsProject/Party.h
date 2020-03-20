@@ -1,6 +1,7 @@
 ﻿#ifndef PARTY_H
 #define PARTY_H
 
+#include "Date.h"
 #include "Candidates.h"
 #include "PoliticalStream.h"
 

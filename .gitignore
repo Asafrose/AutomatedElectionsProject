@@ -39,3 +39,4 @@ src/.vs/**/*
 *.log
 *.idb
 *.pdb
+*.ilk

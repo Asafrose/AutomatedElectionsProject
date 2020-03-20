@@ -1,16 +1,15 @@
-﻿
-#ifndef CANDIDATE_H
+﻿#ifndef CANDIDATE_H
 #define CANDIDATE_H
 
-#include "Civilian.h"
+class Civilian;
 
 class Candidate
 {
 private:
-	Civilian& _civilian;
+	Civilian* _civilian;
 	int _rank;
 public:
-	void Initialize(const Civilian& civilian, int rank);
+	void Initialize(Civilian* civilian, int rank);
 	Civilian& GetCivilian() const;
 };
 

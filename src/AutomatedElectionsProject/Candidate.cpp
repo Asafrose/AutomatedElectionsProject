@@ -1,6 +1,6 @@
 ﻿#include "Candidate.h"
 
-void Candidate::Initialize(const Civilian& civilian, int rank)
+void Candidate::Initialize(Civilian* civilian, int rank)
 {
 	_civilian = civilian,
 	_rank = rank;
@@ -8,6 +8,6 @@ void Candidate::Initialize(const Civilian& civilian, int rank)
 
 Civilian& Candidate::GetCivilian() const
 {
-	return _civilian;
+	return *_civilian;
 }
 

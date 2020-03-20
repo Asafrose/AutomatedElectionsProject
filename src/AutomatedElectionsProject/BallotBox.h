@@ -4,7 +4,6 @@
 #include "Civilians.h"
 #include "Address.h"
 #include "Results.h"
-#include "Party.h"
 
 class BallotBox
 {

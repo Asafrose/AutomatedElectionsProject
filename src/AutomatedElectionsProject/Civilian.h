@@ -3,7 +3,6 @@
 
 #include "Date.h"
 #include "Party.h"
-#include "BallotBox.h"
 
 class BallotBox;
 
