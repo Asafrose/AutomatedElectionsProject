@@ -24,7 +24,8 @@ public:
 
 	Parties& GetParties();
 	BallotBoxes& GetBallotBoxes();
-	
+	Date& GetElectionsDate();
+	bool ElectionsOccured();
 	void ShowResults();
 };
 #endif // ELECTIONS_H

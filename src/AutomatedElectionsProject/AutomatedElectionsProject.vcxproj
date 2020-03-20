@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Address.cpp" />
+    <ClCompile Include="AutomatedElectionsMain.cpp" />
     <ClCompile Include="BallotBox.cpp" />
     <ClCompile Include="BallotBoxes.cpp" />
     <ClCompile Include="Candidate.cpp" />
@@ -172,11 +173,16 @@
     <ClInclude Include="Civilians.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="Elections.h" />
+    <ClInclude Include="MenuOptions.h" />
     <ClInclude Include="Parties.h" />
     <ClInclude Include="Party.h" />
     <ClInclude Include="PartyResult.h" />
     <ClInclude Include="PoliticalStream.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Results.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AutomatedElectionsProject.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
