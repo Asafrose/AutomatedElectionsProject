@@ -1,4 +1,7 @@
 ﻿#include "Date.h"
+#include <cstring>
+#include <iostream>
+using namespace  std;
 
 bool IsLeapYear(unsigned int year)
 {
@@ -65,4 +68,9 @@ bool Date::SetDate(unsigned int month, unsigned int year)
 bool Date::SetDate(unsigned int year)
 {
 	return SetDate(1, 1, year);
+}
+
+void Date::ShowDate() const
+{
+	cout << _day << "/" << _month << "/" << _year;
 }

@@ -13,6 +13,7 @@ public:
 	bool SetDate(unsigned int day, unsigned int month, unsigned int year);
 	bool SetDate(unsigned int month, unsigned int year);
 	bool SetDate(unsigned int year);
+	void ShowDate() const;
 };
 
 #endif // DATE_H

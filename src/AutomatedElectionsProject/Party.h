@@ -16,12 +16,13 @@ private:
 public:
 	void SetParty(
 		int id,
-		const char* name,
-		PoliticalStream politicalStream,
+		const char* _name,
+		PoliticalStream _politicalStream,
 		const Date& date);
 
 	void Show();
 	char* GetName() const;
 	int GetId() const;
+	void free() const;
 };
 #endif // PARTY_H
