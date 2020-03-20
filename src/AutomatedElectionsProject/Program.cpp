@@ -21,7 +21,7 @@ int main()
  *      Name
  *      Id
  *      BirthYear
- *      BalletBox
+ *      BallotBox
  *      IsVoted
  *
  *  Candidate

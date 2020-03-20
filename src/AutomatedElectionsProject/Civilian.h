@@ -3,8 +3,9 @@
 
 #include "Date.h"
 #include "Party.h"
+#include "BallotBox.h"
 
-class BalletBox;
+class BallotBox;
 
 class Civilian
 {
@@ -12,16 +13,18 @@ class Civilian
 	Date _birth;
 	char* _name;
 
-	BalletBox* _balletBox;
+	BallotBox* _balletBox;
 	bool _isVoted;
 
 public:
-	void SetCivilian(
+	void Initialize(
 		const char* name,
 		int id,
-		Date birth,
-		const BalletBox* balletBox);
+		const Date& birth,
+		BallotBox* balletBox);
 
-	void Vote(Party party);
+	void Vote(const Party& party);
+
+	void Free() const;
 };
 #endif // CIVILIAN_H
