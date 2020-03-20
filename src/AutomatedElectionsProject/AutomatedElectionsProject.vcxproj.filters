@@ -51,6 +51,12 @@
     <ClCompile Include="BallotBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Elections.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BallotBoxes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Address.h">
@@ -87,6 +93,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Results.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Elections.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BallotBoxes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
