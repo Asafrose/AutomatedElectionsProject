@@ -15,7 +15,7 @@ private:
 	Results _results;
 	
 public:
-	void Initialize();
+	void Initialize(Date& date);
 	
 	void AddBallotBox(BallotBox& ballotBox);
 	void AddCandidate(Candidate& candidate, Party& party);
@@ -25,7 +25,6 @@ public:
 	Parties& GetParties();
 	BallotBoxes& GetBallotBoxes();
 	
-	void PreformElections();
 	void ShowResults();
 };
 #endif // ELECTIONS_H
