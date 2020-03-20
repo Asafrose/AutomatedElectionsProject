@@ -12,7 +12,7 @@ private:
 	int _physicalCount = 0;
 
 public:
-	void AddCandidate(Candidate& civilian);
+	void Add(Candidate& civilian);
 	Candidate& GetCandidate(int index) const;
 	int GetCount() const;
 	void Free() const;

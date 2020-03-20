@@ -8,4 +8,5 @@ public:
 	bool Initialize(const char* name);
 	void AddVote();
 	void Show() const;
+	bool Aggregate(const PartyResult& other);
 };

@@ -1,10 +1,10 @@
 ﻿#include "PartyResult.h"
 #include <iostream>
-using namespace  std;
+using namespace std;
 
 bool PartyResult::Initialize(const char* name)
 {
-	if(name==nullptr)
+	if (name == nullptr)
 	{
 		return false;
 	}
@@ -23,6 +23,13 @@ void PartyResult::AddVote()
 void PartyResult::Show() const
 {
 	cout << "Party: " << _name << " Votes: " << _votes << endl;
-
 }
 
+bool PartyResult::Aggregate(const PartyResult& other)
+{
+	if (strcmp(_name, other._name) != 0)
+	{
+		std::cout << "Cannot aggregate party results of different parties [this=";
+	}
+	return false;
+}

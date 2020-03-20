@@ -6,20 +6,20 @@
 
 class Elections
 {
-
 private:
 	bool _isElectionsDone;
 	Date _date;
 	Parties _parties;
 	BallotBoxes _ballotBoxes;
-	Results _results;
-	
+
+	bool IsActionValid(const char* actionName, bool isValidBeforeElections = true) const;
+
 public:
-	void Initialize(Date& date);
-	
+	void Initialize(const Date& date);
+
 	void AddBallotBox(BallotBox& ballotBox);
-	void AddCandidate(Candidate& candidate, Party& party);
-	void AddCivilian(Civilian& civilian);
+	void AddCandidate(Candidate& candidate, Party& party) const;
+	void AddCivilian(Civilian& civilian) const;
 	void AddParty(Party& party);
 
 	Parties& GetParties();
@@ -28,4 +28,6 @@ public:
 	bool ElectionsOccured();
 	void ShowResults();
 };
+
+
 #endif // ELECTIONS_H

@@ -17,13 +17,16 @@ private:
 public:
 	void SetParty(
 		int id,
-		const char* _name,
-		PoliticalStream _politicalStream,
+		const char* name,
+		PoliticalStream politicalStream,
 		const Date& date);
 
-	void Show();
 	char* GetName() const;
 	int GetId() const;
-	void free() const;
+
+
+	void AddCandidate(Candidate& candidate);
+	void Show();
+	void Free() const;
 };
 #endif // PARTY_H

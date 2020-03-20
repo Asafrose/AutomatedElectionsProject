@@ -22,6 +22,7 @@ public:
 		const Date& birth,
 		BallotBox* balletBox);
 
+	BallotBox* GetBallotBox() const;
 	void Vote(const Party& party);
 
 	void Free() const;

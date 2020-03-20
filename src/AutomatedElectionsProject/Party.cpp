@@ -46,12 +46,17 @@ int Party::GetId() const
 	return _id;
 }
 
+void Party::AddCandidate(Candidate& candidate)
+{
+	_candidates.Add(candidate);
+}
+
 char* Party::GetName() const
 {
 	return _name;
 }
 
-void Party::free() const
+void Party::Free() const
 {
 	delete _name;
 }

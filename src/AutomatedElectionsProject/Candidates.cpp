@@ -1,6 +1,6 @@
 ﻿#include "Candidates.h"
 
-void Candidates::AddCandidate(Candidate& civilian)
+void Candidates::Add(Candidate& civilian)
 {
 	if (_array == nullptr)
 	{

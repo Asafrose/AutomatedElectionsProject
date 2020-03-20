@@ -21,6 +21,11 @@ void Civilian::Initialize(
 	_isVoted = false;
 }
 
+BallotBox* Civilian::GetBallotBox() const
+{
+	return _balletBox;
+}
+
 void Civilian::Vote(const Party& party)
 {
 	if (_isVoted)

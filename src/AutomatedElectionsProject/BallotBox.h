@@ -9,13 +9,19 @@ class BallotBox
 {
 private:
 	int _id;
-	Address& _address;
+	Address _address;
 	Civilians _civilians;
-	Results _results;
+	Results* _results;
+	
 public:
-	void Initialize(int id, const Address& address);
-	void AddVote(const Party& party);
-	double GetVotingPercent();
-	void Show();
+	void Initialize(const int& id, const Address& address);
+
+	void ClosePartyList(const Parties& parties);
+
+	void AddCivilian(Civilian& civilian);
+	void AddVote(const Party& party) const;
+	double GetVotingPercent() const;
+	void Show() const;
+	void Free() const;
 };
 #endif // BALLOTBOX_H
