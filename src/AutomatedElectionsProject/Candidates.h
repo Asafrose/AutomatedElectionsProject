@@ -9,9 +9,12 @@ class Candidates
 private:
 	Candidate** _candidates = nullptr;
 	int _count = 0;
+	int _physicalCount = 0;
 
 public:
-	void Add(Candidate candidate);
-	Candidate& Get(int index);
+	void AddCandidate(Candidate& civilian);
+	Candidate& GetCandidate(int index) const;
+	int GetCount() const;
+	void Free() const;
 };
 #endif // CANDIDATES_H

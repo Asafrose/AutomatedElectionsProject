@@ -10,8 +10,8 @@ private:
 	Civilian& _civilian;
 	int _rank;
 public:
-	void SetCandidate(const Civilian& civilian, int rank);
-	Civilian& GetCivilian();
+	void Initialize(const Civilian& civilian, int rank);
+	Civilian& GetCivilian() const;
 };
 
 
