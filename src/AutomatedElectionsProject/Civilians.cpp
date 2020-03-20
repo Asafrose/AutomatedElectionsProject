@@ -22,3 +22,20 @@ void Civilians::AddCivilian(Civilian& civilian)
 	_civilians[_count] = &civilian;
 	_count++;
 }
+
+Civilian& Civilians::GetCivilian(int index) const
+{
+	return *_civilians[index];
+}
+
+int Civilians::GetCount() const
+{
+	return _count;
+}
+
+void Civilians::Free() const
+{
+	delete[] _civilians;
+}
+
+
