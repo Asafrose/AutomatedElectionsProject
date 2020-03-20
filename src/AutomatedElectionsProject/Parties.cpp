@@ -37,7 +37,11 @@ int Parties::GetPartiesCount() const
 }
 
 
-void Parties::free() const
+void Parties::Free() const
 {
-	
+	for(int i=0;i<_count;i++)
+	{
+		delete _parties[i];
+	}
+	delete _parties;
 }
