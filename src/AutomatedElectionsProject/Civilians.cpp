@@ -2,9 +2,9 @@
 
 void Civilians::AddCivilian(Civilian& civilian)
 {
-	if (_civilians == nullptr)
+	if (_array == nullptr)
 	{
-		_civilians = new Civilian*[1];
+		_array = new Civilian*[1];
 		_physicalCount = 1;
 	}
 	else if (_count == _physicalCount)
@@ -12,20 +12,20 @@ void Civilians::AddCivilian(Civilian& civilian)
 		Civilian** newArray = new Civilian*[2*_physicalCount];
 		for (int i = 0; i < _count; ++i)
 		{
-			newArray[i] = _civilians[i];
+			newArray[i] = _array[i];
 		}
-		delete[] _civilians;
-		_civilians = newArray;
+		delete[] _array;
+		_array = newArray;
 		_physicalCount *= 2;
 	}
 
-	_civilians[_count] = &civilian;
+	_array[_count] = &civilian;
 	_count++;
 }
 
 Civilian& Civilians::GetCivilian(int index) const
 {
-	return *_civilians[index];
+	return *_array[index];
 }
 
 int Civilians::GetCount() const
@@ -35,7 +35,7 @@ int Civilians::GetCount() const
 
 void Civilians::Free() const
 {
-	delete[] _civilians;
+	delete[] _array;
 }
 
 

@@ -7,7 +7,7 @@
 class Parties
 {
 private:
-	Party** _parties = nullptr;
+	Party** _array = nullptr;
 	int _count = 0;
 	int _physicalCount = 0;
 

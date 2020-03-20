@@ -7,7 +7,7 @@
 class Candidates
 {
 private:
-	Candidate** _candidates = nullptr;
+	Candidate** _array = nullptr;
 	int _count = 0;
 	int _physicalCount = 0;
 

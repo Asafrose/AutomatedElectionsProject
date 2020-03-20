@@ -2,9 +2,9 @@
 
 void Parties::Add(Party &party)
 {
-	if(_parties==nullptr)
+	if(_array==nullptr)
 	{
-		_parties = new Party*[1];
+		_array = new Party*[1];
 		_physicalCount = 1;		
 	}
 	else if(_count==_physicalCount)
@@ -12,13 +12,13 @@ void Parties::Add(Party &party)
 		Party** newArray = new Party*[2 * _physicalCount];
 		for(int i=0;i<_count;i++)
 		{
-			newArray[i] = _parties[i];
+			newArray[i] = _array[i];
 		}
-		delete _parties;
-		_parties = newArray;
+		delete _array;
+		_array = newArray;
 		_physicalCount *= 2;
 	}
-	_parties[_count] = &party;
+	_array[_count] = &party;
 	_count++;
 }
 
@@ -28,7 +28,7 @@ Party& Parties::Get(int index) const
 	
 		
 	
-	return *_parties[index]; 
+	return *_array[index]; 
 }
 
 int Parties::GetPartiesCount() const
@@ -41,7 +41,7 @@ void Parties::Free() const
 {
 	for(int i=0;i<_count;i++)
 	{
-		delete _parties[i];
+		delete _array[i];
 	}
-	delete _parties;
+	delete _array;
 }

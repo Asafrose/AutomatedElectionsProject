@@ -7,7 +7,7 @@
 class Civilians
 {
 private:
-	Civilian** _civilians = nullptr;
+	Civilian** _array = nullptr;
 	int _count = 0;
 	int _physicalCount = 0;
 	

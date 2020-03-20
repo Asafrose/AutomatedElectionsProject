@@ -2,9 +2,9 @@
 
 void Candidates::AddCandidate(Candidate& civilian)
 {
-	if (_candidates == nullptr)
+	if (_array == nullptr)
 	{
-		_candidates = new Candidate* [1];
+		_array = new Candidate* [1];
 		_physicalCount = 1;
 	}
 	else if (_count == _physicalCount)
@@ -12,20 +12,20 @@ void Candidates::AddCandidate(Candidate& civilian)
 		Candidate** newArray = new Candidate* [2 * _physicalCount];
 		for (int i = 0; i < _count; ++i)
 		{
-			newArray[i] = _candidates[i];
+			newArray[i] = _array[i];
 		}
-		delete[] _candidates;
-		_candidates = newArray;
+		delete[] _array;
+		_array = newArray;
 		_physicalCount *= 2;
 	}
 
-	_candidates[_count] = &civilian;
+	_array[_count] = &civilian;
 	_count++;
 }
 
 Candidate& Candidates::GetCandidate(int index) const
 {
-	return  *_candidates[index];
+	return  *_array[index];
 }
 
 int Candidates::GetCount() const
@@ -35,7 +35,7 @@ int Candidates::GetCount() const
 
 void Candidates::Free() const
 {
-	delete[] _candidates;
+	delete[] _array;
 }
 
 
