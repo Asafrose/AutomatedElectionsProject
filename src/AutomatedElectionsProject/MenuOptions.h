@@ -8,7 +8,7 @@ enum MenuOptions
 	AddParty,
 	AddCandidate,
 	ShowAllBallotBoxes,
-	ShowAllCitizens,
+	ShowAllCivilians,
 	ShowAllParties,
 	RunElections,
 	ShowElectionsResults,

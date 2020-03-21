@@ -27,6 +27,7 @@ public:
 	Date& GetElectionsDate();
 	bool IsElectionsOccured() const;
 	void ShowResults() const;
+	void ShowAllCivilians() const;
 	void Free() const;
 };
 

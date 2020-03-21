@@ -2,9 +2,10 @@
 
 #include "Civilian.h"
 #include "BallotBox.h"
-
-
 #include <cstring>
+#include <iostream>
+
+using namespace std;
 
 void Civilian::Initialize(
 	const char* name,
@@ -32,9 +33,16 @@ void Civilian::Vote(const Party& party)
 	{
 		return;
 	}
-	
+
 	_balletBox->AddVote(party);
 	_isVoted = true;
+}
+
+void Civilian::Show() const
+{
+	cout << "Id: " << _id << " Name: " << _name << " Birth: ";
+	_birth.Show();
+	cout << " IsVoted: " << _isVoted;
 }
 
 void Civilian::Free() const

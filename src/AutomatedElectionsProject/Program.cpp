@@ -39,7 +39,7 @@ void PrintMenu(Elections elections)
 	if (!elections.IsElectionsOccured())
 	{
 		cout << "**** Elections  Will take place at ";
-		elections.GetElectionsDate().ShowDate();
+		elections.GetElectionsDate().Show();
 		cout << "**** \n";
 		cout << "Please enter a number to select from the menu: \n";
 		cout << "1 - Add New Ballot Box \n";
@@ -57,7 +57,7 @@ void PrintMenu(Elections elections)
 	else
 	{
 		cout << "****Elections Completed at: ";
-		elections.GetElectionsDate().ShowDate();
+		elections.GetElectionsDate().Show();
 		cout << "*****\n";
 
 		cout << "5 - Show All Ballot boxes \n";
@@ -108,27 +108,26 @@ void RunMenu(Elections elections)
 				elections.GetBallotBoxes();
 				break;
 			}
-			/*
-				case (ShowAllCitizens):
-					{
-						//	elections.GetBallotBoxes().
-						break;
-					}
-				case (ShowAllParties):
-					{
-						//elections.GetParties()
-						break;
-					}
-				case(RunElections):
-					{
-						//elections.Run
-						break;
-					}
-				case (ShowElectionsResults):
-					{
-						elections.ShowResults();
-						break;
-				}*/
+		case (ShowAllCivilians):
+			{
+				elections.ShowAllCivilians();
+				break;
+			}
+			/*case (ShowAllParties):
+				{
+					//elections.GetParties()
+					break;
+				}
+			case(RunElections):
+				{
+					//elections.Run
+					break;
+				}
+			case (ShowElectionsResults):
+				{
+					elections.ShowResults();
+					break;
+			}*/
 		case (Exit):
 			{
 				return;
@@ -146,10 +145,11 @@ void RunMenu(Elections elections)
 char* GetString()
 {
 	char string[MAX_CHAR_LENGTH];
-	char ch;
 	cin.getline(string, sizeof string);
+	
 	char* newString = new char[strlen(string) + 1];
 	strcpy(newString, string);
+	
 	return newString;
 }
 
@@ -186,65 +186,3 @@ void MenuAddCandidate(Elections elections);
 void EndMenu(Elections elections)
 {
 }
-
-
-/*
- *  objects:
- *  Elections
- *  Date
- *      Day
- *      Month
- *      Year
- *      
- *  Civilian
- *      Name
- *      Id
- *      BirthYear
- *      BallotBox
- *      IsVoted
- *
- *  Candidate
- *      Civilian
- *      Place
- *      
- *  Civilians
- *      int Count;
- *      Civilian[] Civilians
- *  
- *  Candidates
- *      int Count
- *      Candidates[] Candidates
- *
- *  Party
- *      Id
- *      Name
- *      PoliticalStream
- *      DateCreated
- *      Candidates
- *
- *  PoliticalStream -> enum
- *
- *  Address
- *      City
- *      Street
- *      HouseNumber
- *          
- *  BallotBox
- *      Id
- *      Address
- *      Civilians
- *      Results
- *      VotingPercent => Calculated property
- *      
- *      
- *  Results
- *      int VotersCount
- *      int PartyCount
- *      PartyResults[]
- *      method:
- *          AddResults(Result results)
- *
- *  PartyResults
- *      PartyName
- *      Votes
- */

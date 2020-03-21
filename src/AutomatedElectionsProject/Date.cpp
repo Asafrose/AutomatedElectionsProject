@@ -69,7 +69,7 @@ bool Date::SetDate(unsigned int year)
 	return SetDate(1, 1, year);
 }
 
-void Date::ShowDate() const
+void Date::Show() const
 {
 	cout << _day << "/" << _month << "/" << _year;
 }

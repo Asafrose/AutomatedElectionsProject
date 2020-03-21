@@ -38,7 +38,7 @@ void Party::Show()
 		}
 	}
 	cout << "Date Established: ";
-	_date.ShowDate();
+	_date.Show();
 }
 
 int Party::GetId() const

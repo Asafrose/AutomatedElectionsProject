@@ -16,7 +16,8 @@ private:
 public:
 	void Initialize(const int& id, const Address& address);
 	Results& GetResults() const;
-	
+	Civilians& GetCivilians();
+
 	void ClosePartyList(const Parties& parties);
 
 	void AddCivilian(Civilian* civilian);

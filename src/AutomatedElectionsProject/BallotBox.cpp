@@ -28,12 +28,17 @@ double BallotBox::GetVotingPercent() const
 		return 0;
 	}
 
-	return static_cast<double>(_results->GetVotersCount()) / static_cast<double>(_civilians.GetCount());
+	return (double)_results->GetVotersCount() / (double)_civilians.GetCount();
 }
 
 Results& BallotBox::GetResults() const
 {
 	return *_results;
+}
+
+Civilians& BallotBox::GetCivilians()
+{
+	return _civilians;
 }
 
 void BallotBox::ClosePartyList(const Parties& parties)

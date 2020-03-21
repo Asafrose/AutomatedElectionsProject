@@ -100,6 +100,19 @@ void Elections::ShowResults() const
 	results.Free();
 }
 
+void Elections::ShowAllCivilians() const
+{
+	for (int i = 0; i < _ballotBoxes.GetCount(); ++i)
+	{
+		Civilians civilians = _ballotBoxes.Get(i).GetCivilians();
+		for (int j = 0; j < civilians.GetCount(); ++j)
+		{
+			civilians.Get(j).Show();
+			cout << endl;
+		}
+	}
+}
+
 void Elections::Free() const
 {
 	_ballotBoxes.Free();

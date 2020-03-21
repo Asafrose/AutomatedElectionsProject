@@ -24,6 +24,7 @@ public:
 
 	BallotBox* GetBallotBox() const;
 	void Vote(const Party& party);
+	void Show() const;
 
 	void Free() const;
 };
