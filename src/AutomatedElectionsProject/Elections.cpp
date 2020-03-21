@@ -47,7 +47,7 @@ void Elections::AddCandidate(Candidate* candidate, Party& party) const
 
 void Elections::AddCivilian(Civilian* civilian)
 {
-	if (IsActionValid("AddCivilian"))
+	if (IsActionValid("AddNewCivilian"))
 	{
 		civilian->GetBallotBox()->AddCivilian(civilian);
 		Civilian* civilianCopy = new Civilian;

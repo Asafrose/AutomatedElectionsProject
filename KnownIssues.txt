@@ -1,0 +1,5 @@
+*****  Known issues and Limitations ****
+
+1) user must first enter Ballot boxes in order to continue and enter Civilians, 
+2) String Size is limited to 99 characters only 
+ 
