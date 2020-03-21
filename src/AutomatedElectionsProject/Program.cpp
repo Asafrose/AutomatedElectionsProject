@@ -381,6 +381,7 @@ void PersonalElection(Civilian& civilian, Elections& elections)
 
 void MenuRunElections(Elections& elections)
 {
+	elections.StartElections();
 	cout << "*****Welcome to ";
 	elections.GetElectionsDate().Show();
 	cout << " Elections ******" << endl;

@@ -25,5 +25,6 @@ public:
 	double GetVotingPercent() const;
 	void Show() const;
 	void Free() const;
+	
 };
 #endif // BALLOTBOX_H

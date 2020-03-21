@@ -15,7 +15,7 @@ void Results::Initialize(const Parties& parties)
 
 void Results::AddVote(const Party& party)
 {
-	_partyResults[party.GetId()].AddVote();
+	_partyResults[party.GetId()-1].AddVote();
 	_votersCount++;
 }
 
