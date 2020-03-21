@@ -16,11 +16,11 @@ void RunMenu(Elections& elections);
 Civilian* AddNewCivilian(Elections& elections);
 
 void MenuAddBallotBox(Elections& elections);
-/*
 
-void MenuAddParty(Elections elections);
-void MenuAddCandidate(Elections elections);
-*/
+
+void MenuAddParty(Elections& elections);
+void MenuAddCandidate(Elections& elections);
+
 
 
 
@@ -98,17 +98,17 @@ void RunMenu(Elections& elections)
 					elections.AddCivilian(AddNewCivilian(elections));
 						break;
 					}
-					/*	case (AddParty):
+						case (AddParty):
 					{
 						MenuAddParty(elections);
 						break;
 					}
 				case (AddCandidate):
 					{
-						MenuAddCandidate(elections);
+				//		MenuAddCandidate(elections);
 						break;
 					}
-					*/
+					
 		case (ShowAllBallotBoxes):
 			{
 			elections.ShowAllBallotBoxes();
@@ -225,6 +225,50 @@ Civilian* AddNewCivilian(Elections& elections)
 	return newCivilian;
 	
 }
+
+PoliticalStream GetPoliticalStream()
+{
+	int value;
+	cout << "Please choose Political stream: 0 - Left   1 - Middle    2- Right :" ;
+	PoliticalStream selection;
+	cin >> value;
+	return (PoliticalStream)value;
+}
+
+Date GetDate()
+{
+	Date date;
+	unsigned int day, month, year;
+	cout << "Enter day: ";
+	cin >> day;
+	cout << "Enter Month: ";
+	cin >> month;
+	cout << "Enter Year: ";
+	cin >> year;
+	while (!date.SetDate(day, month, year))
+	{
+		cout << "Enter day:";
+		cin >> day;
+		cout << "Enter Month:";
+		cin >> month;
+		cout << "Enter Year";
+		cin >> year;
+	}
+	return date;
+}
+
+void MenuAddParty(Elections& elections)
+{
+	cout << "*** New Party ****" << endl;
+	Party* newParty = new Party;
+	cout << "Please Enter Party name: ";
+	char* name = GetString();
+	cout << "Please Enter Party Establish date"<<endl;
+	newParty->Initialize(elections.GetParties().GetCount() + 1, name, GetPoliticalStream(), GetDate());
+	elections.AddParty(newParty);
+	
+}
+
 
 
 
