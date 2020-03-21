@@ -113,6 +113,15 @@ void Elections::ShowAllCivilians() const
 	}
 }
 
+void Elections::ShowAllParties() const
+{
+	for (int i = 0; i < _parties.GetCount(); ++i)
+	{
+		_parties.Get(i).Show();
+		cout << "\n";
+	}
+}
+
 void Elections::Free() const
 {
 	_ballotBoxes.Free();

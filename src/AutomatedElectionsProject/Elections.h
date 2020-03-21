@@ -28,6 +28,7 @@ public:
 	bool IsElectionsOccured() const;
 	void ShowResults() const;
 	void ShowAllCivilians() const;
+	void ShowAllParties() const;
 	void Free() const;
 };
 

@@ -3,7 +3,7 @@
 void Results::Initialize(const Parties& parties)
 {
 	_votersCount = 0;
-	_partyCount = parties.GetPartiesCount();
+	_partyCount = parties.GetCount();
 	_partyResults = new PartyResult[_partyCount];
 
 	for (int i = 0; i < _partyCount; i++)

@@ -113,12 +113,12 @@ void RunMenu(Elections elections)
 				elections.ShowAllCivilians();
 				break;
 			}
-			/*case (ShowAllParties):
-				{
-					//elections.GetParties()
-					break;
-				}
-			case(RunElections):
+		case (ShowAllParties):
+			{
+				elections.ShowAllParties();
+				break;
+			}
+			/*case(RunElections):
 				{
 					//elections.Run
 					break;
@@ -146,10 +146,10 @@ char* GetString()
 {
 	char string[MAX_CHAR_LENGTH];
 	cin.getline(string, sizeof string);
-	
+
 	char* newString = new char[strlen(string) + 1];
 	strcpy(newString, string);
-	
+
 	return newString;
 }
 

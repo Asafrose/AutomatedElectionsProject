@@ -14,7 +14,7 @@ private:
 public:
 	void Add(Party* party);
 	Party& Get(int index) const;
-	int GetPartiesCount() const;
+	int GetCount() const;
 	void Free() const;
 };
 #endif // PARTIES_H

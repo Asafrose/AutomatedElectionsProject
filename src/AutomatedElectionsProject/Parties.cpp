@@ -27,7 +27,7 @@ Party& Parties::Get(int index) const
 	return *_array[index];
 }
 
-int Parties::GetPartiesCount() const
+int Parties::GetCount() const
 {
 	return _count;
 }
