@@ -25,6 +25,7 @@ public:
 
 	Parties& GetParties();
 	BallotBoxes& GetBallotBoxes();
+	Civilians& GetCivilians();
 	Date& GetElectionsDate();
 	bool IsElectionsOccured() const;
 	void ShowResults() const;
