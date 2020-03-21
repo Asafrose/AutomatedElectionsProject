@@ -26,15 +26,95 @@ void MenuAddCandidate(Elections& elections);
 
 void EndMenu(Elections& elections);
 
+Date CreateDate(int day, int month, int year)
+{
+	Date date;
+	date.SetDate(day, month, year);
+	return date;
+}
+
+Party* CreateParty(int id, const char* name, PoliticalStream politicalStream)
+{
+	Party* party = new Party;
+	party->Initialize(
+		id,
+		name,
+		politicalStream,
+		CreateDate(1, 1, 1999));
+	return party;
+}
+
+Civilian* CreateCivilian(const char* name, int id, BallotBox* ballotBox)
+{
+	Civilian* civilian = new Civilian;
+	civilian->Initialize(
+		name,
+		id,
+		CreateDate(1, 1, 1999),
+		ballotBox);
+	return civilian;
+}
+
+BallotBox* CreateBallotBox(int id, const char* city, const char* street, int streetNumber)
+{
+	BallotBox* ballotBox = new BallotBox;
+	Address address;
+	address.Initialize(city, street, streetNumber);
+	ballotBox->Initialize(id, address);
+	return ballotBox;
+}
+
+Candidate* CreateCandidate(Civilian* civilian, int rank)
+{
+	Candidate* candidate = new Candidate;
+	candidate->Initialize(civilian, rank);
+	return candidate;
+}
+
+Elections CreateElections(const Date& date)
+{
+	Elections elections;
+	elections.Initialize(date);
+
+	BallotBox* telAvivBallotBox = CreateBallotBox(1, "Tel Aviv", "Shimon Hatarsi", 37);
+	BallotBox* herzliyaBallotBox = CreateBallotBox(2, "Herzliya", "Haalumim", 3);
+	Civilian* bibi = CreateCivilian("Binyamin Netaniyahu", 1, telAvivBallotBox);
+	Civilian* miriRegev = CreateCivilian("Miri Regev", 2, telAvivBallotBox);
+	Civilian* gantz = CreateCivilian("Binyamin Gantz", 3, herzliyaBallotBox);
+	Civilian* yairLapid = CreateCivilian("Yair Lapid", 4, herzliyaBallotBox);
+	Civilian* noamKozer = CreateCivilian("Noam Kozer", 5, telAvivBallotBox);
+	Civilian* ohadShemTov = CreateCivilian("Ohad Shem-Tov", 6, herzliyaBallotBox);
+	Party* blueAndWhite = CreateParty(1, "Blue And White", Center);
+	Party* likud = CreateParty(2, "Likud", Right);
+	Party* thePirates = CreateParty(3, "The Pirates", Center);
+	elections.AddBallotBox(telAvivBallotBox);
+	elections.AddBallotBox(herzliyaBallotBox);
+	elections.AddCivilian(bibi);
+	elections.AddCivilian(miriRegev);
+	elections.AddCivilian(gantz);
+	elections.AddCivilian(yairLapid);
+	elections.AddCivilian(noamKozer);
+	elections.AddCivilian(ohadShemTov);
+	elections.AddParty(blueAndWhite);
+	elections.AddParty(likud);
+	elections.AddParty(thePirates);
+	elections.AddCandidate(CreateCandidate(bibi, 1), *likud);
+	elections.AddCandidate(CreateCandidate(miriRegev, 1), *likud);
+	elections.AddCandidate(CreateCandidate(gantz, 1), *blueAndWhite);
+	elections.AddCandidate(CreateCandidate(yairLapid, 1), *blueAndWhite);
+	elections.AddCandidate(CreateCandidate(noamKozer, 1), *thePirates);
+	elections.AddCandidate(CreateCandidate(ohadShemTov, 1), *thePirates);
+	
+	return elections;
+}
+
 
 int main()
 {
-	Date ElectionsDate;
-	ElectionsDate.SetDate(1, 1, 2020);
-	Elections newElections;
-	newElections.Initialize(ElectionsDate);
-	RunMenu(newElections);
-	EndMenu(newElections);
+
+	Elections elections = CreateElections(CreateDate(1, 1, 2020));
+	RunMenu(elections);
+	EndMenu(elections);
 }
 
 
@@ -81,7 +161,6 @@ void RunMenu(Elections& elections)
 
 	while (true)
 	{
-		
 		PrintMenu(elections);
 		cin >> UserInput;
 		getchar();
@@ -111,8 +190,7 @@ void RunMenu(Elections& elections)
 					
 		case (ShowAllBallotBoxes):
 			{
-			elections.ShowAllBallotBoxes();
-				
+				elections.ShowAllBallotBoxes();
 				break;
 			}
 		case (ShowAllCivilians):
@@ -144,7 +222,6 @@ void RunMenu(Elections& elections)
 				cout << "Please Enter your Selection Again: ";
 			}
 		}
-		
 	}
 }
 

@@ -26,7 +26,7 @@ public:
 
 
 	void AddCandidate(Candidate* candidate);
-	void Show();
+	void Show() const;
 	void Free() const;
 };
 #endif // PARTY_H

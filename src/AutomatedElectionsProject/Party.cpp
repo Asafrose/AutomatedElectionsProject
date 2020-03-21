@@ -15,9 +15,9 @@ void Party::Initialize(int id, const char* name, PoliticalStream politicalStream
 	_date = date;
 }
 
-void Party::Show()
+void Party::Show() const
 {
-	cout << "Party ID: " << _id << " Party Name: " << _name << "Political Stream: ";
+	cout << "Party ID: " << _id << " Party Name: " << _name << " Political Stream: ";
 
 	switch (_politicalStream)
 	{
