@@ -20,7 +20,7 @@ void MenuAddBallotBox(Elections& elections);
 
 void MenuAddParty(Elections& elections);
 void MenuAddCandidate(Elections& elections);
-
+void MenuRunElections(Elections& elections);
 
 void EndMenu(Elections& elections);
 
@@ -200,16 +200,16 @@ void RunMenu(Elections& elections)
 				elections.ShowAllParties();
 				break;
 			}
-			/*case(RunElections):
-				{
-					//elections.Run
-					break;
-				}
-			case (ShowElectionsResults):
-				{
-					elections.ShowResults();
-					break;
-			}*/
+		case(RunElections):
+			{
+				MenuRunElections(elections);
+				break;
+			}
+		case (ShowElectionsResults):
+			{
+				elections.ShowResults();
+				break;
+			}
 		case (Exit):
 			{
 				return;
@@ -305,7 +305,7 @@ PoliticalStream GetPoliticalStream()
 	int value;
 	cout << "Please choose Political stream: 0 - Left   1 - Middle   2- Right:";
 	cin >> value;
-	return (PoliticalStream)value;
+	return static_cast<PoliticalStream>(value);
 }
 
 Date GetDate()
@@ -339,6 +339,59 @@ void MenuAddParty(Elections& elections)
 	cout << "Please Enter Party Establish date" << endl;
 	newParty->Initialize(elections.GetParties().GetCount() + 1, name, GetPoliticalStream(), GetDate());
 	elections.AddParty(newParty);
+}
+
+ void ShowParties(Parties parties)  
+{
+	cout << " ** Party List **"<<endl;
+	for(int i=0;i<parties.GetCount();i++)
+	{
+		parties.Get(i).Show();
+		cout << endl;
+	}
+}
+
+
+void PersonalElection(Civilian& civilian, Elections& elections)
+{
+	int voteID;
+	int want;
+	cout << "Welcome ";
+	civilian.Show();
+	cout <<endl<< " Would you like to vote?  Press '1' to continue  '0' to exit: ";
+	cin >> want;
+	if(want)
+	{
+		cout << endl << "Please choose the ID of the party you wish to vote for:"<<endl;
+		ShowParties(elections.GetParties());
+		cout << "Vote for ID: ";
+		cin >> voteID;
+		civilian.Vote(elections.GetParties().Get(voteID - 1));
+		cout  << "Vote received successfully :)" << endl;
+	}
+	else
+	{
+		cout << " Your Vote has ended without voting :( thank you"<<endl;
+	}
+	cout << " Press any key to move to next civilian";
+	getchar();
+	system("CLS");
+	
+}
+
+void MenuRunElections(Elections& elections)
+{
+	cout << "*****Welcome to ";
+	elections.GetElectionsDate().Show();
+	cout << " Elections ******" << endl;
+	cout << "***Starting Elections process ***" << endl;
+	const Civilians civilians = elections.GetCivilians();
+	for (int i = 0; i < civilians.GetCount(); i++)
+	{
+		
+		PersonalElection(civilians.Get(i), elections);
+	}
+	cout << "*** Elections process Ended***" << endl;
 }
 
 
