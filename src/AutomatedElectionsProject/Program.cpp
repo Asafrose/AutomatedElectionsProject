@@ -1,11 +1,10 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define  MAX_CHAR_LENGTH 100
+
 #include <iostream>
-
-
 #include "MenuOptions.h"
 #include "Elections.h"
 #include "BallotBox.h"
-
-#define  MAX_CHAR_LENGTH 10
 
 using namespace std;
 
@@ -86,46 +85,46 @@ void RunMenu(Elections elections)
 				MenuAddBallotBox(elections);
 				break;
 			}
-	/*	case (AddCitizen):
-			{
-				MenuAddCitizen(elections);
-				break;
-			}
-		case (AddParty):
-			{
-				MenuAddParty(elections);
-				break;
-			}
-		case (AddCandidate):
-			{
-				MenuAddCandidate(elections);
-				break;
-			}
-		case (ShowAllBallotBoxes):
-			{
-				//elections.GetBallotBoxes()
-				break;
-			}
-		case (ShowAllCitizens):
-			{
-				//	elections.GetBallotBoxes().
-				break;
-			}
-		case (ShowAllParties):
-			{
-				//elections.GetParties()
-				break;
-			}
-		case(RunElections):
-			{
-				//elections.Run
-				break;
-			}
-		case (ShowElectionsResults):
-			{
-				elections.ShowResults();
-				break;
-		}*/	
+			/*	case (AddCitizen):
+					{
+						MenuAddCitizen(elections);
+						break;
+					}
+				case (AddParty):
+					{
+						MenuAddParty(elections);
+						break;
+					}
+				case (AddCandidate):
+					{
+						MenuAddCandidate(elections);
+						break;
+					}
+				case (ShowAllBallotBoxes):
+					{
+						//elections.GetBallotBoxes()
+						break;
+					}
+				case (ShowAllCitizens):
+					{
+						//	elections.GetBallotBoxes().
+						break;
+					}
+				case (ShowAllParties):
+					{
+						//elections.GetParties()
+						break;
+					}
+				case(RunElections):
+					{
+						//elections.Run
+						break;
+					}
+				case (ShowElectionsResults):
+					{
+						elections.ShowResults();
+						break;
+				}*/
 		default:
 			{
 				cout << "Please Enter your Selection Again: ";
@@ -135,15 +134,13 @@ void RunMenu(Elections elections)
 	}
 }
 
-char* InputString()
+char* GetString()
 {
-	char* newString = new char[MAX_CHAR_LENGTH];
-	cin >> newString;
-	const int size = strlen(newString);
-	if (size + 1 < MAX_CHAR_LENGTH)
-	{
-		delete (newString + size + 1);
-	}
+	char string[MAX_CHAR_LENGTH];
+	cin.getline(string, sizeof string);
+
+	char* newString = new char[strlen(string) + 1];
+	strcpy(string, newString);
 
 	return newString;
 }
@@ -153,8 +150,8 @@ void MenuAddBallotBox(Elections elections)
 	Address ballotAddress;
 	BallotBox newBallotBox;
 	unsigned int houseNum;
-	char* street = InputString();
-	char* city = InputString();
+	char* street = GetString();
+	char* city = GetString();
 	int ballotBoxId = elections.GetBallotBoxes().GetCount() + 1;
 
 	cout << " please enter Ballet Box city: \n";
@@ -168,7 +165,6 @@ void MenuAddBallotBox(Elections elections)
 	ballotAddress.Initialize(city, street, houseNum);
 	newBallotBox.Initialize(ballotBoxId, ballotAddress);
 	elections.AddBallotBox(newBallotBox);
-	
 }
 
 /*
