@@ -40,7 +40,7 @@ void PrintMenu(Elections elections)
 	{
 		cout << "**** Elections  Will take place at ";
 		elections.GetElectionsDate().ShowDate();
-		cout << "****";
+		cout << "**** \n";
 		cout << "Please enter a number to select from the menu: \n";
 		cout << "1 - Add New Ballot Box \n";
 		cout << "2 - Add New Citizen \n";
@@ -73,11 +73,13 @@ void PrintMenu(Elections elections)
 void RunMenu(Elections elections)
 {
 	int UserInput;
-	PrintMenu(elections);
-	cin >> UserInput;
-	system("CLS");
-	while (UserInput != 10)
+
+
+	while (true)
 	{
+		PrintMenu(elections);
+		cin >> UserInput;
+		getchar();
 		switch (UserInput)
 		{
 		case (AddBallotBox):
@@ -100,11 +102,13 @@ void RunMenu(Elections elections)
 						MenuAddCandidate(elections);
 						break;
 					}
-				case (ShowAllBallotBoxes):
-					{
-						//elections.GetBallotBoxes()
-						break;
-					}
+					*/
+		case (ShowAllBallotBoxes):
+			{
+				elections.GetBallotBoxes();
+				break;
+			}
+			/*
 				case (ShowAllCitizens):
 					{
 						//	elections.GetBallotBoxes().
@@ -125,47 +129,52 @@ void RunMenu(Elections elections)
 						elections.ShowResults();
 						break;
 				}*/
+		case (Exit):
+			{
+				return;
+			}
 		default:
 			{
 				cout << "Please Enter your Selection Again: ";
 			}
 		}
-		cin >> UserInput;
+		system("CLS");
 	}
 }
+
 
 char* GetString()
 {
 	char string[MAX_CHAR_LENGTH];
+	char ch;
 	cin.getline(string, sizeof string);
-
 	char* newString = new char[strlen(string) + 1];
-	strcpy(string, newString);
-
+	strcpy(newString, string);
 	return newString;
 }
 
 void MenuAddBallotBox(Elections elections)
 {
+	cout << "*** New Ballot Box *** \n";
 	Address ballotAddress;
-	BallotBox newBallotBox;
+	BallotBox* newBallotBox = new BallotBox;
 	unsigned int houseNum;
-	char* street = GetString();
+
+	const int ballotBoxId = elections.GetBallotBoxes().GetCount() + 1;
+
+	cout << "please enter Ballet Box city: \n";
 	char* city = GetString();
-	int ballotBoxId = elections.GetBallotBoxes().GetCount() + 1;
-
-	cout << " please enter Ballet Box city: \n";
-
-	cout << " please enter Ballet Box street: \n";
-
-	cout << " please enter Ballet Box street: \n";
+	cout << "please enter Ballet Box street: \n";
+	char* street = GetString();
+	cout << "please enter Ballet Box House Number: \n";
 
 	cin >> houseNum;
 
 	ballotAddress.Initialize(city, street, houseNum);
-	newBallotBox.Initialize(ballotBoxId, ballotAddress);
+	newBallotBox->Initialize(ballotBoxId, ballotAddress);
 	elections.AddBallotBox(newBallotBox);
 }
+
 
 /*
 
