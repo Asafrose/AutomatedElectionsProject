@@ -110,11 +110,13 @@ void Elections::ShowResults() const
 
 void Elections::ShowAllCivilians() const
 {
+	cout << " **** Civilians List **** " << endl;
 	for (int i = 0; i < _civilians.GetCount(); ++i)
 	{
 		_civilians.Get(i).Show();
 		cout << endl;
 	}
+	cout << " **** End of Civilians List **** " << endl << endl;
 }
 
 void Elections::ShowAllParties() const
@@ -140,5 +142,5 @@ void Elections::ShowAllBallotBoxes() const
 		_ballotBoxes.Get(i).Show();
 		cout << endl;
 	}
-	cout << "*** End of List ***";
+	cout << "*** End of List ***" << endl;
 }

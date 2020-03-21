@@ -112,6 +112,7 @@ void RunMenu(Elections& elections)
 		case (ShowAllBallotBoxes):
 			{
 			elections.ShowAllBallotBoxes();
+				
 				break;
 			}
 		case (ShowAllCivilians):
@@ -184,12 +185,19 @@ void MenuAddBallotBox(Elections& elections)
 
 BallotBox * SelectBallotBox (Elections& elections)
 {
-	int ballotId;
+	unsigned int ballotId;
+	unsigned int maxBallotid = elections.GetBallotBoxes().GetCount();
 	BallotBox* selectedBallotBox; 
 	cout << "Available Ballot Boxes: "<< endl;
 	elections.ShowAllBallotBoxes();
 	cout << "Please select Ballot Box by entering the Ballot box ID:";
 	cin >> ballotId;
+	while((ballotId<=0) || (ballotId>maxBallotid))
+	{
+		cout << "Ballot not found, Please select Ballot Box by entering the Ballot box ID:";
+		cin >> ballotId;
+	}
+
 	selectedBallotBox = &(elections.GetBallotBoxes().Get(ballotId -= 1));
 	return selectedBallotBox;
 }

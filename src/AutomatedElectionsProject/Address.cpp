@@ -21,7 +21,7 @@ bool Address::Initialize(
 	strcpy(_city, city);
 
 	_street = new char[strlen(street) + 1];
-	strcpy(_street, city);
+	strcpy(_street, street);
 	
 	_houseNumber = houseNumber;
 	return true;
