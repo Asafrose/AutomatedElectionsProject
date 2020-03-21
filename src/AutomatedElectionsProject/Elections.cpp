@@ -127,3 +127,15 @@ void Elections::Free() const
 	_ballotBoxes.Free();
 	_parties.Free();
 }
+
+void Elections::ShowAllBallotBoxes() const
+{
+	cout << "*** Ballot Boxes : ***"<< endl;
+	for(int i=0;i<_ballotBoxes.GetCount();i++)
+	{
+		_ballotBoxes.Get(i).Show();
+		cout << endl;
+	}
+	cout << "*** End of List ***";
+}
+

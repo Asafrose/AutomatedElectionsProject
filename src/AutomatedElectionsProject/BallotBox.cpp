@@ -59,10 +59,18 @@ void BallotBox::AddCivilian(Civilian* civilian)
 
 void BallotBox::Show() const
 {
+	cout << "Ballot Box: ";
 	cout << "id: " << _id << " address: ";
 	_address.Show();
 	cout << endl << "Results: " << endl;
-	_results->Show();
+	if(_results!=nullptr)
+	{ 
+		_results->Show();
+	}
+	else
+	{
+		cout << "no results";
+	}
 }
 
 void BallotBox::Free() const

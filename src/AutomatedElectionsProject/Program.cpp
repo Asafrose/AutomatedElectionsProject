@@ -8,19 +8,19 @@
 
 using namespace std;
 
-void PrintMenu(Elections elections);
+void PrintMenu(Elections& elections);
 
-void RunMenu(Elections elections);
+void RunMenu(Elections& elections);
 
 
-void MenuAddBallotBox(Elections elections);
+void MenuAddBallotBox(Elections& elections);
 /*
 void MenuAddCitizen(Elections elections);
 void MenuAddParty(Elections elections);
 void MenuAddCandidate(Elections elections);
 */
 
-void EndMenu(Elections elections);
+void EndMenu(Elections& elections);
 
 
 int main()
@@ -34,7 +34,7 @@ int main()
 }
 
 
-void PrintMenu(Elections elections)
+void PrintMenu(Elections& elections)
 {
 	if (!elections.IsElectionsOccured())
 	{
@@ -70,16 +70,18 @@ void PrintMenu(Elections elections)
 	}
 }
 
-void RunMenu(Elections elections)
+void RunMenu(Elections& elections)
 {
 	int UserInput;
 
 
 	while (true)
 	{
+		
 		PrintMenu(elections);
 		cin >> UserInput;
 		getchar();
+		system("CLS");
 		switch (UserInput)
 		{
 		case (AddBallotBox):
@@ -105,7 +107,7 @@ void RunMenu(Elections elections)
 					*/
 		case (ShowAllBallotBoxes):
 			{
-				elections.GetBallotBoxes();
+			elections.ShowAllBallotBoxes();
 				break;
 			}
 		case (ShowAllCivilians):
@@ -137,7 +139,7 @@ void RunMenu(Elections elections)
 				cout << "Please Enter your Selection Again: ";
 			}
 		}
-		system("CLS");
+		
 	}
 }
 
@@ -153,7 +155,7 @@ char* GetString()
 	return newString;
 }
 
-void MenuAddBallotBox(Elections elections)
+void MenuAddBallotBox(Elections& elections)
 {
 	cout << "*** New Ballot Box *** \n";
 	Address ballotAddress;
@@ -183,6 +185,6 @@ void MenuAddParty(Elections elections);
 void MenuAddCandidate(Elections elections);
 */
 
-void EndMenu(Elections elections)
+void EndMenu(Elections& elections)
 {
 }

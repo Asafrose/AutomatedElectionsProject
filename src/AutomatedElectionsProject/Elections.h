@@ -30,6 +30,7 @@ public:
 	void ShowAllCivilians() const;
 	void ShowAllParties() const;
 	void Free() const;
+	void ShowAllBallotBoxes() const; 
 };
 
 
