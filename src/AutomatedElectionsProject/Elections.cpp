@@ -92,6 +92,8 @@ bool Elections::IsElectionsOccured() const
 
 void Elections::ShowResults() const
 {
+	if (_isElectionsOccured)
+	{
 	Results results;
 	results.Initialize(_parties);
 
@@ -106,7 +108,13 @@ void Elections::ShowResults() const
 	cout << "TotalResults:\n";
 	results.Show();
 	results.Free();
+	}
+	else
+	{
+		cout << "Elections will take place soon , Please Check the results after the elections :)"<< endl<< endl; 
+	}
 }
+	
 
 void Elections::ShowAllCivilians() const
 {
