@@ -12,8 +12,8 @@ private:
 	int _physicalCount = 0;
 	
 public:
-	void AddCivilian(Civilian& civilian);
-	Civilian& GetCivilian(int index) const;
+	void Add(Civilian* civilian);
+	Civilian& Get(int index) const;
 	int GetCount() const;
 	void Free() const;
 };

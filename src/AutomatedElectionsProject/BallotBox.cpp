@@ -4,6 +4,13 @@
 
 using namespace std;
 
+void BallotBox::Initialize(const int& id, const Address& address)
+{
+	_results = nullptr;
+	_address = address;
+	_id = id;
+}
+
 void BallotBox::AddVote(const Party& party) const
 {
 	if (_results == nullptr)
@@ -20,16 +27,8 @@ double BallotBox::GetVotingPercent() const
 	{
 		return 0;
 	}
-	
-	return (double)_results->GetVotersCount() / (double)_civilians.GetCount();
-}
 
-
-void BallotBox::Initialize(const int& id, const Address& address)
-{
-	_results = nullptr;
-	_address = address;
-	_id = id;
+	return static_cast<double>(_results->GetVotersCount()) / static_cast<double>(_civilians.GetCount());
 }
 
 Results& BallotBox::GetResults() const
@@ -48,9 +47,9 @@ void BallotBox::ClosePartyList(const Parties& parties)
 	_results->Initialize(parties);
 }
 
-void BallotBox::AddCivilian(Civilian& civilian)
+void BallotBox::AddCivilian(Civilian* civilian)
 {
-	_civilians.AddCivilian(civilian);
+	_civilians.Add(civilian);
 }
 
 void BallotBox::Show() const
@@ -63,5 +62,12 @@ void BallotBox::Show() const
 
 void BallotBox::Free() const
 {
-	delete _results;
+	_address.Free();
+	_civilians.Free();
+
+	if (_results != nullptr)
+	{
+		_results->Free();
+		delete _results;
+	}
 }

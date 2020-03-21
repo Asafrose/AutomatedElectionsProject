@@ -34,6 +34,10 @@ void Results::Show() const
 
 void Results::Free() const
 {
+	for (int i = 0; i < _partyCount; ++i)
+	{
+		_partyResults[i].Free();
+	}
 	delete[] _partyResults;
 }
 

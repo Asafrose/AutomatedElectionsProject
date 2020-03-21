@@ -25,7 +25,7 @@ public:
 	int GetId() const;
 
 
-	void AddCandidate(Candidate& candidate);
+	void AddCandidate(Candidate* candidate);
 	void Show();
 	void Free() const;
 };

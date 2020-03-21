@@ -1,5 +1,8 @@
-﻿#include "PartyResult.h"
+﻿#define _CRT_SECURE_NO_WARNINGS
+
+#include "PartyResult.h"
 #include <iostream>
+
 using namespace std;
 
 bool PartyResult::Initialize(const char* name)
@@ -8,7 +11,10 @@ bool PartyResult::Initialize(const char* name)
 	{
 		return false;
 	}
-	_name = name;
+	
+	_name = new char[strlen(name) + 1];
+	strcpy(_name, name);
+	
 	_votes = 0;
 	return true;
 }
@@ -35,4 +41,9 @@ bool PartyResult::Aggregate(const PartyResult& other)
 	
 	_votes += other._votes;
 	return true;
+}
+
+void PartyResult::Free() const
+{
+	delete[] _name;
 }

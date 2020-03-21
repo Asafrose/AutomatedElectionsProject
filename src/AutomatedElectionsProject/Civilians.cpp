@@ -1,6 +1,6 @@
 ﻿#include "Civilians.h"
 
-void Civilians::AddCivilian(Civilian& civilian)
+void Civilians::Add(Civilian* civilian)
 {
 	if (_array == nullptr)
 	{
@@ -9,7 +9,7 @@ void Civilians::AddCivilian(Civilian& civilian)
 	}
 	else if (_count == _physicalCount)
 	{
-		Civilian** newArray = new Civilian*[2*_physicalCount];
+		Civilian** newArray = new Civilian*[2 * _physicalCount];
 		for (int i = 0; i < _count; ++i)
 		{
 			newArray[i] = _array[i];
@@ -19,11 +19,11 @@ void Civilians::AddCivilian(Civilian& civilian)
 		_physicalCount *= 2;
 	}
 
-	_array[_count] = &civilian;
+	_array[_count] = civilian;
 	_count++;
 }
 
-Civilian& Civilians::GetCivilian(int index) const
+Civilian& Civilians::Get(int index) const
 {
 	return *_array[index];
 }
@@ -35,7 +35,10 @@ int Civilians::GetCount() const
 
 void Civilians::Free() const
 {
+	for (int i = 0; i < _count; ++i)
+	{
+		_array[i]->Free();
+		delete _array[i];
+	}
 	delete[] _array;
 }
-
-

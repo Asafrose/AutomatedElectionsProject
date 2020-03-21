@@ -1,9 +1,14 @@
-﻿#include "Address.h"
+﻿#define _CRT_SECURE_NO_WARNINGS
+
+#include "Address.h"
 #include <iostream>
 
 using namespace std;
 
-bool Address::Initialize(const char* city, const char* street, unsigned int houseNumber)
+bool Address::Initialize(
+	const char* city,
+	const char* street,
+	unsigned int houseNumber)
 {
 	if (city == nullptr ||
 		street == nullptr ||
@@ -12,8 +17,12 @@ bool Address::Initialize(const char* city, const char* street, unsigned int hous
 		return false;
 	}
 
-	_city = city;
-	_street = street;
+	_city = new char[strlen(city) + 1];
+	strcpy(_city, city);
+
+	_street = new char[strlen(street) + 1];
+	strcpy(_street, city);
+	
 	_houseNumber = houseNumber;
 	return true;
 }
@@ -21,4 +30,10 @@ bool Address::Initialize(const char* city, const char* street, unsigned int hous
 void Address::Show() const
 {
 	cout << "City: " << _city << " Street: " << _street << " House Number: " << _houseNumber << endl;
+}
+
+void Address::Free() const
+{
+	delete[] _city;
+	delete[] _street;
 }

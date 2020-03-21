@@ -19,7 +19,7 @@ public:
 	
 	void ClosePartyList(const Parties& parties);
 
-	void AddCivilian(Civilian& civilian);
+	void AddCivilian(Civilian* civilian);
 	void AddVote(const Party& party) const;
 	double GetVotingPercent() const;
 	void Show() const;

@@ -46,7 +46,7 @@ int Party::GetId() const
 	return _id;
 }
 
-void Party::AddCandidate(Candidate& candidate)
+void Party::AddCandidate(Candidate* candidate)
 {
 	_candidates.Add(candidate);
 }

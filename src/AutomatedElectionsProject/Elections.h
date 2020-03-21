@@ -18,15 +18,16 @@ public:
 	void Initialize(const Date& date);
 
 	void AddBallotBox(BallotBox* ballotBox);
-	void AddCandidate(Candidate& candidate, Party& party) const;
-	void AddCivilian(Civilian& civilian) const;
-	void AddParty(Party& party);
+	void AddCandidate(Candidate* candidate, Party& party) const;
+	void AddCivilian(Civilian* civilian) const;
+	void AddParty(Party* party);
 
 	Parties& GetParties();
 	BallotBoxes& GetBallotBoxes();
 	Date& GetElectionsDate();
 	bool IsElectionsOccured() const;
 	void ShowResults() const;
+	void Free() const;
 };
 
 

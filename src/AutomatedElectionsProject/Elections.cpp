@@ -37,7 +37,7 @@ void Elections::AddBallotBox(BallotBox* ballotBox)
 	}
 }
 
-void Elections::AddCandidate(Candidate& candidate, Party& party) const
+void Elections::AddCandidate(Candidate* candidate, Party& party) const
 {
 	if (IsActionValid("AddCandidate"))
 	{
@@ -45,15 +45,15 @@ void Elections::AddCandidate(Candidate& candidate, Party& party) const
 	}
 }
 
-void Elections::AddCivilian(Civilian& civilian) const
+void Elections::AddCivilian(Civilian* civilian) const
 {
 	if (IsActionValid("AddCivilian"))
 	{
-		civilian.GetBallotBox()->AddCivilian(civilian);
+		civilian->GetBallotBox()->AddCivilian(civilian);
 	}
 }
 
-void Elections::AddParty(Party& party)
+void Elections::AddParty(Party* party)
 {
 	if (IsActionValid("AddParty"))
 	{
@@ -89,10 +89,19 @@ void Elections::ShowResults() const
 
 	for (int i = 0; i < _ballotBoxes.GetCount(); ++i)
 	{
-		Results ballotBoxResults = _ballotBoxes.Get(i).GetResults();
-		ballotBoxResults.Show();
-		results.Aggregate(ballotBoxResults);
+		BallotBox ballotBox = _ballotBoxes.Get(i);
+		ballotBox.Show();
+		cout << "\n\n";
+		results.Aggregate(ballotBox.GetResults());
 	}
 
+	cout << "TotalResults:\n";
 	results.Show();
+	results.Free();
+}
+
+void Elections::Free() const
+{
+	_ballotBoxes.Free();
+	_parties.Free();
 }
