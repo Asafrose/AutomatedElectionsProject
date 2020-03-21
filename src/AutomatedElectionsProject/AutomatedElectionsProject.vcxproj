@@ -148,7 +148,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Address.cpp" />
-    <ClCompile Include="AutomatedElectionsMain.cpp" />
     <ClCompile Include="BallotBox.cpp" />
     <ClCompile Include="BallotBoxes.cpp" />
     <ClCompile Include="Candidate.cpp" />

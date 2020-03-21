@@ -6,13 +6,13 @@ using namespace std;
 
 bool Elections::IsActionValid(const char* actionName, bool isValidBeforeElections) const
 {
-	if ((isValidBeforeElections && _isElectionsDone) || (!isValidBeforeElections && !_isElectionsDone))
+	if ((isValidBeforeElections && _isElectionsOccured) || (!isValidBeforeElections && !_isElectionsOccured))
 	{
 		cout <<
 			"Action Cannot be preformed in this election state [actionName=" <<
 			actionName <<
 			" isElectionsDone=" <<
-			_isElectionsDone <<
+			_isElectionsOccured <<
 			"]" <<
 			endl;
 		return false;
@@ -71,11 +71,28 @@ BallotBoxes& Elections::GetBallotBoxes()
 	return _ballotBoxes;
 }
 
-bool Elections::GetIsElectionsDone() const
+Date& Elections::GetElectionsDate()
 {
-	return _isElectionsDone;
+	return _date;
 }
 
-void Elections::ShowResults()
+bool Elections::IsElectionsOccured() const
 {
+	return _isElectionsOccured;
+}
+
+
+void Elections::ShowResults() const
+{
+	Results results;
+	results.Initialize(_parties);
+
+	for (int i = 0; i < _ballotBoxes.GetCount(); ++i)
+	{
+		Results ballotBoxResults = _ballotBoxes.Get(i).GetResults();
+		ballotBoxResults.Show();
+		results.Aggregate(ballotBoxResults);
+	}
+
+	results.Show();
 }

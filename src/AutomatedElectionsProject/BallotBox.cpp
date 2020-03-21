@@ -32,6 +32,11 @@ void BallotBox::Initialize(const int& id, const Address& address)
 	_id = id;
 }
 
+Results& BallotBox::GetResults() const
+{
+	return *_results;
+}
+
 void BallotBox::ClosePartyList(const Parties& parties)
 {
 	if (_results != nullptr)
@@ -52,7 +57,7 @@ void BallotBox::Show() const
 {
 	cout << "id: " << _id << " address: ";
 	_address.Show();
-	cout << endl << "results: " << endl;
+	cout << endl << "Results: " << endl;
 	_results->Show();
 }
 

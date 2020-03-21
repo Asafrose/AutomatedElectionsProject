@@ -37,9 +37,10 @@ void Results::Free() const
 	delete[] _partyResults;
 }
 
-void Results::Aggregate(const Results& other)
+void Results::Aggregate(const Results& other) const
 {
 	for (int i = 0; i < _partyCount; ++i)
 	{
+		_partyResults[i].Aggregate(other._partyResults[i]);
 	}
 }

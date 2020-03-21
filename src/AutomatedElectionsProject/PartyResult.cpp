@@ -29,7 +29,10 @@ bool PartyResult::Aggregate(const PartyResult& other)
 {
 	if (strcmp(_name, other._name) != 0)
 	{
-		std::cout << "Cannot aggregate party results of different parties [this=";
+		std::cout << "Cannot aggregate party results of different parties [this=" << _name << " other=" << other._name << "]\n";
+		return false;
 	}
-	return false;
+	
+	_votes += other._votes;
+	return true;
 }

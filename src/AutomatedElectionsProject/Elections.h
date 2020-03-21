@@ -7,7 +7,7 @@
 class Elections
 {
 private:
-	bool _isElectionsDone;
+	bool _isElectionsOccured;
 	Date _date;
 	Parties _parties;
 	BallotBoxes _ballotBoxes;
@@ -25,8 +25,8 @@ public:
 	Parties& GetParties();
 	BallotBoxes& GetBallotBoxes();
 	Date& GetElectionsDate();
-	bool ElectionsOccured();
-	void ShowResults();
+	bool IsElectionsOccured() const;
+	void ShowResults() const;
 };
 
 

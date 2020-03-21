@@ -34,7 +34,7 @@ int main()
 
 void PrintMenu(Elections elections)
 {
-	if (!elections.ElectionsOccured())
+	if (!elections.IsElectionsOccured())
 	{
 		cout << "**** Elections  Will take place at ";
 		elections.GetElectionsDate().ShowDate();
