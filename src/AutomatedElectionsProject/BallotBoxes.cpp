@@ -1,6 +1,6 @@
 ﻿#include "BallotBoxes.h"
 
-void BallotBoxes::Add(BallotBox& ballotBox)
+void BallotBoxes::Add(BallotBox* ballotBox)
 {
 	if (_array == nullptr)
 	{
@@ -19,7 +19,7 @@ void BallotBoxes::Add(BallotBox& ballotBox)
 		_physicalCount *= 2;
 	}
 
-	_array[_count] = &ballotBox;
+	_array[_count] = ballotBox;
 	_count++;
 }
 
@@ -35,5 +35,9 @@ int BallotBoxes::GetCount() const
 
 void BallotBoxes::Free() const
 {
+	for (int i = 0; i < _count; ++i)
+	{
+		delete _array[i];
+	}
 	delete[] _array;
 }

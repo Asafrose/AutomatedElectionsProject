@@ -17,7 +17,7 @@ private:
 public:
 	void Initialize(const Date& date);
 
-	void AddBallotBox(BallotBox& ballotBox);
+	void AddBallotBox(BallotBox* ballotBox);
 	void AddCandidate(Candidate& candidate, Party& party) const;
 	void AddCivilian(Civilian& civilian) const;
 	void AddParty(Party& party);

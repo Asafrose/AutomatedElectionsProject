@@ -11,7 +11,7 @@ private:
 	int _physicalCount = 0;
 
 public:
-	void Add(BallotBox& ballotBox);
+	void Add(BallotBox* ballotBox);
 	BallotBox& Get(int index) const;
 	int GetCount() const;
 	void Free() const;

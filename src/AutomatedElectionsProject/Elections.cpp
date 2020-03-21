@@ -29,7 +29,7 @@ void Elections::Initialize(const Date& date)
 	}
 }
 
-void Elections::AddBallotBox(BallotBox& ballotBox)
+void Elections::AddBallotBox(BallotBox* ballotBox)
 {
 	if (IsActionValid("AddBallotBox"))
 	{
