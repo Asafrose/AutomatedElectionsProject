@@ -18,6 +18,6 @@ public:
 	int GetVotersCount() const;
 	void Show() const;
 	void Free() const;
-	void Aggregate(const Results& other) const;
+	void Aggregate(const Results& other);
 };
 #endif // RESULTS_H

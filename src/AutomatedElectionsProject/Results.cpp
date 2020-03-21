@@ -9,13 +9,13 @@ void Results::Initialize(const Parties& parties)
 	for (int i = 0; i < _partyCount; i++)
 	{
 		Party party = parties.Get(i);
-		_partyResults[party.GetId()-1].Initialize(party.GetName());
+		_partyResults[party.GetId() - 1].Initialize(party.GetName());
 	}
 }
 
 void Results::AddVote(const Party& party)
 {
-	_partyResults[party.GetId()-1].AddVote();
+	_partyResults[party.GetId() - 1].AddVote();
 	_votersCount++;
 }
 
@@ -41,10 +41,11 @@ void Results::Free() const
 	delete[] _partyResults;
 }
 
-void Results::Aggregate(const Results& other) const
+void Results::Aggregate(const Results& other)
 {
 	for (int i = 0; i < _partyCount; ++i)
 	{
 		_partyResults[i].Aggregate(other._partyResults[i]);
 	}
+	_votersCount += other._votersCount;
 }

@@ -92,47 +92,69 @@ bool Elections::IsElectionsOccured() const
 
 void Elections::ShowResults() const
 {
-	if (_isElectionsOccured)
+	if (IsActionValid("ShowResults", false))
 	{
-	Results results;
-	results.Initialize(_parties);
+		Results results;
+		results.Initialize(_parties);
 
-	for (int i = 0; i < _ballotBoxes.GetCount(); ++i)
-	{
-		BallotBox ballotBox = _ballotBoxes.Get(i);
-		ballotBox.Show();
-		cout << "\n\n";
-		results.Aggregate(ballotBox.GetResults());
-	}
+		for (int i = 0; i < _ballotBoxes.GetCount(); ++i)
+		{
+			BallotBox ballotBox = _ballotBoxes.Get(i);
+			ballotBox.Show(true);
+			cout << "BallotBox Voting Percent: " << ballotBox.GetVotingPercent() * 100;
+			cout << "\n\n";
+			results.Aggregate(ballotBox.GetResults());
+		}
 
-	cout << "TotalResults:\n";
-	results.Show();
-	results.Free();
-	}
-	else
-	{
-		cout << "Elections will take place soon , Please Check the results after the elections :)"<< endl<< endl; 
+		cout << "TotalResults:\n";
+		results.Show();
+		cout << "Total Voting Percent: " << (double)results.GetVotersCount() / _civilians.GetCount() * 100 << endl;
+
+		results.Free();
 	}
 }
-	
+
 
 void Elections::ShowAllCivilians() const
 {
-	cout << " **** Civilians List **** " << endl;
+	cout << "*** ShowAllCivilians Started ***" << endl;
 	for (int i = 0; i < _civilians.GetCount(); ++i)
 	{
 		_civilians.Get(i).Show();
-		cout << endl;
 	}
-	cout << " **** End of Civilians List **** " << endl << endl;
+	cout << " *** ShowAllCivilians Finished ***" << endl;
 }
 
 void Elections::ShowAllParties() const
 {
+	cout << "*** ShowAllParties Started ***" << endl;
 	for (int i = 0; i < _parties.GetCount(); ++i)
 	{
 		_parties.Get(i).Show();
-		cout << "\n";
+	}
+	cout << "*** ShowAllParties Finished ***" << endl;
+}
+
+
+void Elections::ShowAllBallotBoxes() const
+{
+	cout << "*** ShowAllBallotBoxes Started ***" << endl;
+	for (int i = 0; i < _ballotBoxes.GetCount(); i++)
+	{
+		_ballotBoxes.Get(i).Show(false);
+	}
+	cout << "*** ShowAllBallotBoxes Finished ***" << endl;
+}
+
+void Elections::StartElections()
+{
+	if (IsActionValid("StartElections"))
+	{
+		_isElectionsOccured = true;
+		for (int i = 0; i < _ballotBoxes.GetCount(); i++)
+		{
+			_ballotBoxes.Get(i).ClosePartyList(_parties);
+		}
 	}
 }
 
@@ -140,25 +162,4 @@ void Elections::Free() const
 {
 	_ballotBoxes.Free();
 	_parties.Free();
-}
-
-void Elections::ShowAllBallotBoxes() const
-{
-	cout << "*** Ballot Boxes : ***" << endl;
-	for (int i = 0; i < _ballotBoxes.GetCount(); i++)
-	{
-		_ballotBoxes.Get(i).Show();
-		cout << endl;
-	}
-	cout << "*** End of List ***" << endl;
-}
-
-void Elections::StartElections()
-{
-	_isElectionsOccured = true;
-	for(int i=0;i<_ballotBoxes.GetCount();i++)
-	{
-		_ballotBoxes.Get(i).ClosePartyList(_parties);
-	}
-
 }

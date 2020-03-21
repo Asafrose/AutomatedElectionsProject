@@ -8,22 +8,6 @@
 
 using namespace std;
 
-void PrintMenu(Elections& elections);
-
-void RunMenu(Elections& elections);
-
-
-Civilian* AddNewCivilian(Elections& elections);
-
-void MenuAddBallotBox(Elections& elections);
-
-
-void MenuAddParty(Elections& elections);
-void MenuAddCandidate(Elections& elections);
-void MenuRunElections(Elections& elections);
-
-void EndMenu(Elections& elections);
-
 Date CreateDate(int day, int month, int year)
 {
 	Date date;
@@ -107,22 +91,177 @@ Elections CreateElections(const Date& date)
 }
 
 
-int main()
+char* GetString(const char* prompt)
 {
-	Elections elections = CreateElections(CreateDate(1, 1, 2020));
-	RunMenu(elections);
-	EndMenu(elections);
+	cout << prompt << ": ";
+	char string[MAX_CHAR_LENGTH];
+	cin.getline(string, sizeof string);
+
+	char* newString = new char[strlen(string) + 1];
+	strcpy(newString, string);
+
+	return newString;
+}
+
+int GetInt(const char* prompt)
+{
+	cout << prompt << ": ";
+	int result;
+	cin >> result;
+	return result;
+}
+
+BallotBox* GetBallotBox(Elections& elections)
+{
+	cout << "Available Ballot Boxes: " << endl;
+	elections.ShowAllBallotBoxes();
+	return &elections.GetBallotBoxes().Get(GetInt("Please select BallotBox Id") - 1);
+}
+
+void MenuAddBallotBox(Elections& elections)
+{
+	cout << "*** MenuAddBallotBox Started *** \n";
+
+	BallotBox* newBallotBox = new BallotBox;
+	Address address;
+
+	char* city = GetString("Please enter Ballet Box city");
+	char* street = GetString("Please enter Ballet Box street");
+	int houseNumber = GetInt("Please enter Ballet Box House Number");
+	address.Initialize(city, street, houseNumber);
+
+	newBallotBox->Initialize(elections.GetBallotBoxes().GetCount() + 1, address);
+	elections.AddBallotBox(newBallotBox);
+
+	cout << "*** MenuAddBallotBox Finished *** \n";
 }
 
 
+void AddNewCivilian(Elections& elections)
+{
+	cout << "*** AddNewCivilian Started ***" << endl;
+	Civilian* newCivilian = new Civilian;
+
+	char* name = GetString("Please enter civilian name");
+	int id = GetInt("Please enter civilian id");
+
+	Date birthdate;
+	unsigned int year = GetInt("Please enter civilian birth year");
+	birthdate.SetDate(year);
+
+	BallotBox* balletBox = GetBallotBox(elections);
+
+	newCivilian->Initialize(
+		name,
+		id,
+		birthdate,
+		balletBox);
+
+	elections.AddCivilian(newCivilian);
+	cout << "*** AddNewCivilian Finished ***" << endl;
+}
+
+PoliticalStream GetPoliticalStream()
+{
+	return (PoliticalStream)GetInt("Please choose Political stream: 0-Left   1-Middle   2-Right");
+}
+
+Date GetDate(const char* prompt)
+{
+	cout << prompt << ":\n";
+	int day = GetInt("Please enter day");
+	int month = GetInt("Please enter month");
+	int year = GetInt("Please enter year");
+
+	return CreateDate(day, month, year);
+}
+
+void MenuAddParty(Elections& elections)
+{
+	cout << "*** MenuAddParty Started ***" << endl;
+	Party* newParty = new Party;
+
+	char* name = GetString("Please enter party name");
+	PoliticalStream politicalStream = GetPoliticalStream();
+	Date date = GetDate("Please Enter Party Establish date");
+	newParty->Initialize(
+		elections.GetParties().GetCount() + 1,
+		name,
+		politicalStream,
+		date);
+	elections.AddParty(newParty);
+}
+
+
+void PersonalElection(Civilian& civilian, Elections& elections)
+{
+	cout << "Welcome " << civilian.GetName() << endl;
+	if (GetInt("Would you like to vote? Press '1' to continue '0' to exit"))
+	{
+		elections.ShowAllParties();
+		int voteId = GetInt("Please select the id of your chosen party");
+		civilian.Vote(elections.GetParties().Get(voteId - 1));
+		cout << "Vote received successfully :)" << endl;
+	}
+	else
+	{
+		cout << " Your Vote has ended without voting :( thank you" << endl;
+	}
+	cout << " Press any key to move to next civilian: ";
+	getchar();
+	system("CLS");
+}
+
+void MenuRunElections(Elections& elections)
+{
+	elections.StartElections();
+	cout << "*** Welcome to ";
+	elections.GetElectionsDate().Show();
+	cout << " elections ***" << endl;
+	cout << "*** Starting elections process ***" << endl;
+	const Civilians civilians = elections.GetCivilians();
+	for (int i = 0; i < civilians.GetCount(); i++)
+	{
+		PersonalElection(civilians.Get(i), elections);
+	}
+	cout << "*** Elections process ended ***" << endl;
+}
+
+void MenuAddCandidate(Elections& elections)
+{
+	cout << "*** MenuAddCandidate started ***" << endl;
+
+	for (int i = 0; i < elections.GetCivilians().GetCount(); ++i)
+	{
+		cout << i << " ==> ";
+		elections.GetCivilians().Get(i).Show();
+		cout << endl;
+	}
+
+	Civilian* civilian =
+		&elections.
+		 GetCivilians().
+		 Get(GetInt("Please select the number of the civilian that you want to run as candidate"));
+
+	elections.ShowAllParties();
+	Party* party = &elections.GetParties().Get(GetInt("Please select the party id") - 1);
+
+	Candidate* candidate = new Candidate;
+	candidate->Initialize(civilian, GetInt("Please enter rank in party"));
+	elections.AddCandidate(candidate, *party);
+
+	cout << "*** MenuAddCandidate finished ***" << endl;
+}
+
 void PrintMenu(Elections& elections)
 {
+	cout << endl;
 	if (!elections.IsElectionsOccured())
 	{
 		cout << "**** Elections  Will take place at ";
 		elections.GetElectionsDate().Show();
 		cout << "**** \n";
-		cout << "Please enter a number to select from the menu: \n";
+		cout << "Available actions: \n";
 		cout << "1 - Add New Ballot Box \n";
 		cout << "2 - Add New Citizen \n";
 		cout << "3 - Add New Party \n";
@@ -141,11 +280,10 @@ void PrintMenu(Elections& elections)
 		cout << "****Elections Completed at: ";
 		elections.GetElectionsDate().Show();
 		cout << "*****\n";
-
+		cout << "Available actions: \n";
 		cout << "5 - Show All Ballot boxes \n";
 		cout << "6 - Show All Citizens \n";
 		cout << "7 - Show All Parties \n";
-
 		cout << "9 - Show Elections Results \n";
 		cout << "10 - Exit \n";
 		cout << "****Please Note: Elections Completed,  \n ";
@@ -154,64 +292,61 @@ void PrintMenu(Elections& elections)
 
 void RunMenu(Elections& elections)
 {
-	int UserInput;
-
 
 	while (true)
 	{
 		PrintMenu(elections);
-		cin >> UserInput;
+		const int userInput = GetInt("Please choose action number");
 		getchar();
 		system("CLS");
-		switch (UserInput)
+		switch (userInput)
 		{
-		case (AddBallotBox):
+		case AddBallotBox:
 			{
 				MenuAddBallotBox(elections);
 				break;
 			}
-		case (AddCitizen):
+		case AddCitizen:
 			{
-				elections.AddCivilian(AddNewCivilian(elections));
+				AddNewCivilian(elections);
 				break;
 			}
-		case (AddParty):
+		case AddParty:
 			{
 				MenuAddParty(elections);
 				break;
 			}
-		case (AddCandidate):
+		case AddCandidate:
 			{
-				//		MenuAddCandidate(elections);
+				MenuAddCandidate(elections);
 				break;
 			}
-
-		case (ShowAllBallotBoxes):
+		case ShowAllBallotBoxes:
 			{
 				elections.ShowAllBallotBoxes();
 				break;
 			}
-		case (ShowAllCivilians):
+		case ShowAllCivilians:
 			{
 				elections.ShowAllCivilians();
 				break;
 			}
-		case (ShowAllParties):
+		case ShowAllParties:
 			{
 				elections.ShowAllParties();
 				break;
 			}
-		case(RunElections):
+		case RunElections:
 			{
 				MenuRunElections(elections);
 				break;
 			}
-		case (ShowElectionsResults):
+		case ShowElectionsResults:
 			{
 				elections.ShowResults();
 				break;
 			}
-		case (Exit):
+		case Exit:
 			{
 				return;
 			}
@@ -223,181 +358,10 @@ void RunMenu(Elections& elections)
 	}
 }
 
-
-char* GetString()
+int main()
 {
-	char string[MAX_CHAR_LENGTH];
-	cin.getline(string, sizeof string);
-
-	char* newString = new char[strlen(string) + 1];
-	strcpy(newString, string);
-
-	return newString;
-}
-
-void MenuAddBallotBox(Elections& elections)
-{
-	cout << "*** New Ballot Box *** \n";
-	Address ballotAddress;
-	BallotBox* newBallotBox = new BallotBox;
-	unsigned int houseNum;
-
-	const int ballotBoxId = elections.GetBallotBoxes().GetCount() + 1;
-
-	cout << "please enter Ballet Box city: \n";
-	char* city = GetString();
-	cout << "please enter Ballet Box street: \n";
-	char* street = GetString();
-	cout << "please enter Ballet Box House Number: \n";
-
-	cin >> houseNum;
-
-	ballotAddress.Initialize(city, street, houseNum);
-	newBallotBox->Initialize(ballotBoxId, ballotAddress);
-	elections.AddBallotBox(newBallotBox);
-}
-
-
-BallotBox* SelectBallotBox(Elections& elections)
-{
-	int ballotId;
-	const unsigned int maxBallotId = elections.GetBallotBoxes().GetCount();
-	cout << "Available Ballot Boxes: " << endl;
-	elections.ShowAllBallotBoxes();
-	cout << "Please select Ballot Box by entering the Ballot box ID:";
-	cin >> ballotId;
-	while (ballotId <= 0 || (ballotId > maxBallotId))
-	{
-		cout << "Ballot not found, Please select Ballot Box by entering the Ballot box ID:";
-		cin >> ballotId;
-	}
-
-	return &elections.GetBallotBoxes().Get(ballotId - 1);
-}
-
-Civilian* AddNewCivilian(Elections& elections)
-{
-	Civilian* newCivilian = new Civilian;
-	int id;
-	unsigned int year;
-	Date birthdate;
-
-	cout << "*** Enter New Civilian ***" << endl;
-	cout << "Enter name: ";
-	char* civilianName = GetString();
-	cout << "Enter Id: ";
-	cin >> id;
-	cout << "Enter Civilian Birth Year: ";
-	cin >> year;
-
-
-	birthdate.SetDate(year);
-	newCivilian->Initialize(
-		civilianName,
-		id,
-		birthdate,
-		SelectBallotBox(elections));
-
-	return newCivilian;
-}
-
-PoliticalStream GetPoliticalStream()
-{
-	int value;
-	cout << "Please choose Political stream: 0 - Left   1 - Middle   2- Right:";
-	cin >> value;
-	return static_cast<PoliticalStream>(value);
-}
-
-Date GetDate()
-{
-	Date date;
-	unsigned int day, month, year;
-	cout << "Enter day: ";
-	cin >> day;
-	cout << "Enter Month: ";
-	cin >> month;
-	cout << "Enter Year: ";
-	cin >> year;
-	while (!date.SetDate(day, month, year))
-	{
-		cout << "Enter day:";
-		cin >> day;
-		cout << "Enter Month:";
-		cin >> month;
-		cout << "Enter Year";
-		cin >> year;
-	}
-	return date;
-}
-
-void MenuAddParty(Elections& elections)
-{
-	cout << "*** New Party ****" << endl;
-	Party* newParty = new Party;
-	cout << "Please Enter Party name: ";
-	char* name = GetString();
-	cout << "Please Enter Party Establish date" << endl;
-	newParty->Initialize(elections.GetParties().GetCount() + 1, name, GetPoliticalStream(), GetDate());
-	elections.AddParty(newParty);
-}
-
- void ShowParties(Parties parties)  
-{
-	cout << " ** Party List **"<<endl;
-	for(int i=0;i<parties.GetCount();i++)
-	{
-		parties.Get(i).Show();
-		cout << endl;
-	}
-}
-
-
-void PersonalElection(Civilian& civilian, Elections& elections)
-{
-	int voteID;
-	int want;
-	cout << "Welcome ";
-	civilian.Show();
-	cout <<endl<< " Would you like to vote?  Press '1' to continue  '0' to exit: ";
-	cin >> want;
-	if(want)
-	{
-		cout << endl << "Please choose the ID of the party you wish to vote for:"<<endl;
-		ShowParties(elections.GetParties());
-		cout << "Vote for ID: ";
-		cin >> voteID;
-		civilian.Vote(elections.GetParties().Get(voteID - 1));
-		cout  << "Vote received successfully :)" << endl;
-	}
-	else
-	{
-		cout << " Your Vote has ended without voting :( thank you"<<endl;
-	}
-	cout << " Press any key to move to next civilian: ";
-	getchar();
-	system("CLS");
-	
-}
-
-void MenuRunElections(Elections& elections)
-{
-	elections.StartElections();
-	cout << "*****Welcome to ";
-	elections.GetElectionsDate().Show();
-	cout << " Elections ******" << endl;
-	cout << "***Starting Elections process ***" << endl;
-	const Civilians civilians = elections.GetCivilians();
-	for (int i = 0; i < civilians.GetCount(); i++)
-	{
-		
-		PersonalElection(civilians.Get(i), elections);
-	}
-	cout << "*** Elections process Ended***" << endl;
-}
-
-
-void EndMenu(Elections& elections)
-{
+	Elections elections = CreateElections(GetDate("Please enter elections date"));
+	RunMenu(elections);
 	elections.Free();
+	return 0;
 }

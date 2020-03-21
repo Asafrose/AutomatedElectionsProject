@@ -39,6 +39,8 @@ void Party::Show() const
 	}
 	cout << "Date Established: ";
 	_date.Show();
+
+	cout << endl;
 }
 
 int Party::GetId() const
@@ -49,6 +51,7 @@ int Party::GetId() const
 void Party::AddCandidate(Candidate* candidate)
 {
 	_candidates.Add(candidate);
+	_candidates.Sort();
 }
 
 char* Party::GetName() const

@@ -16,5 +16,6 @@ public:
 	Candidate& Get(int index) const;
 	int GetCount() const;
 	void Free() const;
+	void Sort() const;
 };
 #endif // CANDIDATES_H

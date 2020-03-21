@@ -57,19 +57,23 @@ void BallotBox::AddCivilian(Civilian* civilian)
 	_civilians.Add(civilian);
 }
 
-void BallotBox::Show() const
+void BallotBox::Show(bool showResults) const
 {
 	cout << "Ballot Box: ";
 	cout << "id: " << _id << " address: ";
 	_address.Show();
-	cout << endl << "Results: " << endl;
-	if(_results!=nullptr)
-	{ 
-		_results->Show();
-	}
-	else
+
+	if (showResults)
 	{
-		cout << "no results";
+		cout << "Results: " << endl;
+		if (_results != nullptr)
+		{
+			_results->Show();
+		}
+		else
+		{
+			cout << "no results" << endl;
+		}
 	}
 }
 
@@ -83,7 +87,4 @@ void BallotBox::Free() const
 		_results->Free();
 		delete _results;
 	}
-
 }
-	
-

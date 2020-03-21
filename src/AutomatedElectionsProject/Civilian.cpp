@@ -28,6 +28,11 @@ void Civilian::Initialize(const Civilian& other)
 		other._name, other._id, other._birth, other._balletBox);
 }
 
+char* Civilian::GetName() const
+{
+	return _name;
+}
+
 BallotBox* Civilian::GetBallotBox() const
 {
 	return _balletBox;
@@ -48,7 +53,7 @@ void Civilian::Show() const
 {
 	cout << "Id: " << _id << " Name: " << _name << " Birth: ";
 	_birth.Show();
-	cout << " IsVoted: " << _isVoted;
+	cout << " IsVoted: " << _isVoted << endl;
 }
 
 void Civilian::Free() const

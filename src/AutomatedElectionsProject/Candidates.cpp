@@ -1,5 +1,19 @@
 ﻿#include "Candidates.h"
 
+#include <cstdlib>
+
+int CompareCandidates(const void* a, const void* b)
+{
+	int candidateARank = (**(Candidate**)a).GetRank();
+	int candidateBRank = (**(Candidate**)b).GetRank();
+
+	return candidateARank > candidateBRank
+		       ? 1
+		       : candidateARank == candidateBRank
+		       ? 0
+		       : -1;
+}
+
 void Candidates::Add(Candidate* candidate)
 {
 	if (_array == nullptr)
@@ -25,7 +39,7 @@ void Candidates::Add(Candidate* candidate)
 
 Candidate& Candidates::Get(int index) const
 {
-	return  *_array[index];
+	return *_array[index];
 }
 
 int Candidates::GetCount() const
@@ -43,4 +57,7 @@ void Candidates::Free() const
 	delete[] _array;
 }
 
-
+void Candidates::Sort() const
+{
+	qsort(_array, _count, sizeof(Candidate*), CompareCandidates);
+}

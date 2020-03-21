@@ -11,6 +11,7 @@ private:
 public:
 	void Initialize(Civilian* civilian, int rank);
 	Civilian& GetCivilian() const;
+	int& GetRank();
 	void Free() const;
 };
 

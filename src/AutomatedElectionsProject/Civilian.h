@@ -23,6 +23,7 @@ public:
 		BallotBox* balletBox);
 	void Initialize(const Civilian& other);
 
+	char* GetName() const;
 	BallotBox* GetBallotBox() const;
 	void Vote(const Party& party);
 	void Show() const;

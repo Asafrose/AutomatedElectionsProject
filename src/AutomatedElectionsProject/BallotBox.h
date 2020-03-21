@@ -23,7 +23,7 @@ public:
 	void AddCivilian(Civilian* civilian);
 	void AddVote(const Party& party) const;
 	double GetVotingPercent() const;
-	void Show() const;
+	void Show(bool showResults) const;
 	void Free() const;
 	
 };
