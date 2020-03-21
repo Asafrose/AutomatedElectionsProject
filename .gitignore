@@ -40,6 +40,5 @@ src/.vs/**/*
 *.idb
 *.pdb
 *.ilk
-*.rc
 *.res
 *.aps
