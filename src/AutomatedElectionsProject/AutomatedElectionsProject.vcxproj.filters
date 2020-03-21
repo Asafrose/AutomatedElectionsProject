@@ -57,9 +57,6 @@
     <ClCompile Include="BallotBoxes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AutomatedElectionsMain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Address.h">
@@ -110,10 +107,5 @@
     <ClInclude Include="MenuOptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="AutomatedElectionsProject.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

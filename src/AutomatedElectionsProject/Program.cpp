@@ -5,6 +5,8 @@
 #include "Elections.h"
 #include "BallotBox.h"
 
+#define  MAX_CHAR_LENGTH 10
+
 using namespace std;
 
 void PrintMenu(Elections elections);
@@ -13,10 +15,11 @@ void RunMenu(Elections elections);
 
 
 void MenuAddBallotBox(Elections elections);
+/*
 void MenuAddCitizen(Elections elections);
 void MenuAddParty(Elections elections);
 void MenuAddCandidate(Elections elections);
-
+*/
 
 void EndMenu(Elections elections);
 
@@ -83,7 +86,7 @@ void RunMenu(Elections elections)
 				MenuAddBallotBox(elections);
 				break;
 			}
-		case (AddCitizen):
+	/*	case (AddCitizen):
 			{
 				MenuAddCitizen(elections);
 				break;
@@ -100,43 +103,80 @@ void RunMenu(Elections elections)
 			}
 		case (ShowAllBallotBoxes):
 			{
-			//elections.GetBallotBoxes()
-			break;
+				//elections.GetBallotBoxes()
+				break;
 			}
 		case (ShowAllCitizens):
 			{
-			//	elections.GetBallotBoxes().
-			break;
+				//	elections.GetBallotBoxes().
+				break;
 			}
 		case (ShowAllParties):
 			{
 				//elections.GetParties()
-			break;
+				break;
 			}
 		case(RunElections):
 			{
 				//elections.Run
-			break;
+				break;
 			}
 		case (ShowElectionsResults):
 			{
 				elections.ShowResults();
 				break;
-			}
+		}*/	
 		default:
 			{
-			cout << "Pleae Enter your Selection Again: ";
-			
+				cout << "Please Enter your Selection Again: ";
 			}
-			
 		}
 		cin >> UserInput;
 	}
 }
 
-void MenuAddBallotBox()
+char* InputString()
 {
+	char* newString = new char[MAX_CHAR_LENGTH];
+	cin >> newString;
+	const int size = strlen(newString);
+	if (size + 1 < MAX_CHAR_LENGTH)
+	{
+		delete (newString + size + 1);
+	}
+
+	return newString;
 }
+
+void MenuAddBallotBox(Elections elections)
+{
+	Address ballotAddress;
+	BallotBox newBallotBox;
+	unsigned int houseNum;
+	char* street = InputString();
+	char* city = InputString();
+	int ballotBoxId = elections.GetBallotBoxes().GetCount() + 1;
+
+	cout << " please enter Ballet Box city: \n";
+
+	cout << " please enter Ballet Box street: \n";
+
+	cout << " please enter Ballet Box street: \n";
+
+	cin >> houseNum;
+
+	ballotAddress.Initialize(city, street, houseNum);
+	newBallotBox.Initialize(ballotBoxId, ballotAddress);
+	elections.AddBallotBox(newBallotBox);
+	
+}
+
+/*
+
+void MenuAddCitizen(Elections elections);
+void MenuAddParty(Elections elections);
+void MenuAddCandidate(Elections elections);
+*/
 
 void EndMenu(Elections elections)
 {
