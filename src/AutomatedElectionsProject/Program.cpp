@@ -137,6 +137,7 @@ void PrintMenu(Elections& elections)
 	}
 	else
 	{
+		cout << endl;
 		cout << "****Elections Completed at: ";
 		elections.GetElectionsDate().Show();
 		cout << "*****\n";
@@ -147,7 +148,7 @@ void PrintMenu(Elections& elections)
 
 		cout << "9 - Show Elections Results \n";
 		cout << "10 - Exit \n";
-		cout << "****Please Note: Elections Completed, t \n ";
+		cout << "****Please Note: Elections Completed,  \n ";
 	}
 }
 
@@ -373,7 +374,7 @@ void PersonalElection(Civilian& civilian, Elections& elections)
 	{
 		cout << " Your Vote has ended without voting :( thank you"<<endl;
 	}
-	cout << " Press any key to move to next civilian";
+	cout << " Press any key to move to next civilian: ";
 	getchar();
 	system("CLS");
 	
@@ -398,4 +399,5 @@ void MenuRunElections(Elections& elections)
 
 void EndMenu(Elections& elections)
 {
+	elections.Free();
 }

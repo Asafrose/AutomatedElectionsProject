@@ -150,7 +150,7 @@ void Elections::StartElections()
 	_isElectionsOccured = true;
 	for(int i=0;i<_ballotBoxes.GetCount();i++)
 	{
-		_ballotBoxes.Get(i).GetResults().Initialize(_parties);
+		_ballotBoxes.Get(i).ClosePartyList(_parties);
 	}
 
 }

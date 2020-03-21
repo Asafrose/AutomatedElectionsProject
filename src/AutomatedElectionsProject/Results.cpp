@@ -9,7 +9,7 @@ void Results::Initialize(const Parties& parties)
 	for (int i = 0; i < _partyCount; i++)
 	{
 		Party party = parties.Get(i);
-		_partyResults[party.GetId()].Initialize(party.GetName());
+		_partyResults[party.GetId()-1].Initialize(party.GetName());
 	}
 }
 

@@ -83,4 +83,7 @@ void BallotBox::Free() const
 		_results->Free();
 		delete _results;
 	}
+
 }
+	
+
