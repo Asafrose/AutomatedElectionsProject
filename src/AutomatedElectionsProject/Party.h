@@ -15,7 +15,7 @@ private:
 	Candidates _candidates;
 
 public:
-	void SetParty(
+	void Initialize(
 		int id,
 		const char* name,
 		PoliticalStream politicalStream,

@@ -21,6 +21,7 @@ public:
 		int id,
 		const Date& birth,
 		BallotBox* balletBox);
+	void Initilize(const Civilian& other);
 
 	BallotBox* GetBallotBox() const;
 	void Vote(const Party& party);

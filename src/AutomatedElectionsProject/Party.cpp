@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void Party::SetParty(int id, const char* name, PoliticalStream politicalStream, const Date& date)
+void Party::Initialize(int id, const char* name, PoliticalStream politicalStream, const Date& date)
 {
 	_name = new char[strlen(name) + 1];
 	strcpy(_name, name);

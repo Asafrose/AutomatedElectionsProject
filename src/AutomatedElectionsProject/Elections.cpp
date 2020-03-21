@@ -45,11 +45,14 @@ void Elections::AddCandidate(Candidate* candidate, Party& party) const
 	}
 }
 
-void Elections::AddCivilian(Civilian* civilian) const
+void Elections::AddCivilian(Civilian* civilian)
 {
 	if (IsActionValid("AddCivilian"))
 	{
 		civilian->GetBallotBox()->AddCivilian(civilian);
+		Civilian* civilianCopy = new Civilian;
+		civilianCopy->Initialize(*civilian);
+		_civilians.Add(civilianCopy);
 	}
 }
 
@@ -69,6 +72,11 @@ Parties& Elections::GetParties()
 BallotBoxes& Elections::GetBallotBoxes()
 {
 	return _ballotBoxes;
+}
+
+Civilians& Elections::GetCivilians()
+{
+	return _civilians;
 }
 
 Date& Elections::GetElectionsDate()
@@ -102,14 +110,10 @@ void Elections::ShowResults() const
 
 void Elections::ShowAllCivilians() const
 {
-	for (int i = 0; i < _ballotBoxes.GetCount(); ++i)
+	for (int i = 0; i < _civilians.GetCount(); ++i)
 	{
-		Civilians civilians = _ballotBoxes.Get(i).GetCivilians();
-		for (int j = 0; j < civilians.GetCount(); ++j)
-		{
-			civilians.Get(j).Show();
-			cout << endl;
-		}
+		_civilians.Get(i).Show();
+		cout << endl;
 	}
 }
 
@@ -130,12 +134,11 @@ void Elections::Free() const
 
 void Elections::ShowAllBallotBoxes() const
 {
-	cout << "*** Ballot Boxes : ***"<< endl;
-	for(int i=0;i<_ballotBoxes.GetCount();i++)
+	cout << "*** Ballot Boxes : ***" << endl;
+	for (int i = 0; i < _ballotBoxes.GetCount(); i++)
 	{
 		_ballotBoxes.Get(i).Show();
 		cout << endl;
 	}
 	cout << "*** End of List ***";
 }
-

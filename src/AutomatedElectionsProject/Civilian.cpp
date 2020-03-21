@@ -22,6 +22,12 @@ void Civilian::Initialize(
 	_isVoted = false;
 }
 
+void Civilian::Initialize(const Civilian& other)
+{
+	Initialize(
+		other._name, other._id, other._birth, other._balletBox);
+}
+
 BallotBox* Civilian::GetBallotBox() const
 {
 	return _balletBox;
