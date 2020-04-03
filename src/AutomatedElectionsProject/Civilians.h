@@ -13,6 +13,7 @@ private:
 	
 public:
 	Civilians() = default;
+	
 	~Civilians();
 	
 	void Add(Civilian* civilian);

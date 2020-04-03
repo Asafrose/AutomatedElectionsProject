@@ -187,10 +187,10 @@ void MenuRunElections(Elections& elections)
 	elections.GetElectionsDate().Show();
 	cout << " elections ***" << endl;
 	cout << "*** Starting elections process ***" << endl;
-	const Civilians civilians = elections.GetCivilians();
-	for (int i = 0; i < civilians.GetCount(); i++)
+	
+	for (int i = 0; i < elections.GetCivilians().GetCount(); i++)
 	{
-		PersonalElection(civilians.Get(i), elections);
+		PersonalElection(elections.GetCivilians().Get(i), elections);
 	}
 	cout << "*** Elections process ended ***" << endl;
 }

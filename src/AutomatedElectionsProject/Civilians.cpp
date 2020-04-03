@@ -33,6 +33,8 @@ int Civilians::GetCount() const
 	return _count;
 }
 
+
+
 Civilians::~Civilians()
 {
 	for (int i = 0; i < _count; ++i)
