@@ -7,25 +7,18 @@
 
 using namespace std;
 
-void Civilian::Initialize(
-	const char* name,
-	int id,
-	const Date& birth,
-	BallotBox* balletBox)
+Civilian::Civilian(const char* name, int id, const Date& birth, BallotBox* balletBox) : _birth(birth)
 {
 	_name = new char[strlen(name) + 1];
 	strcpy(_name, name);
 
 	_id = id;
-	_birth = birth;
 	_balletBox = balletBox;
 	_isVoted = false;
 }
 
-void Civilian::Initialize(const Civilian& other)
+Civilian::Civilian(const Civilian& other) : Civilian(other._name, other._id, other._birth, other._balletBox)
 {
-	Initialize(
-		other._name, other._id, other._birth, other._balletBox);
 }
 
 char* Civilian::GetName() const
@@ -56,7 +49,7 @@ void Civilian::Show() const
 	cout << " IsVoted: " << _isVoted << endl;
 }
 
-void Civilian::Free() const
+Civilian::~Civilian()
 {
 	delete[] _name;
 }

@@ -9,10 +9,11 @@ private:
 	Civilian* _civilian;
 	int _rank;
 public:
-	void Initialize(Civilian* civilian, int rank);
+	Candidate(Civilian* civilian, int rank);
+	~Candidate();
+	
 	Civilian& GetCivilian() const;
 	int& GetRank();
-	void Free() const;
 };
 
 

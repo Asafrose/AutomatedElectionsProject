@@ -8,13 +8,17 @@
 class BallotBox
 {
 private:
+	static int _counter;
+	
 	int _id;
 	Address _address;
 	Civilians _civilians;
 	Results* _results;
 	
 public:
-	void Initialize(const int& id, const Address& address);
+	BallotBox(const Address& address);
+	~BallotBox();
+	
 	Results& GetResults() const;
 	Civilians& GetCivilians();
 
@@ -24,7 +28,6 @@ public:
 	void AddVote(const Party& party) const;
 	double GetVotingPercent() const;
 	void Show(bool showResults) const;
-	void Free() const;
 	
 };
 #endif // BALLOTBOX_H

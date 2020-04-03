@@ -10,9 +10,12 @@ private:
 	int _year;
 	
 public:
-	bool SetDate(unsigned int day, unsigned int month, unsigned int year);
-	bool SetDate(unsigned int month, unsigned int year);
-	bool SetDate(unsigned int year);
+	Date(unsigned int day, unsigned int month, unsigned int year);
+	Date(unsigned int month, unsigned int year);
+	Date(unsigned int year);
+	Date(const Date& other);
+	~Date() = default;
+	
 	void Show() const;
 };
 

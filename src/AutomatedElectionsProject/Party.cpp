@@ -6,13 +6,14 @@
 
 using namespace std;
 
-void Party::Initialize(int id, const char* name, PoliticalStream politicalStream, const Date& date)
+int Party::_counter = 1;
+
+Party::Party(const char* name, PoliticalStream politicalStream, const Date& date) : _date(date)
 {
+	_id = _counter++;
 	_name = new char[strlen(name) + 1];
 	strcpy(_name, name);
-	_id = id;
 	_politicalStream = politicalStream;
-	_date = date;
 }
 
 void Party::Show() const
@@ -59,7 +60,7 @@ char* Party::GetName() const
 	return _name;
 }
 
-void Party::Free() const
+Party::~Party()
 {
-	delete _name;
+	delete[] _name;
 }

@@ -33,11 +33,10 @@ int Civilians::GetCount() const
 	return _count;
 }
 
-void Civilians::Free() const
+Civilians::~Civilians()
 {
 	for (int i = 0; i < _count; ++i)
 	{
-		_array[i]->Free();
 		delete _array[i];
 	}
 	delete[] _array;

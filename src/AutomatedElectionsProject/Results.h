@@ -9,15 +9,15 @@ class Results
 private:
 	int _votersCount;
 	int _partyCount;
-	PartyResult* _partyResults;
+	PartyResult** _partyResults;
 
 public:
-	void Initialize(const Parties& parties);
+	Results(const Parties& parties);
+	~Results();
 
 	void AddVote(const Party& party);
 	int GetVotersCount() const;
 	void Show() const;
-	void Free() const;
 	void Aggregate(const Results& other);
 };
 #endif // RESULTS_H

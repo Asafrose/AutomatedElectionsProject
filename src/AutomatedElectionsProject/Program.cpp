@@ -8,67 +8,43 @@
 
 using namespace std;
 
-Date CreateDate(int day, int month, int year)
+Party* CreateParty(const char* name, PoliticalStream politicalStream)
 {
-	Date date;
-	date.SetDate(day, month, year);
-	return date;
-}
-
-Party* CreateParty(int id, const char* name, PoliticalStream politicalStream)
-{
-	Party* party = new Party;
-	party->Initialize(
-		id,
+	return new Party(
 		name,
 		politicalStream,
-		CreateDate(1, 1, 1999));
-	return party;
+		Date(1999));
 }
 
 Civilian* CreateCivilian(const char* name, int id, BallotBox* ballotBox)
 {
-	Civilian* civilian = new Civilian;
-	civilian->Initialize(
+	return new Civilian(
 		name,
 		id,
-		CreateDate(1, 1, 1999),
+		Date(1999),
 		ballotBox);
-	return civilian;
 }
 
-BallotBox* CreateBallotBox(int id, const char* city, const char* street, int streetNumber)
+BallotBox* CreateBallotBox(const char* city, const char* street, int streetNumber)
 {
-	BallotBox* ballotBox = new BallotBox;
-	Address address;
-	address.Initialize(city, street, streetNumber);
-	ballotBox->Initialize(id, address);
-	return ballotBox;
-}
-
-Candidate* CreateCandidate(Civilian* civilian, int rank)
-{
-	Candidate* candidate = new Candidate;
-	candidate->Initialize(civilian, rank);
-	return candidate;
+	return new BallotBox(Address(city, street, streetNumber));
 }
 
 Elections CreateElections(const Date& date)
 {
-	Elections elections;
-	elections.Initialize(date);
+	Elections elections(date);
 
-	BallotBox* telAvivBallotBox = CreateBallotBox(1, "Tel Aviv", "Shimon Hatarsi", 37);
-	BallotBox* herzliyaBallotBox = CreateBallotBox(2, "Herzliya", "Haalumim", 3);
+	BallotBox* telAvivBallotBox = CreateBallotBox("Tel Aviv", "Shimon Hatarsi", 37);
+	BallotBox* herzliyaBallotBox = CreateBallotBox("Herzliya", "Haalumim", 3);
 	Civilian* bibi = CreateCivilian("Binyamin Netaniyahu", 1, telAvivBallotBox);
 	Civilian* miriRegev = CreateCivilian("Miri Regev", 2, telAvivBallotBox);
 	Civilian* gantz = CreateCivilian("Binyamin Gantz", 3, herzliyaBallotBox);
 	Civilian* yairLapid = CreateCivilian("Yair Lapid", 4, herzliyaBallotBox);
 	Civilian* noamKozer = CreateCivilian("Noam Kozer", 5, telAvivBallotBox);
 	Civilian* ohadShemTov = CreateCivilian("Ohad Shem-Tov", 6, herzliyaBallotBox);
-	Party* blueAndWhite = CreateParty(1, "Blue And White", Center);
-	Party* likud = CreateParty(2, "Likud", Right);
-	Party* thePirates = CreateParty(3, "The Pirates", Center);
+	Party* blueAndWhite = CreateParty("Blue And White", Center);
+	Party* likud = CreateParty("Likud", Right);
+	Party* thePirates = CreateParty("The Pirates", Center);
 	elections.AddBallotBox(telAvivBallotBox);
 	elections.AddBallotBox(herzliyaBallotBox);
 	elections.AddCivilian(bibi);
@@ -80,12 +56,12 @@ Elections CreateElections(const Date& date)
 	elections.AddParty(blueAndWhite);
 	elections.AddParty(likud);
 	elections.AddParty(thePirates);
-	elections.AddCandidate(CreateCandidate(bibi, 1), *likud);
-	elections.AddCandidate(CreateCandidate(miriRegev, 1), *likud);
-	elections.AddCandidate(CreateCandidate(gantz, 1), *blueAndWhite);
-	elections.AddCandidate(CreateCandidate(yairLapid, 1), *blueAndWhite);
-	elections.AddCandidate(CreateCandidate(noamKozer, 1), *thePirates);
-	elections.AddCandidate(CreateCandidate(ohadShemTov, 1), *thePirates);
+	elections.AddCandidate(new Candidate(bibi, 1), *likud);
+	elections.AddCandidate(new Candidate(miriRegev, 1), *likud);
+	elections.AddCandidate(new Candidate(gantz, 1), *blueAndWhite);
+	elections.AddCandidate(new Candidate(yairLapid, 1), *blueAndWhite);
+	elections.AddCandidate(new Candidate(noamKozer, 1), *thePirates);
+	elections.AddCandidate(new Candidate(ohadShemTov, 1), *thePirates);
 
 	return elections;
 }
@@ -122,16 +98,11 @@ void MenuAddBallotBox(Elections& elections)
 {
 	cout << "*** MenuAddBallotBox Started *** \n";
 
-	BallotBox* newBallotBox = new BallotBox;
-	Address address;
-
 	char* city = GetString("Please enter Ballet Box city");
 	char* street = GetString("Please enter Ballet Box street");
 	int houseNumber = GetInt("Please enter Ballet Box House Number");
-	address.Initialize(city, street, houseNumber);
 
-	newBallotBox->Initialize(elections.GetBallotBoxes().GetCount() + 1, address);
-	elections.AddBallotBox(newBallotBox);
+	elections.AddBallotBox(new BallotBox(Address(city, street, houseNumber)));
 
 	cout << "*** MenuAddBallotBox Finished *** \n";
 }
@@ -140,21 +111,20 @@ void MenuAddBallotBox(Elections& elections)
 void AddNewCivilian(Elections& elections)
 {
 	cout << "*** AddNewCivilian Started ***" << endl;
-	Civilian* newCivilian = new Civilian;
+	
 
 	char* name = GetString("Please enter civilian name");
 	int id = GetInt("Please enter civilian id");
 
-	Date birthdate;
-	unsigned int year = GetInt("Please enter civilian birth year");
-	birthdate.SetDate(year);
+	Date birthDate(GetInt("Please enter civilian birth year"));
+	
 
 	BallotBox* balletBox = GetBallotBox(elections);
 
-	newCivilian->Initialize(
+	Civilian* newCivilian = new Civilian(
 		name,
 		id,
-		birthdate,
+		birthDate,
 		balletBox);
 
 	elections.AddCivilian(newCivilian);
@@ -173,19 +143,17 @@ Date GetDate(const char* prompt)
 	int month = GetInt("Please enter month");
 	int year = GetInt("Please enter year");
 
-	return CreateDate(day, month, year);
+	return Date(day, month, year);
 }
 
 void MenuAddParty(Elections& elections)
 {
 	cout << "*** MenuAddParty Started ***" << endl;
-	Party* newParty = new Party;
 
 	char* name = GetString("Please enter party name");
 	PoliticalStream politicalStream = GetPoliticalStream();
 	Date date = GetDate("Please Enter Party Establish date");
-	newParty->Initialize(
-		elections.GetParties().GetCount() + 1,
+	Party* newParty = new Party(
 		name,
 		politicalStream,
 		date);
@@ -246,8 +214,7 @@ void MenuAddCandidate(Elections& elections)
 	elections.ShowAllParties();
 	Party* party = &elections.GetParties().Get(GetInt("Please select the party id") - 1);
 
-	Candidate* candidate = new Candidate;
-	candidate->Initialize(civilian, GetInt("Please enter rank in party"));
+	Candidate* candidate = new Candidate(civilian, GetInt("Please enter rank in party"));
 	elections.AddCandidate(candidate, *party);
 
 	cout << "*** MenuAddCandidate finished ***" << endl;
@@ -292,7 +259,6 @@ void PrintMenu(Elections& elections)
 
 void RunMenu(Elections& elections)
 {
-
 	while (true)
 	{
 		PrintMenu(elections);
@@ -362,6 +328,5 @@ int main()
 {
 	Elections elections = CreateElections(GetDate("Please enter elections date"));
 	RunMenu(elections);
-	elections.Free();
 	return 0;
 }

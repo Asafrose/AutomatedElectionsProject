@@ -4,11 +4,12 @@
 
 using namespace std;
 
-void BallotBox::Initialize(const int& id, const Address& address)
+int BallotBox::_counter = 1;
+
+BallotBox::BallotBox(const Address& address) : _address(address)
 {
 	_results = nullptr;
-	_address = address;
-	_id = id;
+	_id = _counter++;
 }
 
 void BallotBox::AddVote(const Party& party) const
@@ -48,8 +49,7 @@ void BallotBox::ClosePartyList(const Parties& parties)
 		return;
 	}
 
-	_results = new Results;
-	_results->Initialize(parties);
+	_results = new Results(parties);
 }
 
 void BallotBox::AddCivilian(Civilian* civilian)
@@ -77,14 +77,7 @@ void BallotBox::Show(bool showResults) const
 	}
 }
 
-void BallotBox::Free() const
+BallotBox::~BallotBox()
 {
-	_address.Free();
-	_civilians.Free();
-
-	if (_results != nullptr)
-	{
-		_results->Free();
-		delete _results;
-	}
+	delete _results;
 }

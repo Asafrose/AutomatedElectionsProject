@@ -12,9 +12,11 @@ private:
 	int _physicalCount = 0;
 
 public:
+	Parties() = default;
+	~Parties();
+	
 	void Add(Party* party);
 	Party& Get(int index) const;
 	int GetCount() const;
-	void Free() const;
 };
 #endif // PARTIES_H

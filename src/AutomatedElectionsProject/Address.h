@@ -8,10 +8,10 @@ private:
 	char* _street;
 	unsigned int _houseNumber;
 public:
-	bool Initialize(
-		const char* city,
-		const char* street,
-		unsigned int houseNumber);
+	Address(const char* city, const char* street, unsigned int houseNumber);
+	Address(const Address& other);
+	~Address();
+	
 	void Show() const;
 	void Free() const;
 };

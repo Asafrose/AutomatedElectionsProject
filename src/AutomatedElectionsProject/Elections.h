@@ -16,7 +16,8 @@ private:
 	bool IsActionValid(const char* actionName, bool isValidBeforeElections = true) const;
 
 public:
-	void Initialize(const Date& date);
+	Elections(const Date& date);
+	~Elections() = default;
 
 	void AddBallotBox(BallotBox* ballotBox);
 	void AddCandidate(Candidate* candidate, Party& party) const;
@@ -31,7 +32,6 @@ public:
 	void ShowResults() const;
 	void ShowAllCivilians() const;
 	void ShowAllParties() const;
-	void Free() const;
 	void ShowAllBallotBoxes() const;
 	void StartElections();
 };

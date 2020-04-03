@@ -14,6 +14,15 @@ int CompareCandidates(const void* a, const void* b)
 		       : -1;
 }
 
+Candidates::~Candidates()
+{
+	for (int i = 0; i < _count; ++i)
+	{
+		delete _array[i];
+	}
+	delete[] _array;
+}
+
 void Candidates::Add(Candidate* candidate)
 {
 	if (_array == nullptr)
@@ -45,16 +54,6 @@ Candidate& Candidates::Get(int index) const
 int Candidates::GetCount() const
 {
 	return _count;
-}
-
-void Candidates::Free() const
-{
-	for (int i = 0; i < _count; ++i)
-	{
-		_array[i]->Free();
-		delete _array[i];
-	}
-	delete[] _array;
 }
 
 void Candidates::Sort() const

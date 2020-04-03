@@ -21,12 +21,9 @@ bool Elections::IsActionValid(const char* actionName, bool isValidBeforeElection
 	return true;
 }
 
-void Elections::Initialize(const Date& date)
+Elections::Elections(const Date& date): _date(date)
 {
-	if (IsActionValid("Initialize"))
-	{
-		_date = date;
-	}
+	_isElectionsOccured = false;
 }
 
 void Elections::AddBallotBox(BallotBox* ballotBox)
@@ -50,9 +47,7 @@ void Elections::AddCivilian(Civilian* civilian)
 	if (IsActionValid("AddNewCivilian"))
 	{
 		civilian->GetBallotBox()->AddCivilian(civilian);
-		Civilian* civilianCopy = new Civilian;
-		civilianCopy->Initialize(*civilian);
-		_civilians.Add(civilianCopy);
+		_civilians.Add(new Civilian(*civilian));
 	}
 }
 
@@ -94,12 +89,11 @@ void Elections::ShowResults() const
 {
 	if (IsActionValid("ShowResults", false))
 	{
-		Results results;
-		results.Initialize(_parties);
+		Results results(_parties);
 
 		for (int i = 0; i < _ballotBoxes.GetCount(); ++i)
 		{
-			BallotBox ballotBox = _ballotBoxes.Get(i);
+			BallotBox& ballotBox = _ballotBoxes.Get(i);
 			ballotBox.Show(true);
 			cout << "BallotBox Voting Percent: " << ballotBox.GetVotingPercent() * 100;
 			cout << "\n\n";
@@ -109,8 +103,6 @@ void Elections::ShowResults() const
 		cout << "TotalResults:\n";
 		results.Show();
 		cout << "Total Voting Percent: " << (double)results.GetVotersCount() / _civilians.GetCount() * 100 << endl;
-
-		results.Free();
 	}
 }
 
@@ -156,10 +148,4 @@ void Elections::StartElections()
 			_ballotBoxes.Get(i).ClosePartyList(_parties);
 		}
 	}
-}
-
-void Elections::Free() const
-{
-	_ballotBoxes.Free();
-	_parties.Free();
 }

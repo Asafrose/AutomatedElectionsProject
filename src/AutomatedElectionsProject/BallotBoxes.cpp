@@ -33,11 +33,10 @@ int BallotBoxes::GetCount() const
 	return _count;
 }
 
-void BallotBoxes::Free() const
+BallotBoxes::~BallotBoxes()
 {
 	for (int i = 0; i < _count; ++i)
 	{
-		_array[i]->Free();
 		delete _array[i];
 	}
 	delete[] _array;

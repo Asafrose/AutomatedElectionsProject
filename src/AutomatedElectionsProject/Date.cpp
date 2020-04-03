@@ -1,6 +1,6 @@
 ﻿#include "Date.h"
 #include <iostream>
-using namespace  std;
+using namespace std;
 
 bool IsLeapYear(unsigned int year)
 {
@@ -43,30 +43,31 @@ bool IsValidMonth(unsigned int month)
 	return month > 0 && month <= 12;
 }
 
-bool Date::SetDate(unsigned int day, unsigned int month, unsigned int year)
+Date::Date(unsigned int day, unsigned int month, unsigned int year)
 {
 	if (!IsValidYear(year) ||
 		!IsValidMonth(month) ||
 		!IsValidDay(day, month, year))
 	{
-		return false;
+		//future exception handeling
 	}
 
 	_day = day;
 	_month = month;
 	_year = year;
-	return true;
 }
 
 
-bool Date::SetDate(unsigned int month, unsigned int year)
+Date::Date(unsigned int month, unsigned int year) : Date(1, month, year)
 {
-	return SetDate(1, month, year);
 }
 
-bool Date::SetDate(unsigned int year)
+Date::Date(unsigned int year) : Date(1, year)
 {
-	return SetDate(1, 1, year);
+}
+
+Date::Date(const Date& other) : Date(other._day, other._month, other._year)
+{
 }
 
 void Date::Show() const

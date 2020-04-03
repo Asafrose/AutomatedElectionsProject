@@ -33,12 +33,11 @@ int Parties::GetCount() const
 }
 
 
-void Parties::Free() const
+Parties::~Parties()
 {
-	for (int i = 0; i < _count; i++)
+	for (int i = 0; i < _count; ++i)
 	{
-		_array[i]->Free();
 		delete _array[i];
 	}
-	delete _array;
+	delete[] _array;
 }

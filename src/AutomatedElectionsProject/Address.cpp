@@ -5,7 +5,7 @@
 
 using namespace std;
 
-bool Address::Initialize(
+Address::Address(
 	const char* city,
 	const char* street,
 	unsigned int houseNumber)
@@ -14,7 +14,7 @@ bool Address::Initialize(
 		street == nullptr ||
 		houseNumber == 0)
 	{
-		return false;
+		//future exception handle
 	}
 
 	_city = new char[strlen(city) + 1];
@@ -22,18 +22,22 @@ bool Address::Initialize(
 
 	_street = new char[strlen(street) + 1];
 	strcpy(_street, street);
-	
+
 	_houseNumber = houseNumber;
-	return true;
 }
+
+Address::Address(const Address& other) : Address(other._city, other._street, other._houseNumber)
+{
+}
+
+Address::~Address()
+{
+	delete[] _city;
+	delete[] _street;
+}
+
 
 void Address::Show() const
 {
 	cout << "City: " << _city << " Street: " << _street << " House Number: " << _houseNumber << endl;
-}
-
-void Address::Free() const
-{
-	delete[] _city;
-	delete[] _street;
 }

@@ -7,9 +7,10 @@ private:
 	int _votes;
 	
 public:
-	bool Initialize(const char* name);
+	PartyResult(const char* name);
+	~PartyResult();
+	
 	void AddVote();
 	void Show() const;
 	bool Aggregate(const PartyResult& other);
-	void Free() const;
 };

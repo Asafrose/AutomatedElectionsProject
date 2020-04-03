@@ -12,10 +12,12 @@ private:
 	int _physicalCount = 0;
 
 public:
+	Candidates() = default;
+	~Candidates();
+	
 	void Add(Candidate* candidate);
 	Candidate& Get(int index) const;
 	int GetCount() const;
-	void Free() const;
 	void Sort() const;
 };
 #endif // CANDIDATES_H

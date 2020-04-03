@@ -1,11 +1,15 @@
 ﻿#include "Candidate.h"
 #include "Civilian.h"
 
-void Candidate::Initialize(Civilian* civilian, int rank)
+Candidate::Candidate(Civilian* civilian, int rank)
 {
-	_civilian = new Civilian;
-	_civilian->Initialize(*civilian);
+	_civilian = new Civilian(*civilian);
 	_rank = rank;
+}
+
+Candidate::~Candidate()
+{
+	delete _civilian;
 }
 
 Civilian& Candidate::GetCivilian() const
@@ -16,11 +20,5 @@ Civilian& Candidate::GetCivilian() const
 int& Candidate::GetRank()
 {
 	return _rank;
-}
-
-void Candidate::Free() const
-{
-	_civilian->Free();
-	delete _civilian;
 }
 

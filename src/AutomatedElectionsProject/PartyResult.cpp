@@ -5,18 +5,17 @@
 
 using namespace std;
 
-bool PartyResult::Initialize(const char* name)
+PartyResult::PartyResult(const char* name)
 {
 	if (name == nullptr)
 	{
-		return false;
+		//future exception handaling
 	}
 	
 	_name = new char[strlen(name) + 1];
 	strcpy(_name, name);
 	
 	_votes = 0;
-	return true;
 }
 
 
@@ -43,7 +42,7 @@ bool PartyResult::Aggregate(const PartyResult& other)
 	return true;
 }
 
-void PartyResult::Free() const
+PartyResult::~PartyResult()
 {
 	delete[] _name;
 }

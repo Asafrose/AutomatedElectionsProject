@@ -16,18 +16,13 @@ class Civilian
 	bool _isVoted;
 
 public:
-	void Initialize(
-		const char* name,
-		int id,
-		const Date& birth,
-		BallotBox* balletBox);
-	void Initialize(const Civilian& other);
+	Civilian(const char* name, int id, const Date& birth, BallotBox* balletBox);
+	Civilian(const Civilian& other);
+	~Civilian();
 
 	char* GetName() const;
 	BallotBox* GetBallotBox() const;
 	void Vote(const Party& party);
 	void Show() const;
-
-	void Free() const;
 };
 #endif // CIVILIAN_H

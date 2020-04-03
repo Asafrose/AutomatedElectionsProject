@@ -7,6 +7,8 @@
 
 class Party
 {
+	static int _counter;
+
 private:
 	int _id;
 	char* _name;
@@ -15,11 +17,11 @@ private:
 	Candidates _candidates;
 
 public:
-	void Initialize(
-		int id,
+	Party(
 		const char* name,
 		PoliticalStream politicalStream,
 		const Date& date);
+	~Party();
 
 	char* GetName() const;
 	int GetId() const;
@@ -27,6 +29,5 @@ public:
 
 	void AddCandidate(Candidate* candidate);
 	void Show() const;
-	void Free() const;
 };
 #endif // PARTY_H

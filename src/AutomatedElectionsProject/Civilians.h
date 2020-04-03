@@ -12,9 +12,11 @@ private:
 	int _physicalCount = 0;
 	
 public:
+	Civilians() = default;
+	~Civilians();
+	
 	void Add(Civilian* civilian);
 	Civilian& Get(int index) const;
 	int GetCount() const;
-	void Free() const;
 };
 #endif // CIVILIANS_H
