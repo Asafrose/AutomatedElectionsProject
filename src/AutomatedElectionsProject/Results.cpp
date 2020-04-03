@@ -8,8 +8,8 @@ Results::Results(const Parties& parties)
 
 	for (int i = 0; i < _partyCount; i++)
 	{
-		Party party = parties.Get(i);
-		_partyResults[party.GetId() - 1] = new PartyResult(party.GetName());
+		
+		_partyResults[i] = new PartyResult(parties.Get(i).GetName());
 	}
 }
 
