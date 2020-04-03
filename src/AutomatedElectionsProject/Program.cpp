@@ -30,9 +30,9 @@ BallotBox* CreateBallotBox(const char* city, const char* street, int streetNumbe
 	return new BallotBox(Address(city, street, streetNumber));
 }
 
-Elections CreateElections(const Date& date)
+Elections* CreateElections(const Date& date)
 {
-	Elections elections(date);
+	Elections* elections = new Elections(date);
 
 	BallotBox* telAvivBallotBox = CreateBallotBox("Tel Aviv", "Shimon Hatarsi", 37);
 	BallotBox* herzliyaBallotBox = CreateBallotBox("Herzliya", "Haalumim", 3);
@@ -45,23 +45,23 @@ Elections CreateElections(const Date& date)
 	Party* blueAndWhite = CreateParty("Blue And White", Center);
 	Party* likud = CreateParty("Likud", Right);
 	Party* thePirates = CreateParty("The Pirates", Center);
-	elections.AddBallotBox(telAvivBallotBox);
-	elections.AddBallotBox(herzliyaBallotBox);
-	elections.AddCivilian(bibi);
-	elections.AddCivilian(miriRegev);
-	elections.AddCivilian(gantz);
-	elections.AddCivilian(yairLapid);
-	elections.AddCivilian(noamKozer);
-	elections.AddCivilian(ohadShemTov);
-	elections.AddParty(blueAndWhite);
-	elections.AddParty(likud);
-	elections.AddParty(thePirates);
-	elections.AddCandidate(new Candidate(bibi, 1), *likud);
-	elections.AddCandidate(new Candidate(miriRegev, 1), *likud);
-	elections.AddCandidate(new Candidate(gantz, 1), *blueAndWhite);
-	elections.AddCandidate(new Candidate(yairLapid, 1), *blueAndWhite);
-	elections.AddCandidate(new Candidate(noamKozer, 1), *thePirates);
-	elections.AddCandidate(new Candidate(ohadShemTov, 1), *thePirates);
+	elections->AddBallotBox(telAvivBallotBox);
+	elections->AddBallotBox(herzliyaBallotBox);
+	elections->AddCivilian(bibi);
+	elections->AddCivilian(miriRegev);
+	elections->AddCivilian(gantz);
+	elections->AddCivilian(yairLapid);
+	elections->AddCivilian(noamKozer);
+	elections->AddCivilian(ohadShemTov);
+	elections->AddParty(blueAndWhite);
+	elections->AddParty(likud);
+	elections->AddParty(thePirates);
+	elections->AddCandidate(new Candidate(bibi, 1), *likud);
+	elections->AddCandidate(new Candidate(miriRegev, 1), *likud);
+	elections->AddCandidate(new Candidate(gantz, 1), *blueAndWhite);
+	elections->AddCandidate(new Candidate(yairLapid, 1), *blueAndWhite);
+	elections->AddCandidate(new Candidate(noamKozer, 1), *thePirates);
+	elections->AddCandidate(new Candidate(ohadShemTov, 1), *thePirates);
 
 	return elections;
 }
@@ -111,13 +111,13 @@ void MenuAddBallotBox(Elections& elections)
 void AddNewCivilian(Elections& elections)
 {
 	cout << "*** AddNewCivilian Started ***" << endl;
-	
+
 
 	char* name = GetString("Please enter civilian name");
 	int id = GetInt("Please enter civilian id");
 
 	Date birthDate(GetInt("Please enter civilian birth year"));
-	
+
 
 	BallotBox* balletBox = GetBallotBox(elections);
 
@@ -326,7 +326,9 @@ void RunMenu(Elections& elections)
 
 int main()
 {
-	Elections elections = CreateElections(GetDate("Please enter elections date"));
-	RunMenu(elections);
+	Elections* elections = CreateElections(GetDate("Please enter elections date"));
+	RunMenu(*elections);
+
+	delete elections;
 	return 0;
 }
