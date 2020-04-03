@@ -182,14 +182,16 @@ void PersonalElection(Civilian& civilian, Elections& elections)
 
 void MenuRunElections(Elections& elections)
 {
-	elections.StartElections();
-	cout << "*** Welcome to ";
-	elections.GetElectionsDate().Show();
-	cout << " elections ***" << endl;
 	cout << "*** Starting elections process ***" << endl;
+	elections.StartElections();
+	
 	
 	for (int i = 0; i < elections.GetCivilians().GetCount(); i++)
 	{
+		cout << "*** Welcome to ";
+		elections.GetElectionsDate().Show();
+		cout << " elections ***" << endl;
+		
 		PersonalElection(elections.GetCivilians().Get(i), elections);
 	}
 	cout << "*** Elections process ended ***" << endl;
