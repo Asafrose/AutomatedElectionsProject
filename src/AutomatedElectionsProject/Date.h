@@ -19,6 +19,8 @@ public:
 	Date(const Date& other);
 	~Date() = default;
 
+	int GetYear() const;
+
 	friend ostream& operator<<(ostream& os, const Date& date);
 };
 

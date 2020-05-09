@@ -21,6 +21,7 @@ public:
 		const char* name,
 		PoliticalStream politicalStream,
 		const Date& date);
+	Party(Party& other);
 	~Party();
 
 	char* GetName() const;

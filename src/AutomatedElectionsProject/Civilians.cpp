@@ -33,9 +33,30 @@ int Civilians::GetCount() const
 	return _count;
 }
 
+void Civilians::RemoveById(int civilianId)
+{
+	int index = 0;
+	while (_array[index]->GetId() != civilianId)
+	{
+		index++;
+	}
+
+	for (; index < _count - 1; index++)
+	{
+		_array[index] = _array[index + 1];
+	}
+
+	_count--;
+}
+
 void Civilians::operator+=(Civilian* civilian)
 {
 	Add(civilian);
+}
+
+Civilians::Civilians() : _count(0), _physicalCount(0)
+{
+	_array = nullptr;
 }
 
 Civilians::~Civilians()

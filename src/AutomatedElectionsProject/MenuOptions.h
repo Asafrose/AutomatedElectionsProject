@@ -7,6 +7,7 @@ enum MenuOptions
 	AddCitizen,
 	AddParty,
 	AddCandidate,
+	SetNewQuarantineStatus,
 	ShowAllBallotBoxes,
 	ShowAllCivilians,
 	ShowAllParties,

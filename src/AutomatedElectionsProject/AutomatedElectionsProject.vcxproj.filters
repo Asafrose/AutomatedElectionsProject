@@ -57,6 +57,15 @@
     <ClCompile Include="BallotBoxes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CoronaBallotBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MilitaryBallotbox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MilitaryCoronaBallotBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Address.h">
@@ -105,6 +114,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MenuOptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CoronaBallotBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MilitaryBallotox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MilitaryCoronaBallotBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

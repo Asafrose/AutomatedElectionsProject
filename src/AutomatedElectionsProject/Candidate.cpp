@@ -1,24 +1,17 @@
 ﻿#include "Candidate.h"
 #include "Civilian.h"
 
-Candidate::Candidate(Civilian* civilian, int rank)
+Candidate::Candidate(Civilian* civilian, Party* party, int rank): Civilian(*civilian), _rank(rank), _party(party)
 {
-	_civilian = new Civilian(*civilian);
-	_rank = rank;
 }
 
-Candidate::~Candidate()
+Party& Candidate::GetParty()
 {
-	delete _civilian;
+	return *_party;
 }
 
-Civilian& Candidate::GetCivilian() const
-{
-	return *_civilian;
-}
 
 int& Candidate::GetRank()
 {
 	return _rank;
 }
-

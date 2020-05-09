@@ -7,18 +7,19 @@
 class Civilians
 {
 private:
-	Civilian** _array = nullptr;
-	int _count = 0;
-	int _physicalCount = 0;
+	Civilian** _array;
+	int _count;
+	int _physicalCount;
 	
 public:
-	Civilians() = default;
+	Civilians();
 	
 	~Civilians();
 	
 	void Add(Civilian* civilian);
 	Civilian& Get(int index) const;
 	int GetCount() const;
+	void RemoveById(int civilianId);
 
 	void operator+=(Civilian* civilian);
 };

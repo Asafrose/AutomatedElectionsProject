@@ -33,6 +33,7 @@ public:
 	void ShowAllCivilians() const;
 	void ShowAllParties() const;
 	void ShowAllBallotBoxes() const;
+	void ShowAllValidBallotBoxes(Civilian* civilian) const;
 	void StartElections();
 };
 

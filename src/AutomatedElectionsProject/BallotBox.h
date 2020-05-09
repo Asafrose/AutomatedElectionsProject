@@ -14,16 +14,20 @@ private:
 	Address _address;
 	Civilians _civilians;
 	Results* _results;
+protected:
+	Date _electionsDate;
+	
 	
 public:
-	BallotBox(const Address& address);
-	~BallotBox();
+	BallotBox(const Address& address, const Date& electionsDate);
+	virtual ~BallotBox();
 	
 	Results& GetResults() const;
 	Civilians& GetCivilians();
 
-	void ClosePartyList(const Parties& parties);
+	virtual bool CanAdd(Civilian* civilian);
 
+	void ClosePartyList(const Parties& parties);
 	void AddCivilian(Civilian* civilian);
 	void AddVote(const Party& party) const;
 	double GetVotingPercent() const;

@@ -154,8 +154,11 @@
     <ClCompile Include="Candidates.cpp" />
     <ClCompile Include="Civilian.cpp" />
     <ClCompile Include="Civilians.cpp" />
+    <ClCompile Include="CoronaBallotBox.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Elections.cpp" />
+    <ClCompile Include="MilitaryBallotbox.cpp" />
+    <ClCompile Include="MilitaryCoronaBallotBox.cpp" />
     <ClCompile Include="Parties.cpp" />
     <ClCompile Include="Party.cpp" />
     <ClCompile Include="PartyResult.cpp" />
@@ -170,9 +173,12 @@
     <ClInclude Include="Candidates.h" />
     <ClInclude Include="Civilian.h" />
     <ClInclude Include="Civilians.h" />
+    <ClInclude Include="CoronaBallotBox.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="Elections.h" />
     <ClInclude Include="MenuOptions.h" />
+    <ClInclude Include="MilitaryBallotox.h" />
+    <ClInclude Include="MilitaryCoronaBallotBox.h" />
     <ClInclude Include="Parties.h" />
     <ClInclude Include="Party.h" />
     <ClInclude Include="PartyResult.h" />

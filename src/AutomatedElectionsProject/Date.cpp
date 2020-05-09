@@ -70,6 +70,11 @@ Date::Date(const Date& other) : Date(other._day, other._month, other._year)
 {
 }
 
+int Date::GetYear() const
+{
+	return _year;
+}
+
 ostream& operator<<(ostream& os, const Date& date)
 {
 	os << date._day << "/" << date._month << "/" << date._year;

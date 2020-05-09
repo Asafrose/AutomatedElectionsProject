@@ -5,6 +5,9 @@
 #include "MenuOptions.h"
 #include "Elections.h"
 #include "BallotBox.h"
+#include "CoronaBallotBox.h"
+#include "MilitaryBallotox.h"
+#include "MilitaryCoronaBallotBox.h"
 
 using namespace std;
 
@@ -16,29 +19,38 @@ Party* CreateParty(const char* name, PoliticalStream politicalStream)
 		Date(1999));
 }
 
-Civilian* CreateCivilian(const char* name, int id, BallotBox* ballotBox)
+Civilian* CreateCivilian(const char* name, int id, BallotBox* ballotBox, bool isQuarantined = false)
 {
-	return new Civilian(
+	Civilian* civilian = new Civilian(
 		name,
 		id,
-		Date(1999),
-		ballotBox);
+		Date(1999));
+
+	civilian->SetIsQuarantined(isQuarantined);
+	civilian->SetBallotBox(ballotBox);
+	return civilian;
 }
 
-BallotBox* CreateBallotBox(const char* city, const char* street, int streetNumber)
+BallotBox* CreateBallotBox(const char* city, const char* street, int streetNumber, const Date& date)
 {
-	return new BallotBox(Address(city, street, streetNumber));
+	return new BallotBox(Address(city, street, streetNumber), date);
+}
+
+BallotBox* CreateCoronaBallotBox(const char* city, const char* street, int streetNumber, const Date& date)
+{
+	return new CoronaBallotbox(Address(city, street, streetNumber), date);
 }
 
 Elections* CreateElections(const Date& date)
 {
 	Elections* elections = new Elections(date);
 
-	BallotBox* telAvivBallotBox = CreateBallotBox("Tel Aviv", "Shimon Hatarsi", 37);
-	BallotBox* herzliyaBallotBox = CreateBallotBox("Herzliya", "Haalumim", 3);
-	Civilian* bibi = CreateCivilian("Binyamin Netaniyahu", 1, telAvivBallotBox);
+	BallotBox* telAvivBallotBox = CreateBallotBox("Tel Aviv", "Shimon Hatarsi", 37, date);
+	BallotBox* coronaBallotBox = CreateCoronaBallotBox("Or yeduda", "Hapirat Haadom", 12, date);
+	BallotBox* herzliyaBallotBox = CreateBallotBox("Herzliya", "Haalumim", 3, date);
+	Civilian* bibi = CreateCivilian("Binyamin Netaniyahu", 1, coronaBallotBox, true);
 	Civilian* miriRegev = CreateCivilian("Miri Regev", 2, telAvivBallotBox);
-	Civilian* gantz = CreateCivilian("Binyamin Gantz", 3, herzliyaBallotBox);
+	Civilian* gantz = CreateCivilian("Binyamin Gantz", 3, coronaBallotBox, true);
 	Civilian* yairLapid = CreateCivilian("Yair Lapid", 4, herzliyaBallotBox);
 	Civilian* noamKozer = CreateCivilian("Noam Kozer", 5, telAvivBallotBox);
 	Civilian* ohadShemTov = CreateCivilian("Ohad Shem-Tov", 6, herzliyaBallotBox);
@@ -46,6 +58,7 @@ Elections* CreateElections(const Date& date)
 	Party* likud = CreateParty("Likud", Right);
 	Party* thePirates = CreateParty("The Pirates", Center);
 	elections->AddBallotBox(telAvivBallotBox);
+	elections->AddBallotBox(coronaBallotBox);
 	elections->AddBallotBox(herzliyaBallotBox);
 	elections->AddCivilian(bibi);
 	elections->AddCivilian(miriRegev);
@@ -56,12 +69,12 @@ Elections* CreateElections(const Date& date)
 	elections->AddParty(blueAndWhite);
 	elections->AddParty(likud);
 	elections->AddParty(thePirates);
-	elections->AddCandidate(new Candidate(bibi, 1), *likud);
-	elections->AddCandidate(new Candidate(miriRegev, 1), *likud);
-	elections->AddCandidate(new Candidate(gantz, 1), *blueAndWhite);
-	elections->AddCandidate(new Candidate(yairLapid, 1), *blueAndWhite);
-	elections->AddCandidate(new Candidate(noamKozer, 1), *thePirates);
-	elections->AddCandidate(new Candidate(ohadShemTov, 1), *thePirates);
+	elections->AddCandidate(new Candidate(bibi, likud, 1), *likud);
+	elections->AddCandidate(new Candidate(miriRegev, likud, 1), *likud);
+	elections->AddCandidate(new Candidate(gantz, blueAndWhite, 1), *blueAndWhite);
+	elections->AddCandidate(new Candidate(yairLapid, blueAndWhite, 1), *blueAndWhite);
+	elections->AddCandidate(new Candidate(noamKozer, thePirates, 1), *thePirates);
+	elections->AddCandidate(new Candidate(ohadShemTov, thePirates, 1), *thePirates);
 
 	return elections;
 }
@@ -87,11 +100,12 @@ int GetInt(const char* prompt)
 	return result;
 }
 
-BallotBox* GetBallotBox(Elections& elections)
+BallotBox* GetBallotBox(Elections& elections, Civilian* civilian)
 {
 	cout << "Available Ballot Boxes: " << endl;
-	elections.ShowAllBallotBoxes();
-	return &elections.GetBallotBoxes().Get(GetInt("Please select BallotBox Id") - 1);
+	elections.ShowAllValidBallotBoxes(civilian);
+	BallotBox& ballotBox = elections.GetBallotBoxes().Get(GetInt("Please select BallotBox Id") - 1);
+	return &ballotBox;
 }
 
 void MenuAddBallotBox(Elections& elections)
@@ -102,7 +116,29 @@ void MenuAddBallotBox(Elections& elections)
 	char* street = GetString("Please enter Ballet Box street");
 	int houseNumber = GetInt("Please enter Ballet Box House Number");
 
-	elections.AddBallotBox(new BallotBox(Address(city, street, houseNumber)));
+	const Address address(city, street, houseNumber);
+
+	BallotBox* ballotBox = nullptr;
+	switch (GetInt("Please Choose BalletBox type \n\t 1) normal\n\t2) corona\n\t3) military\n\t4) military corona"))
+	{
+	case 1:
+		ballotBox = new BallotBox(address, elections.GetElectionsDate());
+		break;
+	case 2:
+		ballotBox = new CoronaBallotbox(address, elections.GetElectionsDate());
+		break;
+	case 3:
+		ballotBox = new MilitaryBallotbox(address, elections.GetElectionsDate());
+		break;
+	case 4:
+		ballotBox = new MilitaryCoronaBallotBox(address, elections.GetElectionsDate());
+		break;
+	default:
+		//future exception handling
+		exit(1);
+	}
+
+	elections.AddBallotBox(ballotBox);
 
 	cout << "*** MenuAddBallotBox Finished *** \n";
 }
@@ -118,14 +154,12 @@ void AddNewCivilian(Elections& elections)
 
 	Date birthDate(GetInt("Please enter civilian birth year"));
 
-
-	BallotBox* balletBox = GetBallotBox(elections);
-
 	Civilian* newCivilian = new Civilian(
 		name,
 		id,
-		birthDate,
-		balletBox);
+		birthDate);
+
+	newCivilian->SetBallotBox(GetBallotBox(elections, newCivilian));
 
 	elections.AddCivilian(newCivilian);
 	cout << "*** AddNewCivilian Finished ***" << endl;
@@ -212,11 +246,12 @@ void MenuAddCandidate(Elections& elections)
 	elections.ShowAllParties();
 	Party* party = &elections.GetParties().Get(GetInt("Please select the party id") - 1);
 
-	Candidate* candidate = new Candidate(civilian, GetInt("Please enter rank in party"));
+	Candidate* candidate = new Candidate(civilian, party, GetInt("Please enter rank in party"));
 	elections.AddCandidate(candidate, *party);
 
 	cout << "*** MenuAddCandidate finished ***" << endl;
 }
+
 
 void PrintMenu(Elections& elections)
 {
@@ -229,12 +264,13 @@ void PrintMenu(Elections& elections)
 		cout << "2 - Add New Citizen \n";
 		cout << "3 - Add New Party \n";
 		cout << "4 - Add New Candidate \n";
-		cout << "5 - Show All Ballot boxes \n";
-		cout << "6 - Show All Citizens \n";
-		cout << "7 - Show All Parties \n";
-		cout << "8 - Elections - Perform Elections  \n";
-		cout << "9 - Show Elections Results \n";
-		cout << "10 - Exit \n";
+		cout << "5 - Update Quarantine status \n";
+		cout << "6 - Show All Ballot boxes \n";
+		cout << "7 - Show All Citizens \n";
+		cout << "8 - Show All Parties \n";
+		cout << "9 - Elections - Perform Elections  \n";
+		cout << "10 - Show Elections Results \n";
+		cout << "11 - Exit \n";
 		cout << "****Please Note: After Choosing to run Elections you can only - Add votes  or Show final results \n ";
 	}
 	else
@@ -242,13 +278,41 @@ void PrintMenu(Elections& elections)
 		cout << endl;
 		cout << "****Elections Completed at: " << elections.GetElectionsDate() << "*****\n";
 		cout << "Available actions: \n";
-		cout << "5 - Show All Ballot boxes \n";
-		cout << "6 - Show All Citizens \n";
-		cout << "7 - Show All Parties \n";
-		cout << "9 - Show Elections Results \n";
-		cout << "10 - Exit \n";
+		cout << "6 - Show All Ballot boxes \n";
+		cout << "7 - Show All Citizens \n";
+		cout << "8 - Show All Parties \n";
+		cout << "10 - Show Elections Results \n";
+		cout << "11 - Exit \n";
 		cout << "****Please Note: Elections Completed,  \n ";
 	}
+}
+
+void UpdateQuarantineStatus(Elections& elections)
+{
+	cout << "**** Update Quarantine Status for Civilian **** \n";
+
+	for (int i = 0; i < elections.GetCivilians().GetCount(); ++i)
+	{
+		cout << i << " ==> " << elections.GetCivilians().Get(i) << endl;
+	}
+
+	Civilian* civilian =
+		&elections.
+		 GetCivilians().
+		 Get(GetInt("Please select the number of the civilian that you want to update his Quarantine status "));
+	bool isQuarantined = GetInt("Enter 0 for \"no Quarantine\" or 1 for \"apply Quarantine\"");
+
+	if (civilian->GetIsQuarantined() == isQuarantined)
+	{
+		return;
+	}
+
+	civilian->GetBallotBox()->GetCivilians().RemoveById(civilian->GetId());
+
+	civilian->SetIsQuarantined(isQuarantined);
+	BallotBox* ballotBox = GetBallotBox(elections, civilian);
+	civilian->SetBallotBox(ballotBox);
+	ballotBox->AddCivilian(civilian);
 }
 
 void RunMenu(Elections& elections)
@@ -304,6 +368,12 @@ void RunMenu(Elections& elections)
 		case ShowElectionsResults:
 			{
 				elections.ShowResults();
+				break;
+			}
+
+		case SetNewQuarantineStatus:
+			{
+				UpdateQuarantineStatus(elections);
 				break;
 			}
 		case Exit:

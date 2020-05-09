@@ -16,6 +16,12 @@ Party::Party(const char* name, PoliticalStream politicalStream, const Date& date
 	_politicalStream = politicalStream;
 }
 
+Party::Party(Party& other) : _id(other._id), _politicalStream(other._politicalStream), _date(other._date)
+{
+	_name = new char[strlen(other._name) + 1];
+	strcpy(_name, other._name);
+}
+
 void Party::Show() const
 {
 	cout << "Party ID: " << _id << " Party Name: " << _name << " Political Stream: ";

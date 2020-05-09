@@ -6,7 +6,7 @@ using namespace std;
 
 int BallotBox::_counter = 1;
 
-BallotBox::BallotBox(const Address& address) : _address(address)
+BallotBox::BallotBox(const Address& address, const Date& electionsDate) : _address(address) , _electionsDate(electionsDate)
 {
 	_results = nullptr;
 	_id = _counter++;
@@ -42,6 +42,11 @@ Civilians& BallotBox::GetCivilians()
 	return _civilians;
 }
 
+bool BallotBox::CanAdd(Civilian* civilian)
+{
+	return !civilian->IsInArmy(_electionsDate) && !civilian->GetIsQuarantined();
+}
+
 void BallotBox::ClosePartyList(const Parties& parties)
 {
 	if (_results != nullptr)
@@ -54,6 +59,11 @@ void BallotBox::ClosePartyList(const Parties& parties)
 
 void BallotBox::AddCivilian(Civilian* civilian)
 {
+	if (!CanAdd(civilian))
+	{
+		//futureExceptionHandling
+		exit(1);
+	}
 	_civilians.Add(civilian);
 }
 
@@ -61,7 +71,8 @@ void BallotBox::Show(bool showResults) const
 {
 	cout << "Ballot Box: ";
 	cout << "id: " << _id << " address: ";
-	cout << _address;
+	cout << _address<< "  " ;
+	cout << "BallotBoxType: " << typeid(*this).name() + 6 << endl;
 
 	if (showResults)
 	{

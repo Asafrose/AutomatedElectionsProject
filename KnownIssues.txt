@@ -8,3 +8,5 @@
 3) voting: offer only civilians that didn't vote 
 
 4) Candidate must be Civilian first 
+
+5) User can choose non existing indexes for arrays

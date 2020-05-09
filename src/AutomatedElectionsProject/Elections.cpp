@@ -138,6 +138,20 @@ void Elections::ShowAllBallotBoxes() const
 	cout << "*** ShowAllBallotBoxes Finished ***" << endl;
 }
 
+void Elections::ShowAllValidBallotBoxes(Civilian* civilian) const
+{
+	cout << "*** ShowAllValidBallotBoxes Started ***" << endl;
+	for (int i = 0; i < _ballotBoxes.GetCount(); i++)
+	{
+		if (_ballotBoxes.Get(i).CanAdd(civilian))
+		{
+			_ballotBoxes.Get(i).Show(false);
+		}
+	}
+	cout << "*** ShowAllValidBallotBoxes Finished ***" << endl;
+}
+
+
 void Elections::StartElections()
 {
 	if (IsActionValid("StartElections"))
