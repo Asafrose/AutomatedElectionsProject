@@ -29,5 +29,9 @@ public:
 
 	void AddCandidate(Candidate* candidate);
 	void Show() const;
+
+	bool operator>(Party& other) const;
+	bool operator<(Party& other) const;
+	bool operator==(Party& other) const;
 };
 #endif // PARTY_H

@@ -184,14 +184,12 @@ void MenuRunElections(Elections& elections)
 {
 	cout << "*** Starting elections process ***" << endl;
 	elections.StartElections();
-	
-	
+
+
 	for (int i = 0; i < elections.GetCivilians().GetCount(); i++)
 	{
-		cout << "*** Welcome to ";
-		elections.GetElectionsDate().Show();
-		cout << " elections ***" << endl;
-		
+		cout << "*** Welcome to " << elections.GetElectionsDate() << " elections ***" << endl;
+
 		PersonalElection(elections.GetCivilians().Get(i), elections);
 	}
 	cout << "*** Elections process ended ***" << endl;
@@ -203,9 +201,7 @@ void MenuAddCandidate(Elections& elections)
 
 	for (int i = 0; i < elections.GetCivilians().GetCount(); ++i)
 	{
-		cout << i << " ==> ";
-		elections.GetCivilians().Get(i).Show();
-		cout << endl;
+		cout << i << " ==> " << elections.GetCivilians().Get(i) << endl;
 	}
 
 	Civilian* civilian =
@@ -227,9 +223,7 @@ void PrintMenu(Elections& elections)
 	cout << endl;
 	if (!elections.IsElectionsOccured())
 	{
-		cout << "**** Elections  Will take place at ";
-		elections.GetElectionsDate().Show();
-		cout << "**** \n";
+		cout << "**** Elections  Will take place at " << elections.GetElectionsDate() << "**** \n";
 		cout << "Available actions: \n";
 		cout << "1 - Add New Ballot Box \n";
 		cout << "2 - Add New Citizen \n";
@@ -246,9 +240,7 @@ void PrintMenu(Elections& elections)
 	else
 	{
 		cout << endl;
-		cout << "****Elections Completed at: ";
-		elections.GetElectionsDate().Show();
-		cout << "*****\n";
+		cout << "****Elections Completed at: " << elections.GetElectionsDate() << "*****\n";
 		cout << "Available actions: \n";
 		cout << "5 - Show All Ballot boxes \n";
 		cout << "6 - Show All Citizens \n";

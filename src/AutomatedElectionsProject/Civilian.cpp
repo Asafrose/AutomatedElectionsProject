@@ -42,14 +42,13 @@ void Civilian::Vote(const Party& party)
 	_isVoted = true;
 }
 
-void Civilian::Show() const
-{
-	cout << "Id: " << _id << " Name: " << _name << " Birth: ";
-	_birth.Show();
-	cout << " IsVoted: " << _isVoted << endl;
-}
-
 Civilian::~Civilian()
 {
 	delete[] _name;
+}
+
+ostream& operator<<(ostream& os, const Civilian& civilian)
+{
+	os << "Id: " << civilian._id << " Name: " << civilian._name << " Birth: " << civilian._birth << " IsVoted: " << civilian._isVoted;
+	return os;
 }

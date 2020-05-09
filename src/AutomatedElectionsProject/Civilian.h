@@ -1,8 +1,11 @@
 ﻿#ifndef CIVILIAN_H
 #define CIVILIAN_H
 
+#include <ostream>
 #include "Date.h"
 #include "Party.h"
+
+using namespace std;
 
 class BallotBox;
 
@@ -23,6 +26,7 @@ public:
 	char* GetName() const;
 	BallotBox* GetBallotBox() const;
 	void Vote(const Party& party);
-	void Show() const;
+
+	friend ostream& operator<<(ostream& os, const Civilian& civilian);
 };
 #endif // CIVILIAN_H

@@ -61,7 +61,7 @@ void BallotBox::Show(bool showResults) const
 {
 	cout << "Ballot Box: ";
 	cout << "id: " << _id << " address: ";
-	_address.Show();
+	cout << _address;
 
 	if (showResults)
 	{

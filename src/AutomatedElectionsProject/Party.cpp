@@ -38,10 +38,22 @@ void Party::Show() const
 			break;
 		}
 	}
-	cout << "Date Established: ";
-	_date.Show();
+	cout << "Date Established: " << _date << endl;
+}
 
-	cout << endl;
+bool Party::operator>(Party& other) const
+{
+	return _candidates.GetCount() > other._candidates.GetCount();
+}
+
+bool Party::operator<(Party& other) const
+{
+	return _candidates.GetCount() < other._candidates.GetCount();
+}
+
+bool Party::operator==(Party& other) const
+{
+	return _candidates.GetCount() == other._candidates.GetCount();
 }
 
 int Party::GetId() const

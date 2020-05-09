@@ -36,8 +36,8 @@ Address::~Address()
 	delete[] _street;
 }
 
-
-void Address::Show() const
+ostream& operator<<(ostream& os, const Address& addr)
 {
-	cout << "City: " << _city << " Street: " << _street << " House Number: " << _houseNumber << endl;
+	os << "City: " << addr._city << " Street: " << addr._street << " House Number: " << addr._houseNumber;
+	return os;
 }

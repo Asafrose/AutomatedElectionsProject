@@ -70,7 +70,8 @@ Date::Date(const Date& other) : Date(other._day, other._month, other._year)
 {
 }
 
-void Date::Show() const
+ostream& operator<<(ostream& os, const Date& date)
 {
-	cout << _day << "/" << _month << "/" << _year;
+	os << date._day << "/" << date._month << "/" << date._year;
+	return os;
 }

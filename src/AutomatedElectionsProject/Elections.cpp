@@ -112,7 +112,7 @@ void Elections::ShowAllCivilians() const
 	cout << "*** ShowAllCivilians Started ***" << endl;
 	for (int i = 0; i < _civilians.GetCount(); ++i)
 	{
-		_civilians.Get(i).Show();
+		cout << _civilians.Get(i) << endl;
 	}
 	cout << " *** ShowAllCivilians Finished ***" << endl;
 }

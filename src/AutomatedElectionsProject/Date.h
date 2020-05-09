@@ -1,6 +1,9 @@
 ﻿
 #ifndef DATE_H
 #define DATE_H
+#include <ostream>
+
+using namespace std;
 
 class Date
 {
@@ -15,8 +18,8 @@ public:
 	Date(unsigned int year);
 	Date(const Date& other);
 	~Date() = default;
-	
-	void Show() const;
+
+	friend ostream& operator<<(ostream& os, const Date& date);
 };
 
 #endif // DATE_H

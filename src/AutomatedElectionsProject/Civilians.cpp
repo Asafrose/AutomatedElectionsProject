@@ -33,7 +33,10 @@ int Civilians::GetCount() const
 	return _count;
 }
 
-
+void Civilians::operator+=(Civilian* civilian)
+{
+	Add(civilian);
+}
 
 Civilians::~Civilians()
 {

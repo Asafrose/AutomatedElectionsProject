@@ -19,5 +19,7 @@ public:
 	void Add(Civilian* civilian);
 	Civilian& Get(int index) const;
 	int GetCount() const;
+
+	void operator+=(Civilian* civilian);
 };
 #endif // CIVILIANS_H

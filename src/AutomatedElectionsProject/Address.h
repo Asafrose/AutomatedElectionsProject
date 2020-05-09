@@ -1,6 +1,9 @@
 ﻿#ifndef ADDRESS_H
 #define ADDRESS_H
 
+#include <ostream>
+using namespace std;
+
 class Address
 {
 private:
@@ -11,8 +14,7 @@ public:
 	Address(const char* city, const char* street, unsigned int houseNumber);
 	Address(const Address& other);
 	~Address();
-	
-	void Show() const;
-	void Free() const;
+
+	friend ostream& operator<<(ostream& os, const Address& addr);
 };
 #endif // ADDRESS_H
