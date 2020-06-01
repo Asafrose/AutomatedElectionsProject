@@ -1,11 +1,11 @@
 
 #include "CoronaBallotBox.h"
 
-CoronaBallotbox::CoronaBallotbox(const Address& address, const Date& electionsDate):BallotBox(address,electionsDate)
+CoronaBallotBox::CoronaBallotBox(const Address& address, const Date& electionsDate):BallotBox(address,electionsDate)
 {	
 }
 
-bool CoronaBallotbox::CanAdd(Civilian* civilian)
+bool CoronaBallotBox::CanAdd(Civilian* civilian)
 {
 	return !civilian->IsInArmy(_electionsDate) && civilian->GetIsQuarantined();
 }

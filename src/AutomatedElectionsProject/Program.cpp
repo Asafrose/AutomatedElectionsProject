@@ -24,7 +24,7 @@ Civilian* CreateCivilian(const char* name, int id, BallotBox* ballotBox, bool is
 	Civilian* civilian = new Civilian(
 		name,
 		id,
-		Date(1999));
+		Date(1980));
 
 	civilian->SetIsQuarantined(isQuarantined);
 	civilian->SetBallotBox(ballotBox);
@@ -38,7 +38,7 @@ BallotBox* CreateBallotBox(const char* city, const char* street, int streetNumbe
 
 BallotBox* CreateCoronaBallotBox(const char* city, const char* street, int streetNumber, const Date& date)
 {
-	return new CoronaBallotbox(Address(city, street, streetNumber), date);
+	return new CoronaBallotBox(Address(city, street, streetNumber), date);
 }
 
 Elections* CreateElections(const Date& date)
@@ -125,7 +125,7 @@ void MenuAddBallotBox(Elections& elections)
 		ballotBox = new BallotBox(address, elections.GetElectionsDate());
 		break;
 	case 2:
-		ballotBox = new CoronaBallotbox(address, elections.GetElectionsDate());
+		ballotBox = new CoronaBallotBox(address, elections.GetElectionsDate());
 		break;
 	case 3:
 		ballotBox = new MilitaryBallotbox(address, elections.GetElectionsDate());
@@ -200,10 +200,17 @@ void PersonalElection(Civilian& civilian, Elections& elections)
 	cout << "Welcome " << civilian.GetName() << endl;
 	if (GetInt("Would you like to vote? Press '1' to continue '0' to exit"))
 	{
-		elections.ShowAllParties();
-		int voteId = GetInt("Please select the id of your chosen party");
-		civilian.Vote(elections.GetParties().Get(voteId - 1));
-		cout << "Vote received successfully :)" << endl;
+		if (!civilian.GetIsQuarantined() || GetInt("You are in quarantine! did you bring a protective mask? Press '1' for yes '0' for no"))
+		{
+			elections.ShowAllParties();
+			int voteId = GetInt("Please select the id of your chosen party");
+			civilian.Vote(elections.GetParties().Get(voteId - 1));
+			cout << "Vote received successfully :)" << endl;
+		}
+		else
+		{
+			cout << "Since You are in quarantine, You cannot vote without a mask!" << endl;
+		}
 	}
 	else
 	{
