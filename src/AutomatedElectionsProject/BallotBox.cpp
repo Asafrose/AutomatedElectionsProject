@@ -47,7 +47,7 @@ bool BallotBox::CanAdd(Civilian* civilian)
 	return !civilian->IsInArmy(_electionsDate) && !civilian->GetIsQuarantined();
 }
 
-void BallotBox::ClosePartyList(const Parties& parties)
+void BallotBox::ClosePartyList(const Array<Party*>& parties)
 {
 	if (_results != nullptr)
 	{

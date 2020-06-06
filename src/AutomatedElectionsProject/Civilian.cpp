@@ -45,10 +45,9 @@ Civilian::Civilian(const Civilian& other) : Civilian(other._name, other._id, oth
 	_balletBox = other.GetBallotBox();
 }
 
-Civilian::Civilian(istream& in, BallotBoxes& ballotBoxes)
+Civilian::Civilian(istream& in, BallotBoxes& ballotBoxes) : _birth(in)
 {
 	Read(in, _id);
-	_birth = Date(in);
 	int nameSize;
 	Read(in, nameSize);
 	char* name = new char[nameSize];

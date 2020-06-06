@@ -67,11 +67,11 @@ void Elections::AddParty(Party* party)
 {
 	if (IsActionValid("AddParty"))
 	{
-		_parties.Add(party);
+		_parties += party;
 	}
 }
 
-Parties& Elections::GetParties()
+Array<Party*>& Elections::GetParties()
 {
 	return _parties;
 }
@@ -132,9 +132,9 @@ void Elections::ShowAllCivilians() const
 void Elections::ShowAllParties() const
 {
 	cout << "*** ShowAllParties Started ***" << endl;
-	for (int i = 0; i < _parties.GetCount(); ++i)
+	for (int i = 0; i < _parties.GetSize(); ++i)
 	{
-		_parties.Get(i).Show();
+		_parties[i]->Show();
 	}
 	cout << "*** ShowAllParties Finished ***" << endl;
 }

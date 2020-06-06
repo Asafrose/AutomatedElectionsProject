@@ -205,7 +205,7 @@ void PersonalElection(Civilian& civilian, Elections& elections)
 		{
 			elections.ShowAllParties();
 			int voteId = GetInt("Please select the id of your chosen party");
-			civilian.Vote(elections.GetParties().Get(voteId - 1));
+			civilian.Vote(*elections.GetParties()[voteId - 1]);
 			cout << "Vote received successfully :)" << endl;
 		}
 		else
@@ -252,7 +252,7 @@ void MenuAddCandidate(Elections& elections)
 		 Get(GetInt("Please select the number of the civilian that you want to run as candidate"));
 
 	elections.ShowAllParties();
-	Party* party = &elections.GetParties().Get(GetInt("Please select the party id") - 1);
+	Party* party = elections.GetParties()[GetInt("Please select the party id") - 1];
 
 	Candidate* candidate = new Candidate(civilian, party, GetInt("Please enter rank in party"));
 	elections.AddCandidate(candidate, *party);

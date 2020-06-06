@@ -1,15 +1,14 @@
 ﻿#include "Results.h"
 
-Results::Results(const Parties& parties)
+Results::Results(const Array<Party*>& parties)
 {
 	_votersCount = 0;
-	_partyCount = parties.GetCount();
+	_partyCount = parties.GetSize();
 	_partyResults = new PartyResult*[_partyCount];
 
 	for (int i = 0; i < _partyCount; i++)
 	{
-		
-		_partyResults[i] = new PartyResult(parties.Get(i).GetName());
+		_partyResults[i] = new PartyResult(parties[i]->GetName());
 	}
 }
 

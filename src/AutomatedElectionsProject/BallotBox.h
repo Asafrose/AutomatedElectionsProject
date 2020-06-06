@@ -27,7 +27,7 @@ public:
 
 	virtual bool CanAdd(Civilian* civilian);
 
-	void ClosePartyList(const Parties& parties);
+	void ClosePartyList(const Array<Party*>& parties);
 	void AddCivilian(Civilian* civilian);
 	void AddVote(const Party& party) const;
 	double GetVotingPercent() const;

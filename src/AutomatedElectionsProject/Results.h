@@ -2,7 +2,8 @@
 #define RESULTS_H
 
 #include "PartyResult.h"
-#include "Parties.h"
+#include "Array.h"
+#include "Party.h"
 
 class Results
 {
@@ -12,7 +13,7 @@ private:
 	PartyResult** _partyResults;
 
 public:
-	Results(const Parties& parties);
+	Results(const Array<Party*>& parties);
 	~Results();
 
 	void AddVote(const Party& party);

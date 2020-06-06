@@ -34,6 +34,11 @@ public:
 		delete[] _arr;
 	}
 
+	int GetSize() const
+	{
+		return _logicalSize;
+	}
+
 	const Array& operator=(const Array& other)
 	{	
 		if (this != &other)
@@ -69,7 +74,7 @@ public:
 		return *this;
 	}
 	
-	TItem& operator[](const int& index)
+	TItem& operator[](const int& index) const
 	{
 		return _arr[index];
 	}

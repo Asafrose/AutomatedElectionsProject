@@ -4,6 +4,7 @@
 #include <ostream>
 #include "Date.h"
 
+class BallotBoxes;
 using namespace std;
 
 class BallotBox;
@@ -22,7 +23,7 @@ class Civilian
 public:
 	Civilian(const string& name, int id, const Date& birth) noexcept(false);
 	Civilian(const Civilian& other);
-	Civilian(istream& in);
+	Civilian(istream& in, BallotBoxes& ballotBoxes);
 	virtual ~Civilian();
 	bool GetIsQuarantined() const;
 	void SetIsQuarantined(bool value);

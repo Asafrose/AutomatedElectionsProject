@@ -2,14 +2,13 @@
 #define ELECTIONS_H
 #include "BallotBoxes.h"
 #include "Date.h"
-#include "Parties.h"
 
 class Elections
 {
 private:
 	bool _isElectionsOccured;
 	Date _date;
-	Parties _parties;
+	Array<Party*> _parties;
 	BallotBoxes _ballotBoxes;
 	Civilians _civilians;
 
@@ -24,7 +23,7 @@ public:
 	void AddCivilian(Civilian* civilian) noexcept(false);
 	void AddParty(Party* party);
 
-	Parties& GetParties();
+	Array<Party*>& GetParties();
 	BallotBoxes& GetBallotBoxes();
 	Civilians& GetCivilians();
 	Date& GetElectionsDate();
