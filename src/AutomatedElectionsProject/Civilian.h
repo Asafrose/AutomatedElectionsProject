@@ -13,22 +13,24 @@ class Civilian
 {
 	int _id;
 	Date _birth;
-	char* _name;
+	string _name;
 
 	BallotBox* _balletBox;
 	bool _isVoted;
 	bool _isQuarantined;
 
 public:
-	Civilian(const char* name, int id, const Date& birth);
+	Civilian(const string& name, int id, const Date& birth) noexcept(false);
 	Civilian(const Civilian& other);
+	Civilian(istream& in);
 	virtual ~Civilian();
 	bool GetIsQuarantined() const;
 	void SetIsQuarantined(bool value);
 	bool IsInArmy(const Date& electionsDate) const;
 
 	int GetId() const;
-	char* GetName() const;
+	Date GetBirth() const;
+	string GetName() const;
 	BallotBox* GetBallotBox() const;
 	void SetBallotBox(BallotBox* ballotBox);
 	void Vote(const Party& party);

@@ -6,6 +6,7 @@
 #include "Elections.h"
 #include "BallotBox.h"
 #include "CoronaBallotBox.h"
+#include "Exception.h"
 #include "MilitaryBallotox.h"
 #include "MilitaryCoronaBallotBox.h"
 
@@ -48,12 +49,12 @@ Elections* CreateElections(const Date& date)
 	BallotBox* telAvivBallotBox = CreateBallotBox("Tel Aviv", "Shimon Hatarsi", 37, date);
 	BallotBox* coronaBallotBox = CreateCoronaBallotBox("Or yeduda", "Hapirat Haadom", 12, date);
 	BallotBox* herzliyaBallotBox = CreateBallotBox("Herzliya", "Haalumim", 3, date);
-	Civilian* bibi = CreateCivilian("Binyamin Netaniyahu", 1, coronaBallotBox, true);
-	Civilian* miriRegev = CreateCivilian("Miri Regev", 2, telAvivBallotBox);
-	Civilian* gantz = CreateCivilian("Binyamin Gantz", 3, coronaBallotBox, true);
-	Civilian* yairLapid = CreateCivilian("Yair Lapid", 4, herzliyaBallotBox);
-	Civilian* noamKozer = CreateCivilian("Noam Kozer", 5, telAvivBallotBox);
-	Civilian* ohadShemTov = CreateCivilian("Ohad Shem-Tov", 6, herzliyaBallotBox);
+	Civilian* bibi = CreateCivilian("Binyamin Netaniyahu", 132158971, coronaBallotBox, true);
+	Civilian* miriRegev = CreateCivilian("Miri Regev", 132158972, telAvivBallotBox);
+	Civilian* gantz = CreateCivilian("Binyamin Gantz", 132158973, coronaBallotBox, true);
+	Civilian* yairLapid = CreateCivilian("Yair Lapid", 132158974, herzliyaBallotBox);
+	Civilian* noamKozer = CreateCivilian("Noam Kozer", 132158975, telAvivBallotBox);
+	Civilian* ohadShemTov = CreateCivilian("Ohad Shem-Tov", 132158976, herzliyaBallotBox);
 	Party* blueAndWhite = CreateParty("Blue And White", Center);
 	Party* likud = CreateParty("Likud", Right);
 	Party* thePirates = CreateParty("The Pirates", Center);
@@ -326,80 +327,110 @@ void RunMenu(Elections& elections)
 {
 	while (true)
 	{
-		PrintMenu(elections);
-		const int userInput = GetInt("Please choose action number");
-		getchar();
-		system("CLS");
-		switch (userInput)
+		try
 		{
-		case AddBallotBox:
+			PrintMenu(elections);
+			const int userInput = GetInt("Please choose action number");
+			getchar();
+			system("CLS");
+			switch (userInput)
+			{
+			case AddBallotBox:
 			{
 				MenuAddBallotBox(elections);
 				break;
 			}
-		case AddCitizen:
+			case AddCitizen:
 			{
 				AddNewCivilian(elections);
 				break;
 			}
-		case AddParty:
+			case AddParty:
 			{
 				MenuAddParty(elections);
 				break;
 			}
-		case AddCandidate:
+			case AddCandidate:
 			{
 				MenuAddCandidate(elections);
 				break;
 			}
-		case ShowAllBallotBoxes:
+			case ShowAllBallotBoxes:
 			{
 				elections.ShowAllBallotBoxes();
 				break;
 			}
-		case ShowAllCivilians:
+			case ShowAllCivilians:
 			{
 				elections.ShowAllCivilians();
 				break;
 			}
-		case ShowAllParties:
+			case ShowAllParties:
 			{
 				elections.ShowAllParties();
 				break;
 			}
-		case RunElections:
+			case RunElections:
 			{
 				MenuRunElections(elections);
 				break;
 			}
-		case ShowElectionsResults:
+			case ShowElectionsResults:
 			{
 				elections.ShowResults();
 				break;
 			}
 
-		case SetNewQuarantineStatus:
+			case SetNewQuarantineStatus:
 			{
 				UpdateQuarantineStatus(elections);
 				break;
 			}
-		case Exit:
+			case Exit:
 			{
 				return;
 			}
-		default:
+			default:
 			{
 				cout << "Please Enter your Selection Again: ";
 			}
+			}
+		}
+		catch (const Exception& exception)
+		{
+			system("CLS");
+			cout << exception.GetMessage() << endl;
 		}
 	}
 }
 
 int main()
 {
-	Elections* elections = CreateElections(GetDate("Please enter elections date"));
-	RunMenu(*elections);
+	Elections* elections = nullptr;
+	try
+	{
+		elections = CreateElections(GetDate("Please enter elections date"));
 
-	delete elections;
-	return 0;
+		//for each civilan in file
+		// elections.AddCivilian
+		//
+		//
+		//
+		//
+		// delete current file
+		// save all civilians 
+		
+		RunMenu(*elections);
+
+		delete elections;
+		return 0;
+	}
+	catch (const Exception& exception)
+	{
+		cout << exception.GetMessage() << endl;
+		delete elections;
+
+		exit(1);
+	}
+	
 }

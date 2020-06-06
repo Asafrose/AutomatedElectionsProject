@@ -2,15 +2,36 @@
 
 #include "Civilian.h"
 #include "BallotBox.h"
-#include <cstring>
-#include <iostream>
+#include <string>
+#include <sstream>
+
+
+#include "BallotBoxes.h"
+#include "Exception.h"
 
 using namespace std;
 
-Civilian::Civilian(const char* name, int id, const Date& birth) : _birth(birth)
+template<class T>
+void Read(istream& in, T& obj)
 {
-	_name = new char[strlen(name) + 1];
-	strcpy(_name, name);
+	in.read((char*)&obj, sizeof(T));
+}
+
+Civilian::Civilian(const string& name, int id, const Date& birth) noexcept(false) : _birth(birth), _name(name)
+{
+	if (id < 100000000 || id > 999999999)
+	{
+		stringstream stringStream;
+		stringStream << "ID is not a 9-digit number [name=" << name << " ID=" << id << "]";
+		throw Exception(stringStream.str());
+	}
+	if (Date::Now() - _birth < Duration::FromDays(0))
+	{
+		stringstream stringStream;
+		stringStream << "Civilian birth cannot be in the future [name=" << name << " ID=" << id << " Birth=" << _birth
+			<< "]";
+		throw Exception(stringStream.str());
+	}
 
 	_id = id;
 	_balletBox = nullptr;
@@ -24,7 +45,27 @@ Civilian::Civilian(const Civilian& other) : Civilian(other._name, other._id, oth
 	_balletBox = other.GetBallotBox();
 }
 
-char* Civilian::GetName() const
+Civilian::Civilian(istream& in, BallotBoxes& ballotBoxes)
+{
+	Read(in, _id);
+	_birth = Date(in);
+	int nameSize;
+	Read(in, nameSize);
+	char* name = new char[nameSize];
+	in.read(name, nameSize);
+	_name = string(name);
+	delete[] name;
+	int ballotBoxId;
+	Read(in, ballotBoxId);
+	_balletBox = &ballotBoxes.Get(ballotBoxId);
+	
+}
+
+Civilian::~Civilian()
+{
+}
+
+string Civilian::GetName() const
 {
 	return _name;
 }
@@ -50,14 +91,10 @@ void Civilian::Vote(const Party& party)
 	_isVoted = true;
 }
 
- Civilian::~Civilian()
-{
-	delete[] _name;
-}
-
 ostream& operator<<(ostream& os, const Civilian& civilian)
 {
-	os << "Id: " << civilian._id << " Name: " << civilian._name << " Birth: " << civilian._birth << " IsQuarantined: " << civilian._isQuarantined << " IsVoted: " << civilian._isVoted;
+	os << "Id: " << civilian._id << " Name: " << civilian._name << " Birth: " << civilian._birth << " IsQuarantined: "
+		<< civilian._isQuarantined << " IsVoted: " << civilian._isVoted;
 	return os;
 }
 
@@ -73,9 +110,9 @@ void Civilian::SetIsQuarantined(bool value)
 
 bool Civilian::IsInArmy(const Date& electionsDate) const
 {
-	const int age = electionsDate.GetYear() - _birth.GetYear();
+	Duration ageAtElections = electionsDate - _birth;
 
-	return age >= 18 && age <= 21;
+	return ageAtElections >= Duration::FromYears(18) && ageAtElections <= Duration::FromYears(21);
 }
 
 int Civilian::GetId() const
@@ -83,3 +120,7 @@ int Civilian::GetId() const
 	return _id;
 }
 
+Date Civilian::GetBirth() const
+{
+	return _birth;
+}

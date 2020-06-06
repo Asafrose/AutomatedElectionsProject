@@ -21,7 +21,7 @@ public:
 
 	void AddBallotBox(BallotBox* ballotBox);
 	void AddCandidate(Candidate* candidate, Party& party) const;
-	void AddCivilian(Civilian* civilian);
+	void AddCivilian(Civilian* civilian) noexcept(false);
 	void AddParty(Party* party);
 
 	Parties& GetParties();

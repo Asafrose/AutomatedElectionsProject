@@ -148,15 +148,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Address.cpp" />
+    <ClCompile Include="Array.cpp" />
     <ClCompile Include="BallotBox.cpp" />
     <ClCompile Include="BallotBoxes.cpp" />
     <ClCompile Include="Candidate.cpp" />
     <ClCompile Include="Candidates.cpp" />
     <ClCompile Include="Civilian.cpp" />
     <ClCompile Include="Civilians.cpp" />
+    <ClCompile Include="DataFile.cpp" />
     <ClCompile Include="CoronaBallotBox.cpp" />
     <ClCompile Include="Date.cpp" />
+    <ClCompile Include="Duration.cpp" />
     <ClCompile Include="Elections.cpp" />
+    <ClCompile Include="Exception.cpp" />
     <ClCompile Include="MilitaryBallotbox.cpp" />
     <ClCompile Include="MilitaryCoronaBallotBox.cpp" />
     <ClCompile Include="Parties.cpp" />
@@ -167,15 +171,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Address.h" />
+    <ClInclude Include="Array.h" />
     <ClInclude Include="BallotBox.h" />
     <ClInclude Include="BallotBoxes.h" />
     <ClInclude Include="Candidate.h" />
     <ClInclude Include="Candidates.h" />
     <ClInclude Include="Civilian.h" />
     <ClInclude Include="Civilians.h" />
+    <ClInclude Include="DataFile.h" />
     <ClInclude Include="CoronaBallotBox.h" />
     <ClInclude Include="Date.h" />
+    <ClInclude Include="Duration.h" />
     <ClInclude Include="Elections.h" />
+    <ClInclude Include="Exception.h" />
     <ClInclude Include="MenuOptions.h" />
     <ClInclude Include="MilitaryBallotox.h" />
     <ClInclude Include="MilitaryCoronaBallotBox.h" />

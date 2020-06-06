@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "Exception.h"
+
 using namespace std;
 
 bool Elections::IsActionValid(const char* actionName, bool isValidBeforeElections) const
@@ -23,6 +25,11 @@ bool Elections::IsActionValid(const char* actionName, bool isValidBeforeElection
 
 Elections::Elections(const Date& date): _date(date)
 {
+	if (_date - Date::Now() < Duration::FromDays(0))
+	{
+		throw Exception("election date is in the past");
+	}
+	
 	_isElectionsOccured = false;
 }
 
@@ -42,10 +49,15 @@ void Elections::AddCandidate(Candidate* candidate, Party& party) const
 	}
 }
 
-void Elections::AddCivilian(Civilian* civilian)
+void Elections::AddCivilian(Civilian* civilian) noexcept(false)
 {
 	if (IsActionValid("AddNewCivilian"))
 	{
+		if (_date - civilian->GetBirth() < Duration::FromYears(18))
+		{
+			throw Exception("civilian will not be 18 in the date of the elections");
+		}
+		
 		civilian->GetBallotBox()->AddCivilian(civilian);
 		_civilians.Add(new Civilian(*civilian));
 	}
