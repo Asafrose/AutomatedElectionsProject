@@ -1,14 +1,23 @@
 ﻿#include "Results.h"
 
+
+
 Results::Results(const Array<Party*>& parties)
 {
 	_votersCount = 0;
 	_partyCount = parties.GetSize();
-	_partyResults = new PartyResult*[_partyCount];
 
 	for (int i = 0; i < _partyCount; i++)
 	{
-		_partyResults[i] = new PartyResult(parties[i]->GetName());
+		_partyResults.push_back(new PartyResult(parties[i]->GetName()));
+	}
+}
+
+Results::Results(const Results& other): _votersCount(other._votersCount), _partyCount(other._partyCount)
+{
+	for (int i = 0; i < other._partyResults.size(); ++i)
+	{
+		_partyResults.push_back(new PartyResult(*other._partyResults[i]));
 	}
 }
 
@@ -37,10 +46,9 @@ Results::~Results()
 	{
 		delete _partyResults[i];
 	}
-	delete[] _partyResults;
 }
 
-void Results::Aggregate(const Results& other)
+void Results::Aggregate(const Results& other) noexcept(false)
 {
 	for (int i = 0; i < _partyCount; ++i)
 	{

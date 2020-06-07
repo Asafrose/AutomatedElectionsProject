@@ -5,9 +5,9 @@ CoronaBallotBox::CoronaBallotBox(const Address& address, const Date& electionsDa
 {	
 }
 
-bool CoronaBallotBox::CanAdd(Civilian* civilian)
+bool CoronaBallotBox::CanAdd(Civilian& civilian) const
 {
-	return !civilian->IsInArmy(_electionsDate) && civilian->GetIsQuarantined();
+	return !civilian.IsInArmy(_electionsDate) && civilian.GetIsQuarantined();
 }
 
 

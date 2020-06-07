@@ -1,8 +1,10 @@
 ﻿#ifndef PARTY_H
 #define PARTY_H
 
+#include <vector>
+
 #include "Date.h"
-#include "Candidates.h"
+#include "Candidate.h"
 #include "PoliticalStream.h"
 
 class Party
@@ -11,24 +13,24 @@ class Party
 
 private:
 	int _id;
-	char* _name;
+	string _name;
 	PoliticalStream _politicalStream;
 	Date _date;
-	Candidates _candidates;
+	vector<Candidate> _candidates;
 
 public:
 	Party(
-		const char* name,
+		const string& name,
 		PoliticalStream politicalStream,
 		const Date& date);
 	Party(Party& other);
-	~Party();
+	~Party() = default;
 
-	char* GetName() const;
+	string GetName() const;
 	int GetId() const;
 
 
-	void AddCandidate(Candidate* candidate);
+	void AddCandidate(Candidate& candidate);
 	void Show() const;
 
 	bool operator>(Party& other) const;

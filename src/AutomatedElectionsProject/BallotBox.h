@@ -1,8 +1,10 @@
 ﻿#ifndef BALLOTBOX_H
 #define BALLOTBOX_H
 
-#include "Civilians.h"
+#include <vector>
+
 #include "Address.h"
+#include "Civilian.h"
 #include "Results.h"
 
 class BallotBox
@@ -12,7 +14,7 @@ private:
 	
 	int _id;
 	Address _address;
-	Civilians _civilians;
+	vector<Civilian*> _civilians;
 	Results* _results;
 protected:
 	Date _electionsDate;
@@ -23,9 +25,9 @@ public:
 	virtual ~BallotBox();
 	
 	Results& GetResults() const;
-	Civilians& GetCivilians();
+	vector<Civilian*>& GetCivilians();
 
-	virtual bool CanAdd(Civilian* civilian);
+	virtual bool CanAdd(Civilian& civilian) const;
 
 	void ClosePartyList(const Array<Party*>& parties);
 	void AddCivilian(Civilian* civilian);

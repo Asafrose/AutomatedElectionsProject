@@ -7,9 +7,9 @@ MilitaryBallotbox::MilitaryBallotbox(const Address& address, const Date& electio
 }
 
 
-bool MilitaryBallotbox::CanAdd(Civilian* civilian) 
+bool MilitaryBallotbox::CanAdd(Civilian& civilian) const
 {
-	return civilian->IsInArmy(_electionsDate) && !civilian->GetIsQuarantined();
+	return civilian.IsInArmy(_electionsDate) && !civilian.GetIsQuarantined();
 }
 
 

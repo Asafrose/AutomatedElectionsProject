@@ -3,10 +3,12 @@
 #include <iostream>
 
 #include "Exception.h"
+#include "Results.h"
+#include "BallotBox.h"
 
 using namespace std;
 
-bool Elections::IsActionValid(const char* actionName, bool isValidBeforeElections) const
+bool Elections::IsActionValid(const string& actionName, bool isValidBeforeElections) const
 {
 	if ((isValidBeforeElections && _isElectionsOccured) || (!isValidBeforeElections && !_isElectionsOccured))
 	{
@@ -37,11 +39,11 @@ void Elections::AddBallotBox(BallotBox* ballotBox)
 {
 	if (IsActionValid("AddBallotBox"))
 	{
-		_ballotBoxes.Add(ballotBox);
+		_ballotBoxes.push_back(ballotBox);
 	}
 }
 
-void Elections::AddCandidate(Candidate* candidate, Party& party) const
+void Elections::AddCandidate(Candidate& candidate, Party& party) const
 {
 	if (IsActionValid("AddCandidate"))
 	{
@@ -59,7 +61,7 @@ void Elections::AddCivilian(Civilian* civilian) noexcept(false)
 		}
 		
 		civilian->GetBallotBox()->AddCivilian(civilian);
-		_civilians.Add(new Civilian(*civilian));
+		_civilians.push_back(civilian);
 	}
 }
 
@@ -71,17 +73,22 @@ void Elections::AddParty(Party* party)
 	}
 }
 
+Date Elections::GetDate() const
+{
+	return _date;
+}
+
 Array<Party*>& Elections::GetParties()
 {
 	return _parties;
 }
 
-BallotBoxes& Elections::GetBallotBoxes()
+vector<BallotBox*>& Elections::GetBallotBoxes()
 {
 	return _ballotBoxes;
 }
 
-Civilians& Elections::GetCivilians()
+vector<Civilian*>& Elections::GetCivilians()
 {
 	return _civilians;
 }
@@ -103,18 +110,18 @@ void Elections::ShowResults() const
 	{
 		Results results(_parties);
 
-		for (int i = 0; i < _ballotBoxes.GetCount(); ++i)
+		for (int i = 0; i < _ballotBoxes.size(); ++i)
 		{
-			BallotBox& ballotBox = _ballotBoxes.Get(i);
-			ballotBox.Show(true);
-			cout << "BallotBox Voting Percent: " << ballotBox.GetVotingPercent() * 100;
+			BallotBox* ballotBox = _ballotBoxes[i];
+			ballotBox->Show(true);
+			cout << "BallotBox Voting Percent: " << ballotBox->GetVotingPercent() * 100;
 			cout << "\n\n";
-			results.Aggregate(ballotBox.GetResults());
+			results.Aggregate(ballotBox->GetResults());
 		}
 
 		cout << "TotalResults:\n";
 		results.Show();
-		cout << "Total Voting Percent: " << (double)results.GetVotersCount() / _civilians.GetCount() * 100 << endl;
+		cout << "Total Voting Percent: " << (double)results.GetVotersCount() / _civilians.size() * 100 << endl;
 	}
 }
 
@@ -122,9 +129,9 @@ void Elections::ShowResults() const
 void Elections::ShowAllCivilians() const
 {
 	cout << "*** ShowAllCivilians Started ***" << endl;
-	for (int i = 0; i < _civilians.GetCount(); ++i)
+	for (int i = 0; i < _civilians.size(); ++i)
 	{
-		cout << _civilians.Get(i) << endl;
+		cout << *_civilians[i] << endl;
 	}
 	cout << " *** ShowAllCivilians Finished ***" << endl;
 }
@@ -143,21 +150,21 @@ void Elections::ShowAllParties() const
 void Elections::ShowAllBallotBoxes() const
 {
 	cout << "*** ShowAllBallotBoxes Started ***" << endl;
-	for (int i = 0; i < _ballotBoxes.GetCount(); i++)
+	for (int i = 0; i < _ballotBoxes.size(); i++)
 	{
-		_ballotBoxes.Get(i).Show(false);
+		_ballotBoxes[i]->Show(false);
 	}
 	cout << "*** ShowAllBallotBoxes Finished ***" << endl;
 }
 
-void Elections::ShowAllValidBallotBoxes(Civilian* civilian) const
+void Elections::ShowAllValidBallotBoxes(Civilian& civilian) const
 {
 	cout << "*** ShowAllValidBallotBoxes Started ***" << endl;
-	for (int i = 0; i < _ballotBoxes.GetCount(); i++)
+	for (int i = 0; i < _ballotBoxes.size(); i++)
 	{
-		if (_ballotBoxes.Get(i).CanAdd(civilian))
+		if (_ballotBoxes[i]->CanAdd(civilian))
 		{
-			_ballotBoxes.Get(i).Show(false);
+			_ballotBoxes[i]->Show(false);
 		}
 	}
 	cout << "*** ShowAllValidBallotBoxes Finished ***" << endl;
@@ -169,9 +176,9 @@ void Elections::StartElections()
 	if (IsActionValid("StartElections"))
 	{
 		_isElectionsOccured = true;
-		for (int i = 0; i < _ballotBoxes.GetCount(); i++)
+		for (int i = 0; i < _ballotBoxes.size(); i++)
 		{
-			_ballotBoxes.Get(i).ClosePartyList(_parties);
+			_ballotBoxes[i]->ClosePartyList(_parties);
 		}
 	}
 }

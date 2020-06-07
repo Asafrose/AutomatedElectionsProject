@@ -8,7 +8,7 @@ class MilitaryCoronaBallotBox : public BallotBox
 {
 public:
 	MilitaryCoronaBallotBox(const Address& address, const Date& electionsDate);
-	bool CanAdd(Civilian* civilian) override;
+	bool CanAdd(Civilian& civilian) const override;
 	
 };
 #endif // MILITARYCORONABALLOTBOX_H

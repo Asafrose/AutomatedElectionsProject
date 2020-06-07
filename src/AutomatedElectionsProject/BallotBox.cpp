@@ -28,8 +28,11 @@ double BallotBox::GetVotingPercent() const
 	{
 		return 0;
 	}
-
-	return (double)_results->GetVotersCount() / (double)_civilians.GetCount();
+	if (_results->GetVotersCount() == 0)
+	{
+		return 0;
+	}
+	return (double)_results->GetVotersCount() / (double)_civilians.size();
 }
 
 Results& BallotBox::GetResults() const
@@ -37,14 +40,14 @@ Results& BallotBox::GetResults() const
 	return *_results;
 }
 
-Civilians& BallotBox::GetCivilians()
+vector<Civilian*>& BallotBox::GetCivilians()
 {
 	return _civilians;
 }
 
-bool BallotBox::CanAdd(Civilian* civilian)
+bool BallotBox::CanAdd(Civilian& civilian) const
 {
-	return !civilian->IsInArmy(_electionsDate) && !civilian->GetIsQuarantined();
+	return !civilian.IsInArmy(_electionsDate) && !civilian.GetIsQuarantined();
 }
 
 void BallotBox::ClosePartyList(const Array<Party*>& parties)
@@ -59,12 +62,12 @@ void BallotBox::ClosePartyList(const Array<Party*>& parties)
 
 void BallotBox::AddCivilian(Civilian* civilian)
 {
-	if (!CanAdd(civilian))
+	if (!CanAdd(*civilian))
 	{
-		//futureExceptionHandling
-		exit(1);
+		throw Exception("Cannot add civilian");
 	}
-	_civilians.Add(civilian);
+	
+	_civilians.push_back(civilian);
 }
 
 void BallotBox::Show(bool showResults) const

@@ -3,38 +3,29 @@
 #include "Address.h"
 #include <iostream>
 
+#include "Exception.h"
+
 using namespace std;
 
 Address::Address(
-	const char* city,
-	const char* street,
-	unsigned int houseNumber)
+	const string& city,
+	const string& street,
+	unsigned int houseNumber) noexcept(false) : _city(city) , _street(street), _houseNumber(houseNumber)
 {
-	if (city == nullptr ||
-		street == nullptr ||
+	if (city.empty() ||
+		street.empty() ||
 		houseNumber == 0)
 	{
-		//future exception handle
+		throw Exception("Invalid Address");
 	}
 
-	_city = new char[strlen(city) + 1];
-	strcpy(_city, city);
-
-	_street = new char[strlen(street) + 1];
-	strcpy(_street, street);
-
-	_houseNumber = houseNumber;
 }
 
 Address::Address(const Address& other) : Address(other._city, other._street, other._houseNumber)
 {
 }
 
-Address::~Address()
-{
-	delete[] _city;
-	delete[] _street;
-}
+
 
 ostream& operator<<(ostream& os, const Address& addr)
 {

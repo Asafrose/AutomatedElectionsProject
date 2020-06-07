@@ -4,22 +4,30 @@
 #include <cstring>
 #include <iostream>
 
+#include "Exception.h"
+
 using namespace std;
+
+int CompareRanks(const void* candidate1, const void* candidate2)
+{
+	return ((Candidate*)candidate1)->GetRank() - ((Candidate*)candidate2)->GetRank();
+}
 
 int Party::_counter = 1;
 
-Party::Party(const char* name, PoliticalStream politicalStream, const Date& date) : _date(date)
+Party::Party(const string& name, PoliticalStream politicalStream, const Date& date) noexcept(false) : _date(date), _name(name)
 {
+	if (Date::Now()-_date < Duration::FromDays(0))
+	{
+		throw Exception("party date cannot be in the future");
+	}
+	
 	_id = _counter++;
-	_name = new char[strlen(name) + 1];
-	strcpy(_name, name);
 	_politicalStream = politicalStream;
 }
 
-Party::Party(Party& other) : _id(other._id), _politicalStream(other._politicalStream), _date(other._date)
+Party::Party(Party& other) : _id(other._id), _politicalStream(other._politicalStream), _date(other._date), _name(other.GetName())
 {
-	_name = new char[strlen(other._name) + 1];
-	strcpy(_name, other._name);
 }
 
 void Party::Show() const
@@ -49,17 +57,17 @@ void Party::Show() const
 
 bool Party::operator>(Party& other) const
 {
-	return _candidates.GetCount() > other._candidates.GetCount();
+	return _candidates.size() > other._candidates.size();
 }
 
 bool Party::operator<(Party& other) const
 {
-	return _candidates.GetCount() < other._candidates.GetCount();
+	return _candidates.size() < other._candidates.size();
 }
 
 bool Party::operator==(Party& other) const
 {
-	return _candidates.GetCount() == other._candidates.GetCount();
+	return _candidates.size() == other._candidates.size();
 }
 
 int Party::GetId() const
@@ -67,18 +75,13 @@ int Party::GetId() const
 	return _id;
 }
 
-void Party::AddCandidate(Candidate* candidate)
+void Party::AddCandidate(Candidate& candidate)
 {
-	_candidates.Add(candidate);
-	_candidates.Sort();
+	_candidates.push_back(candidate);
+	qsort(&_candidates[0], _candidates.size(), sizeof(Candidate), CompareRanks);
 }
 
-char* Party::GetName() const
+string Party::GetName() const
 {
 	return _name;
-}
-
-Party::~Party()
-{
-	delete[] _name;
 }

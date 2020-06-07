@@ -2,9 +2,10 @@
 #define CIVILIAN_H
 
 #include <ostream>
+#include <vector>
+
 #include "Date.h"
 
-class BallotBoxes;
 using namespace std;
 
 class BallotBox;
@@ -23,7 +24,7 @@ class Civilian
 public:
 	Civilian(const string& name, int id, const Date& birth) noexcept(false);
 	Civilian(const Civilian& other);
-	Civilian(istream& in, BallotBoxes& ballotBoxes);
+	Civilian(istream& in, vector<BallotBox>& ballotBoxes);
 	virtual ~Civilian();
 	bool GetIsQuarantined() const;
 	void SetIsQuarantined(bool value);
@@ -33,7 +34,7 @@ public:
 	Date GetBirth() const;
 	string GetName() const;
 	BallotBox* GetBallotBox() const;
-	void SetBallotBox(BallotBox* ballotBox);
+	void SetBallotBox(BallotBox& ballotBox);
 	void Vote(const Party& party);
 
 	friend ostream& operator<<(ostream& os, const Civilian& civilian);

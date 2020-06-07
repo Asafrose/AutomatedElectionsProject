@@ -7,13 +7,13 @@ using namespace std;
 class Address
 {
 private:
-	char* _city;
-	char* _street;
+	string _city;
+	string _street;
 	unsigned int _houseNumber;
 public:
-	Address(const char* city, const char* street, unsigned int houseNumber);
+	Address(const string& city, const string& street, unsigned int houseNumber);
 	Address(const Address& other);
-	~Address();
+	~Address()= default;
 
 	friend ostream& operator<<(ostream& os, const Address& addr);
 };

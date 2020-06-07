@@ -24,13 +24,7 @@
     <ClCompile Include="Civilian.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Civilians.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Candidate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Candidates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Party.cpp">
@@ -51,9 +45,6 @@
     <ClCompile Include="Elections.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BallotBoxes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CoronaBallotBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,9 +63,6 @@
     <ClCompile Include="Array.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ExtendedVector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Address.h">
@@ -86,13 +74,7 @@
     <ClInclude Include="Candidate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Candidates.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Civilian.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Civilians.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Date.h">
@@ -111,9 +93,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Elections.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BallotBoxes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">

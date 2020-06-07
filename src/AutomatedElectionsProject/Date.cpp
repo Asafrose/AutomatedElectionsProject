@@ -2,6 +2,8 @@
 #include <iostream>
 #include <chrono>
 
+#include "Exception.h"
+
 using namespace std;
 using namespace chrono;
 
@@ -55,13 +57,13 @@ const Date Date::Now()
 	return Date(now.tm_mday, now.tm_mon + 1, now.tm_year + 1900);
 }
 
-Date::Date(unsigned int day, unsigned int month, unsigned int year)
+Date::Date(unsigned int day, unsigned int month, unsigned int year) noexcept(false)
 {
 	if (!IsValidYear(year) ||
 		!IsValidMonth(month) ||
 		!IsValidDay(day, month, year))
 	{
-		//future exception handeling
+		throw Exception("invalid date");
 	}
 
 	_day = day;
@@ -93,7 +95,7 @@ Duration Date::operator-(const Date& other) const
 	tm thisTm = {0, 0, 0, _day, _month - 1, _year - 1900};
 	tm otherTm = {0, 0, 0, other._day, other._month - 1, other._year - 1900};
 
-	return Duration::FromDays((int)difftime(mktime(&thisTm), mktime(&otherTm)) / (60 * 60 * 24));
+	return Duration::FromDays((difftime(mktime(&thisTm), mktime(&otherTm)) / (60 * 60 * 24)));
 }
 
 ostream& operator<<(ostream& os, const Date& date)

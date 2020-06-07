@@ -6,7 +6,6 @@
 #include <sstream>
 
 
-#include "BallotBoxes.h"
 #include "Exception.h"
 
 using namespace std;
@@ -45,7 +44,7 @@ Civilian::Civilian(const Civilian& other) : Civilian(other._name, other._id, oth
 	_balletBox = other.GetBallotBox();
 }
 
-Civilian::Civilian(istream& in, BallotBoxes& ballotBoxes) : _birth(in)
+Civilian::Civilian(istream& in, vector<BallotBox>& ballotBoxes) : _birth(in)
 {
 	Read(in, _id);
 	int nameSize;
@@ -56,7 +55,7 @@ Civilian::Civilian(istream& in, BallotBoxes& ballotBoxes) : _birth(in)
 	delete[] name;
 	int ballotBoxId;
 	Read(in, ballotBoxId);
-	_balletBox = &ballotBoxes.Get(ballotBoxId);
+	_balletBox = &ballotBoxes[ballotBoxId];
 	
 }
 
@@ -74,9 +73,9 @@ BallotBox* Civilian::GetBallotBox() const
 	return _balletBox;
 }
 
-void Civilian::SetBallotBox(BallotBox* ballotBox)
+void Civilian::SetBallotBox(BallotBox& ballotBox)
 {
-	_balletBox = ballotBox;
+	_balletBox = &ballotBox;
 }
 
 void Civilian::Vote(const Party& party)

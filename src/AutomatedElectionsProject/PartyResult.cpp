@@ -2,18 +2,18 @@
 
 #include "PartyResult.h"
 #include <iostream>
+#include <sstream>
+#include "Exception.h"
 
 using namespace std;
 
-PartyResult::PartyResult(const char* name)
+PartyResult::PartyResult(const string& name) noexcept(false) : _name(name)
 {
-	if (name == nullptr)
+	if (name.empty())
 	{
-		//future exception handaling
+		throw Exception("Invalid Party name");
 	}
 	
-	_name = new char[strlen(name) + 1];
-	strcpy(_name, name);
 	
 	_votes = 0;
 }
@@ -30,19 +30,17 @@ void PartyResult::Show() const
 	cout << "Party: " << _name << " Votes: " << _votes << endl;
 }
 
-bool PartyResult::Aggregate(const PartyResult& other)
+bool PartyResult::Aggregate(const PartyResult& other) noexcept(false)
 {
-	if (strcmp(_name, other._name) != 0)
+	if (_name != other._name)
 	{
-		std::cout << "Cannot aggregate party results of different parties [this=" << _name << " other=" << other._name << "]\n";
-		return false;
+		stringstream exceptionString; 
+		exceptionString << "Cannot aggregate party results of different parties [this=" << _name << " other=" << other._name << "]\n";
+		throw Exception(exceptionString.str());
 	}
 	
 	_votes += other._votes;
 	return true;
 }
 
-PartyResult::~PartyResult()
-{
-	delete[] _name;
-}
+

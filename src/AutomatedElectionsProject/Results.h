@@ -10,10 +10,11 @@ class Results
 private:
 	int _votersCount;
 	int _partyCount;
-	PartyResult** _partyResults;
+	vector<PartyResult*> _partyResults;
 
 public:
 	Results(const Array<Party*>& parties);
+	Results(const Results& other);
 	~Results();
 
 	void AddVote(const Party& party);
