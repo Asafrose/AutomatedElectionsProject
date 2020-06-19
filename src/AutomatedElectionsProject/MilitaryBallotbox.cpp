@@ -6,6 +6,10 @@ MilitaryBallotbox::MilitaryBallotbox(const Address& address, const Date& electio
 
 }
 
+MilitaryBallotbox::MilitaryBallotbox(ifstream& file, const Date& electionsDate): BallotBox(file,electionsDate)
+{
+}
+
 
 bool MilitaryBallotbox::CanAdd(Civilian& civilian) const
 {

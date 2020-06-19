@@ -1,15 +1,23 @@
 ﻿#include "BallotBox.h"
-
+#include <fstream>
 #include <iostream>
-
+#include "FileHelper.h"
 using namespace std;
 
 int BallotBox::_counter = 1;
 
-BallotBox::BallotBox(const Address& address, const Date& electionsDate) : _address(address) , _electionsDate(electionsDate)
+
+
+BallotBox::BallotBox(const Address& address, const Date& electionsDate) : _id(_counter++), _address(address),
+                                                                          _results(nullptr),
+                                                                          _electionsDate(electionsDate)
 {
-	_results = nullptr;
-	_id = _counter++;
+}
+
+BallotBox::BallotBox(ifstream& file,const Date& electionsDate) : _address(file),_results(nullptr), _electionsDate(electionsDate)
+{
+	FileHelper::Read(_id, file);
+	++_counter;
 }
 
 void BallotBox::AddVote(const Party& party) const
@@ -40,6 +48,11 @@ Results& BallotBox::GetResults() const
 	return *_results;
 }
 
+int BallotBox::GetId() const
+{
+	return _id;
+}
+
 vector<Civilian*>& BallotBox::GetCivilians()
 {
 	return _civilians;
@@ -66,7 +79,7 @@ void BallotBox::AddCivilian(Civilian* civilian)
 	{
 		throw Exception("Cannot add civilian");
 	}
-	
+
 	_civilians.push_back(civilian);
 }
 
@@ -74,7 +87,7 @@ void BallotBox::Show(bool showResults) const
 {
 	cout << "Ballot Box: ";
 	cout << "id: " << _id << " address: ";
-	cout << _address<< "  " ;
+	cout << _address << "  ";
 	cout << "BallotBoxType: " << typeid(*this).name() + 6 << endl;
 
 	if (showResults)
@@ -89,6 +102,13 @@ void BallotBox::Show(bool showResults) const
 			cout << "no results" << endl;
 		}
 	}
+}
+
+void BallotBox::Save(ofstream& file) const
+{
+	FileHelper::WriteString(typeid(*this).name(),file);
+	_address.Save(file);
+	FileHelper::Write(_id,file);
 }
 
 BallotBox::~BallotBox()

@@ -80,9 +80,9 @@ Date::Date(unsigned int year) : Date(1, year)
 {
 }
 
-Date::Date(istream& in)
+Date::Date(istream& in)  // NOLINT(cppcoreguidelines-pro-type-member-init, hicpp-member-init)
 {
-	in.read((char*)this, sizeof(*this));
+	in.read((char*)this, sizeof(Date));
 }
 
 int Date::GetYear() const

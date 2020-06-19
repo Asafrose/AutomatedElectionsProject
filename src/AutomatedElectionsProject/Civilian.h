@@ -24,7 +24,7 @@ class Civilian
 public:
 	Civilian(const string& name, int id, const Date& birth) noexcept(false);
 	Civilian(const Civilian& other);
-	Civilian(istream& in, vector<BallotBox>& ballotBoxes);
+	Civilian(ifstream& file, const vector<BallotBox*>& ballotBoxes);
 	virtual ~Civilian();
 	bool GetIsQuarantined() const;
 	void SetIsQuarantined(bool value);
@@ -35,6 +35,7 @@ public:
 	string GetName() const;
 	BallotBox* GetBallotBox() const;
 	void SetBallotBox(BallotBox& ballotBox);
+	void Save(ofstream& file) const;
 	void Vote(const Party& party);
 
 	friend ostream& operator<<(ostream& os, const Civilian& civilian);

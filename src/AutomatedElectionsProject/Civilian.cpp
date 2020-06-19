@@ -4,17 +4,11 @@
 #include "BallotBox.h"
 #include <string>
 #include <sstream>
-
+#include "FileHelper.h"
 
 #include "Exception.h"
 
 using namespace std;
-
-template<class T>
-void Read(istream& in, T& obj)
-{
-	in.read((char*)&obj, sizeof(T));
-}
 
 Civilian::Civilian(const string& name, int id, const Date& birth) noexcept(false) : _birth(birth), _name(name)
 {
@@ -44,20 +38,18 @@ Civilian::Civilian(const Civilian& other) : Civilian(other._name, other._id, oth
 	_balletBox = other.GetBallotBox();
 }
 
-Civilian::Civilian(istream& in, vector<BallotBox>& ballotBoxes) : _birth(in)
+Civilian::Civilian(ifstream& file, const vector<BallotBox*>& ballotBoxes) : _id(0), _birth(file), _isVoted(false),
+                                                                      _isQuarantined(false)
 {
-	Read(in, _id);
-	int nameSize;
-	Read(in, nameSize);
-	char* name = new char[nameSize];
-	in.read(name, nameSize);
-	_name = string(name);
-	delete[] name;
+	FileHelper::Read(_id, file);
+	FileHelper::ReadString(_name, file);
+	FileHelper::Read(_isQuarantined, file);
 	int ballotBoxId;
-	Read(in, ballotBoxId);
-	_balletBox = &ballotBoxes[ballotBoxId];
-	
+	FileHelper::Read(ballotBoxId, file);
+	_balletBox = ballotBoxes[ballotBoxId-1];
+	_balletBox->AddCivilian(this);
 }
+
 
 Civilian::~Civilian()
 {
@@ -76,6 +68,15 @@ BallotBox* Civilian::GetBallotBox() const
 void Civilian::SetBallotBox(BallotBox& ballotBox)
 {
 	_balletBox = &ballotBox;
+}
+
+void Civilian::Save(ofstream& file) const
+{
+	FileHelper::Write(_birth, file);
+	FileHelper::Write(_id, file);
+	FileHelper::WriteString(_name, file);
+	FileHelper::Write(_isQuarantined, file);
+	FileHelper::Write(_balletBox->GetId(), file);
 }
 
 void Civilian::Vote(const Party& party)

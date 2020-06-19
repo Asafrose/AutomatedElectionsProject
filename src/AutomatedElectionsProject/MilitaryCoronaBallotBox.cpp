@@ -4,6 +4,10 @@ MilitaryCoronaBallotBox::MilitaryCoronaBallotBox(const Address& address, const D
 {
 }
 
+MilitaryCoronaBallotBox::MilitaryCoronaBallotBox(ifstream& file, const Date& electionsDate): BallotBox(file,electionsDate)
+{
+}
+
 bool MilitaryCoronaBallotBox::CanAdd(Civilian& civilian) const
 {
 	return civilian.IsInArmy(_electionsDate) && civilian.GetIsQuarantined();

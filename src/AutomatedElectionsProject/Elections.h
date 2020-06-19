@@ -28,6 +28,8 @@ public:
 	Date GetDate() const;
 	Array<Party*>& GetParties();
 	vector<BallotBox*>& GetBallotBoxes();
+	void SetBallotBoxes(const vector<BallotBox*>& ballotBoxes);
+	void SetCivilians(const vector<Civilian*>& civilians);
 	vector<Civilian*>& GetCivilians();
 	Date& GetElectionsDate();
 	bool IsElectionsOccured() const;

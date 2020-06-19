@@ -7,6 +7,7 @@ class MilitaryBallotbox : public BallotBox
 {
 public:
 	MilitaryBallotbox(const Address& address, const Date& electionsDate);
+	MilitaryBallotbox(ifstream& file, const Date& electionsDate);
 	bool CanAdd(Civilian& civilian) const override;
 };
 

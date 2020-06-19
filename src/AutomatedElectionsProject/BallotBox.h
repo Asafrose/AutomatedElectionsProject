@@ -22,9 +22,11 @@ protected:
 	
 public:
 	BallotBox(const Address& address, const Date& electionsDate);
+	BallotBox(ifstream& file,const Date& electionsDate);
 	virtual ~BallotBox();
 	
 	Results& GetResults() const;
+	int GetId() const ;
 	vector<Civilian*>& GetCivilians();
 
 	virtual bool CanAdd(Civilian& civilian) const;
@@ -34,6 +36,7 @@ public:
 	void AddVote(const Party& party) const;
 	double GetVotingPercent() const;
 	void Show(bool showResults) const;
+	void virtual Save(ofstream& file) const;
 	
 };
 #endif // BALLOTBOX_H

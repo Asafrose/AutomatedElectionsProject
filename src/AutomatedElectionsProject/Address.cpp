@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "Exception.h"
+#include "FileHelper.h"
 
 using namespace std;
 
@@ -25,6 +26,19 @@ Address::Address(const Address& other) : Address(other._city, other._street, oth
 {
 }
 
+Address::Address(ifstream& file)
+{
+	FileHelper::ReadString(_city, file);
+	FileHelper::ReadString(_street, file);
+	FileHelper::Read(_houseNumber, file);
+}
+
+void Address::Save(ofstream& file) const
+{
+	FileHelper::WriteString(_city, file);
+	FileHelper::WriteString(_street, file);
+	FileHelper::Write(_houseNumber, file);
+}
 
 
 ostream& operator<<(ostream& os, const Address& addr)

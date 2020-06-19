@@ -9,6 +9,7 @@
 #include "BallotBox.h"
 #include "Civilian.h"
 #include "CoronaBallotBox.h"
+#include "DataFile.h"
 #include "Exception.h"
 #include "MilitaryBallotox.h"
 #include "MilitaryCoronaBallotBox.h"
@@ -93,8 +94,12 @@ Elections* CreateElections(const Date& date)
 string GetString(const string& prompt)
 {
 	cout << prompt << ": ";
-	string result;
-	cin >> result;
+	char* temp = new char[MAX_CHAR_LENGTH];
+	cin.getline(temp, MAX_CHAR_LENGTH);
+
+	string result(temp);
+
+	delete[] temp;
 
 	return result;
 }
@@ -255,7 +260,8 @@ void MenuAddCandidate(Elections& elections)
 		cout << i << " ==> " << *elections.GetCivilians()[i] << endl;
 	}
 
-	Civilian* civilian = elections.GetCivilians()[GetInt("Please select the number of the civilian that you want to run as candidate")];
+	Civilian* civilian = elections.GetCivilians()[GetInt(
+		"Please select the number of the civilian that you want to run as candidate")];
 
 	elections.ShowAllParties();
 	Party* party = elections.GetParties()[GetInt("Please select the party id") - 1];
@@ -311,7 +317,8 @@ void UpdateQuarantineStatus(Elections& elections)
 
 	Civilian* civilian =
 		elections.
-		GetCivilians()[GetInt("Please select the number of the civilian that you want to update his Quarantine status ")];
+		GetCivilians()[GetInt("Please select the number of the civilian that you want to update his Quarantine status ")
+		];
 	bool isQuarantined = GetInt("Enter 0 for \"no Quarantine\" or 1 for \"apply Quarantine\"");
 
 	if (civilian->GetIsQuarantined() == isQuarantined)
@@ -341,6 +348,7 @@ void RunMenu(Elections& elections)
 	{
 		try
 		{
+			
 			PrintMenu(elections);
 			const int userInput = GetInt("Please choose action number");
 			getchar();
@@ -421,8 +429,18 @@ int main()
 	Elections* elections = nullptr;
 	try
 	{
-		elections = CreateElections(GetDate("Please enter elections date"));
-
+		Date date = GetDate("Please enter elections date");
+		auto ballotBoxes = DataFile<BallotBox>::Load(date);
+		if (ballotBoxes.empty())
+		{
+			elections = CreateElections(date);
+		}
+		else
+		{
+			elections = new Elections(date);
+			elections->SetBallotBoxes(ballotBoxes);
+			elections->SetCivilians(DataFile<Civilian>::Load(ballotBoxes));
+		}
 		//for each civilan in file
 		// elections.AddCivilian
 		//
@@ -433,6 +451,8 @@ int main()
 		// save all civilians 
 
 		RunMenu(*elections);
+		DataFile<BallotBox>::Save(elections->GetBallotBoxes());
+		DataFile<Civilian>::Save(elections->GetCivilians());
 
 		delete elections;
 		return 0;

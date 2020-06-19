@@ -88,6 +88,16 @@ vector<BallotBox*>& Elections::GetBallotBoxes()
 	return _ballotBoxes;
 }
 
+void Elections::SetBallotBoxes(const vector<BallotBox*>& ballotBoxes)
+{
+	_ballotBoxes = ballotBoxes;
+}
+
+void Elections::SetCivilians(const vector<Civilian*>& civilians)
+{
+	_civilians = civilians;
+}
+
 vector<Civilian*>& Elections::GetCivilians()
 {
 	return _civilians;

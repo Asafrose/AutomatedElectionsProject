@@ -8,6 +8,7 @@ class MilitaryCoronaBallotBox : public BallotBox
 {
 public:
 	MilitaryCoronaBallotBox(const Address& address, const Date& electionsDate);
+	MilitaryCoronaBallotBox(ifstream& file, const Date& electionsDate);
 	bool CanAdd(Civilian& civilian) const override;
 	
 };

@@ -157,8 +157,10 @@
     <ClCompile Include="Duration.cpp" />
     <ClCompile Include="Elections.cpp" />
     <ClCompile Include="Exception.cpp" />
+    <ClCompile Include="FileHelper.cpp" />
     <ClCompile Include="MilitaryBallotbox.cpp" />
     <ClCompile Include="MilitaryCoronaBallotBox.cpp" />
+    <ClCompile Include="ObjectGenerator.cpp" />
     <ClCompile Include="Party.cpp" />
     <ClCompile Include="PartyResult.cpp" />
     <ClCompile Include="Program.cpp" />
@@ -176,9 +178,11 @@
     <ClInclude Include="Duration.h" />
     <ClInclude Include="Elections.h" />
     <ClInclude Include="Exception.h" />
+    <ClInclude Include="FileHelper.h" />
     <ClInclude Include="MenuOptions.h" />
     <ClInclude Include="MilitaryBallotox.h" />
     <ClInclude Include="MilitaryCoronaBallotBox.h" />
+    <ClInclude Include="ObjectGenerator.h" />
     <ClInclude Include="Party.h" />
     <ClInclude Include="PartyResult.h" />
     <ClInclude Include="PoliticalStream.h" />
