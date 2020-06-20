@@ -59,9 +59,7 @@ Elections* CreateElections(const Date& date)
 	Civilian* yairLapid = CreateCivilian("Yair Lapid", 132158974, herzliyaBallotBox);
 	Civilian* noamKozer = CreateCivilian("Noam Kozer", 132158975, telAvivBallotBox);
 	Civilian* ohadShemTov = CreateCivilian("Ohad Shem-Tov", 132158976, herzliyaBallotBox);
-	Party* blueAndWhite = CreateParty("Blue And White", Center);
-	Party* likud = CreateParty("Likud", Right);
-	Party* thePirates = CreateParty("The Pirates", Center);
+
 	elections->AddBallotBox(telAvivBallotBox);
 	elections->AddBallotBox(coronaBallotBox);
 	elections->AddBallotBox(herzliyaBallotBox);
@@ -71,23 +69,41 @@ Elections* CreateElections(const Date& date)
 	elections->AddCivilian(yairLapid);
 	elections->AddCivilian(noamKozer);
 	elections->AddCivilian(ohadShemTov);
+
+
+	return elections;
+}
+
+void AddParties(Elections* elections)
+{
+	Party* blueAndWhite = CreateParty("Blue And White", Center);
+	Party* likud = CreateParty("Likud", Right);
+	Party* thePirates = CreateParty("The Pirates", Center);
 	elections->AddParty(blueAndWhite);
 	elections->AddParty(likud);
 	elections->AddParty(thePirates);
-	Candidate bibiCandidate(bibi, likud, 1);
-	Candidate miriRegevCandidate(miriRegev, likud, 1);
-	Candidate gantzCandidate(gantz, blueAndWhite, 1);
+
+	vector<Civilian*> civilians = elections->GetCivilians();
+
+	if (civilians.size() < 6)
+	{
+		cout << "Unexpected civilian count. initializing without party candidates" << endl;
+		return;
+	}
+	
+	Candidate bibiCandidate((civilians[0]), likud, 1);
+	Candidate miriRegevCandidate((civilians[1]), likud, 1);
+	Candidate gantzCandidate((civilians[2]), blueAndWhite, 1);
+	Candidate yairLapidCandidate((civilians[3]), blueAndWhite, 1);
+	Candidate noamKozerCandidate((civilians[4]), thePirates, 1);
+	Candidate ohadShemTovCandidate((civilians[5]), thePirates, 1);
+	
 	elections->AddCandidate(bibiCandidate, *likud);
 	elections->AddCandidate(miriRegevCandidate, *likud);
 	elections->AddCandidate(gantzCandidate, *blueAndWhite);
-	Candidate yairLapidCandidate(yairLapid, blueAndWhite, 1);
 	elections->AddCandidate(yairLapidCandidate, *blueAndWhite);
-	Candidate noamKozerCandidate(noamKozer, thePirates, 1);
 	elections->AddCandidate(noamKozerCandidate, *thePirates);
-	Candidate ohadShemTovCandidate(ohadShemTov, thePirates, 1);
 	elections->AddCandidate(ohadShemTovCandidate, *thePirates);
-
-	return elections;
 }
 
 
@@ -441,16 +457,10 @@ int main()
 			elections->SetBallotBoxes(ballotBoxes);
 			elections->SetCivilians(DataFile<Civilian>::Load(ballotBoxes));
 		}
-		//for each civilan in file
-		// elections.AddCivilian
-		//
-		//
-		//
-		//
-		// delete current file
-		// save all civilians 
 
+		AddParties(elections);
 		RunMenu(*elections);
+		
 		DataFile<BallotBox>::Save(elections->GetBallotBoxes());
 		DataFile<Civilian>::Save(elections->GetCivilians());
 

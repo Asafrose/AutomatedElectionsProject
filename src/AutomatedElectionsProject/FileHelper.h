@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿#ifndef FILEHELPER_H
+#define FILEHELPER_H
 #include <fstream>
 using namespace std;
 
@@ -6,35 +7,23 @@ class FileHelper
 {
 public:
 
-	//file to program 
+	//Reads from file into object by ref
 	template <class TItem>
 	static void Read(TItem& item, ifstream& file)
 	{
 		file.read((char*)&item, sizeof(TItem));
 	}
 
-	//program to file  
+	//Write to file from object by ref
 	template <class TItem>
 	static void Write(const TItem& item, ofstream& file)
 	{
 		file.write((char*)&item, sizeof(TItem));
 	}
 
-	static void ReadString(string& str, ifstream& file)
-	{
-		size_t size;
-		Read(size, file);
-		char* temp = new char[size + 1];
-		file.read(temp, size);
-		temp[size] = '\0';
-		str = string(temp);
-		delete[] temp;
-	}
-	static void WriteString(const string& str, ofstream& file)
-	{
-		const size_t size = str.size();
-		Write(size, file);
-		file.write(str.c_str(), size);
-		
-	}
+	//Reads from file into string by ref
+	static void ReadString(string& str, ifstream& file);
+	//Write to file from string by ref
+	static void WriteString(const string& str, ofstream& file);
 };
+#endif // FILEHELPER_H

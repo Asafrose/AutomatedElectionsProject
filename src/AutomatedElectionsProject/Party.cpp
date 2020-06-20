@@ -55,17 +55,17 @@ void Party::Show() const
 	cout << "Date Established: " << _date << endl;
 }
 
-bool Party::operator>(Party& other) const
+bool Party::operator>(const Party& other) const
 {
 	return _candidates.size() > other._candidates.size();
 }
 
-bool Party::operator<(Party& other) const
+bool Party::operator<(const Party& other) const
 {
 	return _candidates.size() < other._candidates.size();
 }
 
-bool Party::operator==(Party& other) const
+bool Party::operator==(const Party& other) const
 {
 	return _candidates.size() == other._candidates.size();
 }

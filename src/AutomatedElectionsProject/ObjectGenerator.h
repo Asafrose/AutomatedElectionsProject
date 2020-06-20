@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿#ifndef OBJECTGENERATOR_H
+#define OBJECTGENERATOR_H
 #include <fstream>
 
 #include "Civilian.h"
@@ -47,3 +48,4 @@ public:
 		return nullptr;
 	}
 };
+#endif // OBJECTGENERATOR_H
